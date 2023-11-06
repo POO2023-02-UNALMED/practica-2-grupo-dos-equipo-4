@@ -22,7 +22,7 @@ class Empleado(ABC):
     def bono(self):
         calificacionesEmpleado = []
         suma = 0
-        for calificacion in Calificacion.Calificacion.getCalificacion():
+        for calificacion in Calificacion.Calificacion.calificaciones():
             if calificacion.getEmpleado() == self:
                 calificacionesEmpleado.append(calificacion.getCalificacion())
         for califica in calificacionesEmpleado:
@@ -32,6 +32,8 @@ class Empleado(ABC):
 
     def getCantidadEmpleados(self):
         return Empleado.cantidadEmpleados
+    def getEmpleados(self):
+        return Empleado.empleados
 
     def getNombre(self):
         return self.nombre
