@@ -1,7 +1,8 @@
-import pickle
+
 import Contabilidad
 import Calificacion
 from src.gestorAplicacion.restaurante import Mesas
+from src.gestorAplicacion.administracion.Calificacion import Calificacion
 
 class Factura:
     facturasSinPagar = []
@@ -12,7 +13,7 @@ class Factura:
         self.mesa = mesa
         self.pedido = pedido
         self.idFactura = idFactura
-        self.facturaPagada = False
+        self.factura_pagada = False
         self.fecha = fecha
         self.precioTotal = precioTotal
         self.precioTotalSinGanancia = precioTotalSinGanancia
@@ -24,11 +25,12 @@ class Factura:
         Factura.facturasSinPagar.remove(self)
         Contabilidad.Contabilidad.sumarIngresosPedidoAlSaldo(self.getPrecioTotal())
         Contabilidad.Contabilidad.calcularUtilidades(self.getPrecioTotal(), self.getPrecioTotalSinGanancia())
-        Mesas.cancelarReserva(self.getIdFactura(), self.getFecha())
+        Mesas.Mesas.cancelarReserva(self.getIdFactura(), self.getFecha())
 
     def calificarEmpleado(self, valoracion):
-        calificacion = Calificacion(self.getIdFactura(), self.getEmpleado(), valoracion)
+        calificacion = calificacion(self.getIdFactura(), self.getEmpleado(), valoracion)
         Calificacion.calificaciones.append(calificacion)
+        # Error por corregir no se esta creando la instancia de calificacion
 
     # Getters y setters
 
@@ -86,7 +88,7 @@ class Factura:
     def __str__(self):
         estado_factura = "La factura está pagada" if self.factura_pagada else "La factura no está pagada"
         pedido_str = self.pedido.imprimir_comidas() + "\n" + self.pedido.imprimir_gaseosas()
-        return (f" Id factura: {self.id_factura}\n"
+        return (f" Id factura: {self.idFactura}\n"
                 f"fecha: {self.fecha}\n"
                 f"{estado_factura}\n"
                 f" tu pedido fue: \n{pedido_str}\n"
