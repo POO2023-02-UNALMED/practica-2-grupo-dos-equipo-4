@@ -1,3 +1,6 @@
+from src.gestorAplicacion.administracion import Empleado
+
+
 class Contabilidad:
     saldo = 1000000
     utilidades = 0
@@ -30,7 +33,7 @@ class Contabilidad:
     @staticmethod
     def pagarSueldos():
         totalPago = 0
-        for empleado in Empleado.empleados:
+        for empleado in Empleado.Empleado.empleados():
             totalPago += empleado.getSalario()
             if empleado.bono() == True:
                 totalPago += empleado.getSalario() * (15 / 100)

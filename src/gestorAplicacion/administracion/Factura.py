@@ -1,5 +1,7 @@
 import pickle
-
+import Contabilidad
+import Calificacion
+from src.gestorAplicacion.restaurante import Mesas
 
 class Factura:
     facturasSinPagar = []
@@ -20,8 +22,8 @@ class Factura:
         self.precioTotal = self.pedido.precioTotal()
         Factura.facturasPagadas.append(self)
         Factura.facturasSinPagar.remove(self)
-        Contabilidad.sumarIngresosPedidoAlSaldo(self.getPrecioTotal())
-        Contabilidad.calcularUtilidades(self.getPrecioTotal(), self.getPrecioTotalSinGanancia())
+        Contabilidad.Contabilidad.sumarIngresosPedidoAlSaldo(self.getPrecioTotal())
+        Contabilidad.Contabilidad.calcularUtilidades(self.getPrecioTotal(), self.getPrecioTotalSinGanancia())
         Mesas.cancelarReserva(self.getIdFactura(), self.getFecha())
 
     def calificarEmpleado(self, valoracion):
