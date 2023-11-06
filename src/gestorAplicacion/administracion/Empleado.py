@@ -1,5 +1,6 @@
 import  Calificacion
-class Empleado:
+from abc import ABC, abstractmethod
+class Empleado(ABC):
     empleados = []
     cantidadEmpleados = 0
 
@@ -10,9 +11,10 @@ class Empleado:
             self.idEmpleado = idEmpleado
             self.salario = salario
             Empleado.empleados.append(self)
-
+    @abstractmethod
     def getOcupacion(self):
-        raise NotImplementedError
+        pass
+
 
     def accion(self):
         return "El Empleado esta Trabajando"
