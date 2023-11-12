@@ -13,14 +13,14 @@ class Mesas:
         for mesa in Mesas.mesas:
             if mesa.getIdMesa() == idMesa and fecha not in mesa.reservaPorCliente.values():
                 mesa.reservaPorCliente[idCliente] = fecha
-                mesa.setOcupadoEnFecha(True, fecha)
+                mesa.ocupadoEnFecha[fecha] = True
 
     @staticmethod
     def efectuarReserva(idCliente, fecha):
         for mesa in Mesas.mesas:
             if idCliente in mesa.reservaPorCliente and fecha in mesa.ocupadoEnFecha:
                 del mesa.reservaPorCliente[idCliente]
-                mesa.setOcupadoEnFecha(True, fecha)
+                mesa.ocupadoEnFecha[fecha] = True
 
     @staticmethod
     def cancelarReserva(idCliente, fecha):

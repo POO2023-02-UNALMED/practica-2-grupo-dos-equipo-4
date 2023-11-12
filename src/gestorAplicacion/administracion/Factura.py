@@ -28,7 +28,7 @@ class Factura:
         Mesas.Mesas.cancelarReserva(self.getIdFactura(), self.getFecha())
 
     def calificarEmpleado(self, valoracion):
-        calificacion = calificacion(self.getIdFactura(), self.getEmpleado(), valoracion)
+        calificacion = Calificacion(self.getIdFactura(), self.getEmpleado(), valoracion)
         Calificacion.calificaciones.append(calificacion)
         # Error por corregir no se esta creando la instancia de calificacion
 

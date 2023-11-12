@@ -11,13 +11,20 @@ class Ingredientes:
             self.cantidad = cantidad
             Ingredientes.listaIngredientes.append(self)
 
-    def comprar(self, cantidad, ingrediente):
+    def comprar(self, cantidad): #Este metodo activa comprar ingredientes desde el objeto en si (Usar este de ser necesario)
+        self.cantidad += cantidad
+        Contabilidad.saldo -= self.precio * cantidad
+        Contabilidad.setGastos(self.precio * cantidad)
+        Ingredientes.ingredientesComprados += self.precio * cantidad
+
+    @staticmethod
+    def comprarIngredientes(cantidad, ingrediente): #Este metodo activa comprar ingredientes desde la clase recibiendo el nombre del ingrediente (Usar este de ser necesario)
         for i in Ingredientes.listaIngredientes:
-            if i == ingrediente:
-                ingrediente.cantidad += cantidad
-                Contabilidad.saldo -= ingrediente.precio * cantidad
-                Contabilidad.setGastos(ingrediente.precio * cantidad)
-                Ingredientes.ingredientesComprados += ingrediente.precio * cantidad
+            if Ingredientes.getNombre(i) == ingrediente:
+                i.cantidad += cantidad
+                Contabilidad.saldo -= i.precio * cantidad
+                Contabilidad.setGastos(i.precio * cantidad)
+                Ingredientes.ingredientesComprados += i.precio * cantidad
 
     def restarIngredientes(self, cantidad):
         self.cantidad -= cantidad
