@@ -1,3 +1,5 @@
+from src.gestorAplicacion.administracion.Contabilidad import Contabilidad
+
 class Ingredientes:
     ingredientesComprados = 0
     listaIngredientes = []

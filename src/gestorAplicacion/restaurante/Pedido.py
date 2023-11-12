@@ -1,3 +1,5 @@
+from src.gestorAplicacion.restaurante.Mesas import Mesas
+from src.gestorAplicacion.administracion.Factura import Factura
 class Pedido:
     idPedido = 10000000
 
