@@ -1,4 +1,4 @@
-import  Calificacion
+from src.gestorAplicacion.administracion.Calificacion import Calificacion
 from abc import ABC, abstractmethod
 class Empleado(ABC):
     empleados = []

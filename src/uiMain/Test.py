@@ -1,4 +1,4 @@
-from gestorAplicacion.administracion.Empleado import Empleado 
+from src.gestorAplicacion.administracion.Cocinero import Cocinero
 
-pepe = Empleado("pepe", 101, 150)
-print(Empleado.empleados)
+pepe = Cocinero("David", 100, 50000, "Calvas")
+print(pepe.getOcupacion())

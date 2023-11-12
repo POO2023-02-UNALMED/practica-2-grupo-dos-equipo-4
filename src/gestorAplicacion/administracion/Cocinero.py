@@ -10,7 +10,7 @@ class Cocinero(Empleado):
     def accion(self):
         return f"El Cocinero {self.nombre} esta cocinando."
 
-    def get_ocupacion(self):
+    def getOcupacion(self):
         return self.ocupacion
 
     def preparar_plato(self, pedido):
