@@ -37,22 +37,24 @@ class Pedido:
         for comida in self.pedidoComidas:
             if not comida.verificarIngredientes():
                 insufficientItems.append(f"No hay suficientes ingredientes para preparar {comida.getNombre()}\n")
-            else:
-                comida.restarCantidad()
+
 
         for gaseosa in self.pedidoGaseosas:
             if gaseosa.getCantidad() < 1:
                 insufficientItems.append(f"No hay suficientes {gaseosa.getNombre()}\n")
-            else:
-                gaseosa.restarGaseosas(1, gaseosa)
+
 
         if len(insufficientItems) > 0:
             return ''.join(insufficientItems)
 
         ordenConfirmada = "Orden confirmada y factura creada"
         if len(insufficientItems) == 0:
-                factura = Factura(self.getEmpleado(), self.getMesa(), self, self.getIdPedido(), self.fecha,self.precioTotal(), self.precioTotalSinGanancia())
-                Factura.facturasSinPagar.append(factura)
+            for gaseosa in self.pedidoGaseosas:
+                gaseosa.restarGaseosas(1, gaseosa)
+            for comida in self.pedidoComidas:
+                comida.restarCantidad()
+            factura = Factura(self.getEmpleado(), self.getMesa(), self, self.getIdPedido(), self.fecha,self.precioTotal(), self.precioTotalSinGanancia())
+            Factura.facturasSinPagar.append(factura)
         return ordenConfirmada
 
     def precioTotal(self):
