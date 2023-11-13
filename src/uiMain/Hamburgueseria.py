@@ -144,7 +144,11 @@ def salir_sistema():  # Salir de la aplicación
 def descripcion():  # Descripción del sistema (con esta aparecerá en alguna parte de la ventana de inicio una breve descripción de lo que hace el sistema)
     ventana_descripcion = tk.Toplevel(ventana)
     ventana_descripcion.title("Descripción del sistema")
-    texto = "El sistema administrarivo de 'Las Calvas' es un programa integral diseñado para optimizar" + "\n" + "la gestión de la hamburguesería 'Las Calvas'. Desde la contabilidad hasta la gestión de " + "\n" + "personal y la toma de pedidos, automatiza procesos clave para una operación eficiente. " + "\n" + "Proporciona información financiera precisa, facilita la programación de empleados y agiliza " + "\n" + "la toma de pedidos, mejorando la experiencia global en Las Calvas"
+    texto = ("El sistema administrarivo de 'Las Calvas' es un programa integral diseñado para optimizar" + "\n" +
+             "la gestión de la hamburguesería 'Las Calvas'. Desde la contabilidad hasta la gestión de " + "\n" +
+             "personal y la toma de pedidos, automatiza procesos clave para una operación eficiente. " + "\n" +
+             "Proporciona información financiera precisa, facilita la programación de empleados y agiliza " + "\n" +
+             "la toma de pedidos, mejorando la experiencia global en Las Calvas")
     label = tk.Label(ventana_descripcion, text=texto)
     ventana_descripcion.resizable(width=False, height=False)
     label = tk.Label(ventana_descripcion, text=texto, font=("Helvetica", 14, "bold"))
@@ -178,7 +182,14 @@ frame_principal1.config(bd=5, relief="groove")
 frame_principal1.pack(side="left", fill="both")
 frame1 = tk.Frame(frame_principal1, bg="red")  # P3
 label1 = tk.Label(frame1,
-                  text="¡Bienvenido a Las Calvas, el paraíso de las hamburguesas! 🍔🎉 " + "\n" + "En nuestro rincón gastronómico, cada hamburguesa" + "\n" + " es una obra maestra hecha con amor y sabores inigualables." + "\n" + " Prepárate para un viaje culinario que despierte tus sentidos" + "\n" + " y te haga amar cada bocado. ¡Sumérgete en el sabor " + "\n" + "auténtico de Las Calvas y déjanos conquistar tu paladar" + "\n" + " con nuestras deliciosas creaciones!" + "\n" + " ¡Bienvenido a la experiencia de hamburguesas que siempre soñaste!",
+                  text="¡Bienvenido a Las Calvas, el paraíso de las hamburguesas! 🍔🎉 " + "\n" +
+                       "En nuestro rincón gastronómico, cada hamburguesa" + "\n" +
+                       " es una obra maestra hecha con amor y sabores inigualables." + "\n" +
+                       " Prepárate para un viaje culinario que despierte tus sentidos" + "\n" +
+                       " y te haga amar cada bocado. ¡Sumérgete en el sabor " + "\n" +
+                       "auténtico de Las Calvas y déjanos conquistar tu paladar" + "\n" +
+                       " con nuestras deliciosas creaciones!" + "\n" +
+                       " ¡Bienvenido a la experiencia de hamburguesas que siempre soñaste!",
                   font=("Helvetica", 12, "bold"), width=60,
                   wraplength=600)  # Brindar un saludo de bienvenida al sistema
 label1.grid(row=0, column=0, padx=10, pady=10, sticky="n")
