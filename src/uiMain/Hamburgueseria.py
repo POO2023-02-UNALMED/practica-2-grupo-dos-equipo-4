@@ -5,6 +5,8 @@ from tkinter import *
 def evento():
     pass
 def ingreso_al_sistema():
+
+    boton_Ventana_Principal.config(state="disabled")
     ventana_del_usuario= Toplevel(frame2)
     ventana_del_usuario.title("Hamburgueseria las Calvas")
     ventana_del_usuario.geometry("800x600")
@@ -26,7 +28,11 @@ def ingreso_al_sistema():
     pycMenu.add_command(label="Contabilidad")
     ayudaMenu = tk.Menu(menuBar, tearoff=0)
     menuBar.add_cascade(label="Aplicación", menu=ayudaMenu)
+    def habilitar_boton(event):
+        boton_Ventana_Principal.config(state="normal")
 
+        # En la función ingreso_al_sistema
+    ventana_del_usuario.bind("<Destroy>", habilitar_boton)
     #Frame Zona1
     frameUser1 = tk.Frame(ventana_del_usuario, bg= "yellow")
     frameUser1.config(bd= 5, relief="groove")
@@ -34,6 +40,7 @@ def ingreso_al_sistema():
     labelUser1 = tk.Label(frameUser1, text="Zona 1")
     labelUser1.pack(side="top", anchor="nw")
     labelUser1.config(bd=5, relief="groove")
+
 
 def salir_sistema(): #Salir de la aplicación
     ventana.destroy()
