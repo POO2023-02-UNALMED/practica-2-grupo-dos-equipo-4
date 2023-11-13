@@ -209,6 +209,22 @@ frame3.pack(side="top", fill="both", padx=10, pady=10, expand=True)
 frame3.config(bd=4, relief="groove")
 frame4.pack(side="bottom", fill="both", padx=10, pady=10, expand=True)
 frame4.config(bd=4, relief="groove")
+# Crear el objeto PhotoImage con cada imagen
+imagen1 = tk.PhotoImage(file="src/baseDatos/temp/Image/4.png")  # Reemplaza esto con la ruta a tu imagen
+imagen2 = tk.PhotoImage(file="src/baseDatos/temp/Image/Burger one.png")  # Reemplaza esto con la ruta a tu imagen
+imagen3 = tk.PhotoImage(file="src/baseDatos/temp/Image/image 2.png")  # Reemplaza esto con la ruta a tu imagen
+imagen4 = tk.PhotoImage(file="src/baseDatos/temp/Image/image 3.png")  # Reemplaza esto con la ruta a tu imagen
+
+# Crear el widget Label con cada imagen y añadirlo al Frame 4
+label1 = tk.Label(frame4, image=imagen1)
+label2 = tk.Label(frame4, image=imagen2)
+label3 = tk.Label(frame4, image=imagen3)
+label4 = tk.Label(frame4, image=imagen4)
+
+label1.grid(row=0, column=0)
+label2.grid(row=0, column=1)
+label3.grid(row=1, column=0)
+label4.grid(row=1, column=1)
 
 # ___________________________________________________________________________
 
