@@ -26,10 +26,14 @@ def ingreso_al_sistema():
     ventana_del_usuario.config(cursor="spider")
     ventana_del_usuario.resizable(width=False, height=False)
 
+# Funcion en la que se crea una messagebox en la que se proporciona información sobre la aplicación
     def informacion_basica():
         informacion = messagebox.showinfo("Información de la Aplicación",
-                                          "Esta plataforma integral de gestión para un restaurante de hambueguesas facilita el seguimiento de información clave de empleados. Además, ofrece un servicio de reserva de mesas para garantizar la comodidad de los clientes. Simplifica el proceso de pedidos, facturación y lleva un control eficiente de la contabilidad y el inventario del restaurante, mejorando la eficiencia operativa. ")
-
+                                          "Esta plataforma integral de gestión para un restaurante de hambueguesas facilita "
+                                          "el seguimiento de información clave de empleados. Además, ofrece un servicio de reserva "
+                                          "de mesas para garantizar la comodidad de los clientes. Simplifica el proceso de pedidos, "
+                                          "facturación y lleva un control eficiente de la contabilidad y el inventario del restaurante, "
+                                          "mejorando la eficiencia operativa. ")
     # Funcion para limpiar los widgets de la ventana
     def limpiarVentana():
         for widget in ventana_del_usuario.winfo_children():
@@ -107,18 +111,14 @@ def ingreso_al_sistema():
         menuBar.add_cascade(label="Ayuda", menu=ayudaMenu)
         ayudaMenu.add_command(label="Acerca de", command=acercaDe)
 
+    # Funcion que crea una mesaagebox en donde se muestran los nombres de los integrantes del grupo
     def acercaDe():
-        ventana_acerca_de = tk.Toplevel(ventana)
-        ventana_acerca_de.title("Acerca De")
-        texto = ("Nicolas Ruiz Blandon" + "\n" +
-                 "Juan Felipe Moreno Ruiz" + "\n" +
-                 "David Delgado Ortiz" + "\n" +
-                 "Cristian David Pérez Lopera" + "\n" +
-                 "Ivan Dario Gomez Cabrera")
-        label = tk.Label(ventana_acerca_de, text=texto)
-        ventana_acerca_de.resizable(width=False, height=False)
-        label = tk.Label(ventana_acerca_de, text=texto, font=("Helvetica", 14, "bold"))
-        label.pack()
+        def informacion_basica():
+            informacion = messagebox.showinfo("Nicolás Ruiz Blandón" + "\n" +
+                                              "Juan Felipe Moreno Ruiz" + "\n" +
+                                              "David Delgado Ortiz" + "\n" +
+                                              "Cristian David Pérez Lopera" + "\n" +
+                                              "Ivan Dario Gomez Cabrera")
 
     def habilitar_boton(event):
         boton_Ventana_Principal.config(state="normal")
