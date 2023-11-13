@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 # __________________________________________________________________________________________
 # Funciones y Eventos
-hojas_de_vidas = ["", "Juanfe", "Cristian", "David", "Ivan"]
+hojas_de_vidas = ["Nombre: Nicolas Ruiz Blandon\nFecha de nacimiento: 01/23/04\nGustos: El fercho", "Nombre: Juan Felipe Moreno Ruiz\nFecha de nacimiento: 01/22/07\nGustos: El fercho", "Nombre: David Delgado Ortiz\nFecha de nacimiento: 01/23/02\nGustos: El fercho", "Nombre: Cristian David Pérez Lopera\nFecha de nacimiento: 01/23/02\nGustos: El fercho", "Nombre: Ivan Dario Gomez Cabrera\nFecha de nacimiento: 01/09/04\nGustos: El fercho"]
 indice_hojas_vida = 0
 
 
@@ -199,14 +199,14 @@ frame_principal2 = tk.Frame(ventana, bg="white")
 frame_principal2.config(bd=5, relief="groove")
 frame_principal2.pack(side="right", fill="both", expand=True)
 frame3 = tk.Frame(frame_principal2, bg="green")  # P5
-label3_1 = tk.Label(frame3, text=hojas_de_vidas[indice_hojas_vida])
-label3_1.grid(row=0, column=0, padx=10, pady=10)
-label3_1.bind("<Button-1>", cambia_hojas_vida)
-
-frame4 = tk.Frame(frame_principal2, bg="yellow")  # P6
-
 frame3.pack(side="top", fill="both", padx=10, pady=10, expand=True)
 frame3.config(bd=4, relief="groove")
+label3_1 = tk.Label(frame3, text=hojas_de_vidas[indice_hojas_vida], width=30, height=10)
+label3_1.grid(row=0, column=0, padx=150, pady=0)
+label3_1.bind("<Button-1>", cambia_hojas_vida)
+label3_1.config(font=("Helvetica", 12, "bold"))
+
+frame4 = tk.Frame(frame_principal2, bg="yellow")  # P6
 frame4.pack(side="bottom", fill="both", padx=10, pady=10, expand=True)
 frame4.config(bd=4, relief="groove")
 
