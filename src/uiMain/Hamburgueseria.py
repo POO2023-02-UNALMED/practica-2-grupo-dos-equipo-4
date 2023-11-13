@@ -9,7 +9,6 @@ def ingreso_al_sistema():
     ventana_del_usuario.title("Hamburgueseria las Calvas")
     ventana_del_usuario.geometry("800x600")
     ventana_del_usuario.config(cursor="spider")
-
     frame0 = tk.Frame(ventana_del_usuario, bg= "yellow")
     frame0.config(bd= 5, relief="groove")
     frame0.pack(side="left", fill="both", expand=True)
@@ -66,8 +65,9 @@ frame_principal1 = tk.Frame(ventana, bg="white")
 frame_principal1.config(bd=5, relief="groove")
 frame_principal1.pack(side="left", fill="both", expand=True)
 frame1 = tk.Frame(frame_principal1, bg="red") #P3
-label1 = tk.Label(frame1, text= "Bienvenidos a las Calvas!!")#Brindar un saludo de bienvenida al sistema
+label1 = tk.Label(frame1, text= "¡Bienvenido a Las Calvas, el paraíso de las hamburgesas! 🍔🎉 "+"\n"+"En nuestro rincón gastronómico, cada hamburguesa"+"\n"+" es una obra maestra hecha con amor y sabores inigualables."+"\n"+" Prepárate para un viaje culinario que despierte tus sentidos"+"\n"+" y te haga amar cada bocado. ¡Sumérgete en el sabor "+"\n"+"auténtico de Las Calvas y déjanos conquistar tu paladar"+"\n"+" con nuestras deliciosas creaciones!"+"\n"+" ¡Bienvenido a la experiencia de hamburguesas que siempre soñaste!", font=("Helvetica", 12,"bold"))#Brindar un saludo de bienvenida al sistema
 label1.grid(row = 0, column = 0, padx = 10, pady = 10, sticky="n")
+label1.pack(side="top")
 frame2 = tk.Frame(frame_principal1, bg="blue")#P4
 boton_Ventana_Principal = tk.Button(frame2, text="Ingresar al Sistema", command= ingreso_al_sistema)# Permite ingresar a la Ventana de Usuario
 boton_Ventana_Principal.pack(side="bottom", anchor="s")
