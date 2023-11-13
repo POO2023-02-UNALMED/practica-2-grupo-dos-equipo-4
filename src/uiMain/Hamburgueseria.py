@@ -45,11 +45,17 @@ def ingreso_al_sistema():
 def salir_sistema(): #Salir de la aplicación
     ventana.destroy()
 def descripcion():#Descripción del sistema (con esta aparecerá en alguna parte de la ventana de inicio una breve descripción de lo que hace el sistema)
-    texto = "Descripción del sistema"
-    label = tk.Label(ventana, text=texto)
+    ventana_descripcion = tk.Toplevel(ventana)
+    ventana_descripcion.title("Descripción del sistema")
+    texto = "El sistema administrarivo de Las Calvas es un programa integral diseñado para optimizar"+"\n"+"la gestión de la hamburguesería Las Calvas. Desde la contabilidad hasta la gestión de "+"\n"+"personal y la toma de pedidos, automatiza procesos clave para una operación eficiente. "+"\n"+"Proporciona información financiera precisa, facilita la programación de empleados y agiliza "+"\n"+"la toma de pedidos, mejorando la experiencia global en Las Calvas"
+    label = tk.Label(ventana_descripcion, text=texto)
     label.pack()
-    label.place(x=170, y=150)
-    label.config(bd=2, relief="groove")
+
+    #label = tk.Label(ventana, text=texto)
+    #label.pack()
+    #label.place(x=170, y=150)
+    #label.config(bd=2, relief="groove")
+
 #__________________________________________________________________________________
 ventana = tk.Tk()
 ventana.title("Hamburgueseria")
