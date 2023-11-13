@@ -1,6 +1,8 @@
 from src.gestorAplicacion.administracion.Contabilidad import Contabilidad
+from src.gestorAplicacion.restaurante.Inventario import Inventario
 
-class Gaseosas:
+
+class Gaseosas(Inventario):
     listaGaseosas = []
 
     def __init__(self, nombre=None, precio=None, cantidad=None):

@@ -1,4 +1,5 @@
 class Comida:
+
     listaComida = []
 
     def __init__(self, nombre=None, ingredientes=None, cantidades=None):
@@ -38,7 +39,7 @@ class Comida:
     def calcularPrecioConGanancia(self):
         precioTotalConGanancia = 0
         for ingrediente, cantidad in self.ingredientesDeComida.items():
-            precioTotalConGanancia += ingrediente.precio * cantidad + (ingrediente.precio * cantidad) * 10 / 100
+            precioTotalConGanancia += ingrediente.precio * cantidad + (ingrediente.precio * cantidad) * 30 / 100
         return precioTotalConGanancia
 
     def __str__(self):

@@ -1,6 +1,8 @@
 from src.gestorAplicacion.administracion.Contabilidad import Contabilidad
+from src.gestorAplicacion.restaurante.Inventario import Inventario
 
-class Ingredientes:
+
+class Ingredientes(Inventario):
     ingredientesComprados = 0
     listaIngredientes = []
 
