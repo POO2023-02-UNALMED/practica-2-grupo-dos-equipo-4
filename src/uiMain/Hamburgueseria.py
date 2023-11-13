@@ -30,7 +30,7 @@ def ingreso_al_sistema():
     pycMenu.add_command(label="Gestion de Inventario")
     pycMenu.add_command(label="Contabilidad")
     ayudaMenu = tk.Menu(menuBar, tearoff=0)
-    menuBar.add_cascade(label="Aplicación", menu=ayudaMenu)
+    menuBar.add_cascade(label="Acerca de", menu=ayudaMenu)
     def habilitar_boton(event):
         boton_Ventana_Principal.config(state="normal")
 
