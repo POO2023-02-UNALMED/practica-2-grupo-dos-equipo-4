@@ -10,18 +10,20 @@ def ingreso_al_sistema():
     ventana_del_usuario.geometry("800x600")
     ventana_del_usuario.config(cursor="spider")
     ventana_del_usuario.resizable(width=False, height=False)
-    frame0 = tk.Frame(ventana_del_usuario, bg= "yellow")
-    frame0.config(bd= 5, relief="groove")
-    frame0.pack(side="left", fill="both", expand=True)
-    label0 = tk.Label(frame0, text="Las Calvas, Zona 0")
-    label0.pack(side="top", anchor="nw")
-    label0.config(bd=5, relief="groove")
+    frameUser1 = tk.Frame(ventana_del_usuario, bg= "yellow")
+    frameUser1.config(bd= 5, relief="groove")
+    frameUser1.pack(side="left", fill="both", expand=True)
+    labelUser1 = tk.Label(frameUser1, text="Zona 1")
+    labelUser1.pack(side="top", anchor="nw")
+    labelUser1.config(bd=5, relief="groove")
+    '''
     frame0_1 = tk.Frame(frame0, bg="blue")
     frame0_1.config(bd=5, relief="groove")
     frame0_1.pack(side="top", fill="both", padx=10, pady=10, expand = True)
     label0_1 = tk.Label(frame0_1, text="Zona 1")
     label0_1.pack(side="top", anchor="nw")
     label0_1.config(bd=5, relief="groove")
+    '''
 
     menuBar = tk.Menu(ventana_del_usuario)
     ventana_del_usuario.config(menu=menuBar)
@@ -39,12 +41,12 @@ def ingreso_al_sistema():
     ayudaMenu = tk.Menu(menuBar, tearoff=0)
     menuBar.add_cascade(label="Aplicación", menu=ayudaMenu)
 
-    frame0_2 = tk.Frame(frame0_1, bg= "red")
-    frame0_2.config(bd=5, relief="groove")
-    frame0_2.pack(side="left", fill="both", expand = True)
-    label0_2 = tk.Label(frame0_2, text="Zona 2")
-    label0_2.pack(side="bottom", anchor="se")
-    label0_2.config(bd=5, relief="groove")
+    frameUser2 = tk.Frame(frameUser1, bg= "red")
+    frameUser2.config(bd=5, relief="groove")
+    frameUser2.pack(side="left", fill="both", expand = True)
+    frameUser2 = tk.Label(frameUser2, text="Zona 2")
+    frameUser2.pack(side="bottom", anchor="se")
+    frameUser2.config(bd=5, relief="groove")
 
 
 
