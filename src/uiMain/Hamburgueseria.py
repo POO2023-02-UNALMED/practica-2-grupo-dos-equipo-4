@@ -34,10 +34,19 @@ def ingreso_al_sistema():
                                           "de mesas para garantizar la comodidad de los clientes. Simplifica el proceso de pedidos, "
                                           "facturación y lleva un control eficiente de la contabilidad y el inventario del restaurante, "
                                           "mejorando la eficiencia operativa. ")
+
     # Funcion para limpiar los widgets de la ventana
     def limpiarVentana():
         for widget in ventana_del_usuario.winfo_children():
             widget.destroy()
+
+    #Funcion para deshabilitar el boton de la ventana principal
+    def habilitar_boton(event):
+        boton_Ventana_Principal.config(state="normal")
+    # En la función ingreso_al_sistema
+        ventana_del_usuario.bind("<Destroy>", habilitar_boton)
+
+
 
     # ====================Creador de pestañas de Funcionalidades==========================================#
 
@@ -119,14 +128,6 @@ def ingreso_al_sistema():
                                               "David Delgado Ortiz" + "\n" +
                                               "Cristian David Pérez Lopera" + "\n" +
                                               "Ivan Dario Gomez Cabrera")
-
-    def habilitar_boton(event):
-        boton_Ventana_Principal.config(state="normal")
-
-        # En la función ingreso_al_sistema
-
-    ventana_del_usuario.bind("<Destroy>", habilitar_boton)
-
     creadorMenu()
     # Frame Zona1
     frameUser1 = tk.Frame(ventana_del_usuario, bg="yellow")
@@ -165,7 +166,7 @@ ventana.title("Hamburgueseria")
 ventana.geometry("1280x600")
 ventana.config(cursor="pirate")
 
-menuInicial = tk.Menu(ventana)
+menuInicial = tk.Menu(ventana, tearoff=0)
 ventana.config(menu=menuInicial)
 menu1 = tk.Menu(menuInicial)
 menuInicial.add_cascade(label="Inicio", menu=menu1, command=evento)
@@ -220,6 +221,8 @@ label3_1.config(font=("Helvetica", 12, "bold"))
 frame4 = tk.Frame(frame_principal2, bg="yellow")  # P6
 frame4.pack(side="bottom", fill="both", padx=10, pady=10, expand=True)
 frame4.config(bd=4, relief="groove")
+
+'''
 # Crear el objeto PhotoImage con cada imagen
 imagen1 = tk.PhotoImage(file="src/baseDatos/temp/Image/4.png")  # Reemplaza esto con la ruta a tu imagen
 imagen2 = tk.PhotoImage(file="src/baseDatos/temp/Image/Burger one.png")  # Reemplaza esto con la ruta a tu imagen
@@ -236,7 +239,7 @@ label1.grid(row=0, column=0)
 label2.grid(row=0, column=1)
 label3.grid(row=1, column=0)
 label4.grid(row=1, column=1)
-
+'''
 # ___________________________________________________________________________
 
 
