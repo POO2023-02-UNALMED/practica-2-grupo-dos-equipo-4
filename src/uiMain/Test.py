@@ -106,24 +106,23 @@ pedido5.agregarComidaAlPedido(vegetariana)
 pedido5.confirmarOrden()
 
 
-def pagarFacturaMain( id):
+def pagarFacturaYCalificar( id, valoracion):
     for factura in Factura.facturasSinPagar:
         if factura.getIdFactura() == id:
             factura.pagarFactura()
-            break
-def calificarEmpleadoMain(id,valoracion):
-    for factura in Factura.facturasPagadas:
-        if factura.getIdFactura() == pedido4:
             factura.calificarEmpleado(valoracion)
+            break
 
-pagarFacturaMain(10000004)
-calificarEmpleadoMain(10000004, 5)
+pagarFacturaYCalificar(10000004,5)
+pagarFacturaYCalificar(10000003,3)
 
-pagarFacturaMain(10000003)
-calificarEmpleadoMain(10000003,4)
+for calificacion in Calificacion.calificaciones:
+    print(calificacion.__str__())
 
 
-print(Calificacion.calificaciones.__str__())
+
+
+
 
 
 

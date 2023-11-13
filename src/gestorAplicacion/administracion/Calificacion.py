@@ -1,6 +1,7 @@
+
 class Calificacion:
     calificaciones = []
-    def __init__(self, idFactura=None, empleado=None, calificacion=None):
+    def __init__(self, idFactura, empleado, calificacion):
         # Constructor sin argumentos necesario para deserialización
         self.idFactura = idFactura
         self.empleado = empleado
@@ -19,12 +20,15 @@ class Calificacion:
         return self.idFactura
 
     def getEmpleado(self):
-        return self.empleado
+        return self.empleado.getNombre()
 
     def getCalificacion(self):
         return self.calificacion
 
     def __str__(self):
-        return "Empleado: " + self.getEmpleado().getNombre() + "\n" + \
-            "Del servicio: " + str(self.idFactura) + "\n" + \
-            "Su calificación fue: " + str(self.calificacion) + "\n"
+        sb = ""
+        sb += "Id factura: " + str(self.getIdFactura()) + "\n"
+        sb += "Empleado: " + str(self.getEmpleado()) + "\n"
+        sb += "Calificación: " + str(self.getCalificacion()) + "\n"
+        return sb
+

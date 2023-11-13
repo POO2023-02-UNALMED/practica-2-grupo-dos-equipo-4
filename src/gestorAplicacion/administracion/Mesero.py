@@ -16,6 +16,10 @@ class Mesero:
     def getOcupacion(self):
         return "Mesero"
 
+    def getNombre(self):
+        return self.nombre
+
+
     def accion(self):
         return "El Mesero " + self.nombre + " está atendiendo las mesas."
 

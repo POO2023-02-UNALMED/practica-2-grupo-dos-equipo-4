@@ -1,8 +1,7 @@
 
 from src.gestorAplicacion.administracion import Contabilidad
-from src.gestorAplicacion.administracion import Calificacion
-from src.gestorAplicacion.restaurante import Mesas
 from src.gestorAplicacion.administracion.Calificacion import Calificacion
+from src.gestorAplicacion.restaurante import Mesas
 
 class Factura:
     facturasSinPagar = []
@@ -28,9 +27,9 @@ class Factura:
         self.mesa.cancelarReserva(self.getIdFactura(), self.getFecha())
 
     def calificarEmpleado(self, valoracion):
-        calificacion = Calificacion(self.getIdFactura(), self.getEmpleado(), valoracion)
+        calificacion = Calificacion(self.idFactura,self.getEmpleado(), valoracion)
         Calificacion.calificaciones.append(calificacion)
-        # Error por corregir no se esta creando la instancia de calificacion
+
 
     # Getters y setters
 
