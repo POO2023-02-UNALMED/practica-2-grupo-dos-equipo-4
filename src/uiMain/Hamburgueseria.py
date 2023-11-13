@@ -222,12 +222,14 @@ frame4 = tk.Frame(frame_principal2, bg="yellow")  # P6
 frame4.pack(side="bottom", fill="both", padx=10, pady=10, expand=True)
 frame4.config(bd=4, relief="groove")
 
-'''
+for i in range(2):
+    frame4.grid_rowconfigure(i, weight=1)
+    frame4.grid_columnconfigure(i, weight=1)    
 # Crear el objeto PhotoImage con cada imagen
-imagen1 = tk.PhotoImage(file="src/baseDatos/temp/Image/4.png")  # Reemplaza esto con la ruta a tu imagen
-imagen2 = tk.PhotoImage(file="src/baseDatos/temp/Image/Burger one.png")  # Reemplaza esto con la ruta a tu imagen
-imagen3 = tk.PhotoImage(file="src/baseDatos/temp/Image/image 2.png")  # Reemplaza esto con la ruta a tu imagen
-imagen4 = tk.PhotoImage(file="src/baseDatos/temp/Image/image 3.png")  # Reemplaza esto con la ruta a tu imagen
+imagen1 = tk.PhotoImage(file="1.png")
+imagen2 = tk.PhotoImage(file="2.png")
+imagen3 = tk.PhotoImage(file="3.png")
+imagen4 = tk.PhotoImage(file="4.png")  # Reemplaza esto con la ruta a tu imagen
 
 # Crear el widget Label con cada imagen y añadirlo al Frame 4
 label1 = tk.Label(frame4, image=imagen1)
@@ -236,11 +238,12 @@ label3 = tk.Label(frame4, image=imagen3)
 label4 = tk.Label(frame4, image=imagen4)
 
 label1.grid(row=0, column=0)
-label2.grid(row=0, column=1)
-label3.grid(row=1, column=0)
-label4.grid(row=1, column=1)
-'''
-# ___________________________________________________________________________
+label2.grid(row=0, column=1, sticky="nsew")
+label3.grid(row=1, column=0, sticky="nsew")
+label4.grid(row=1, column=1, sticky="nsew")
+label1.grid(row=0, column=0, sticky="nsew")
+
+
 
 
 ventana.mainloop()
