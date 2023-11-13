@@ -7,6 +7,7 @@ from src.gestorAplicacion.restaurante.Mesas import Mesas
 from src.gestorAplicacion.restaurante.Pedido import Pedido
 from src.gestorAplicacion.administracion.Contabilidad import Contabilidad
 from src.gestorAplicacion.administracion.Factura import Factura
+from src.gestorAplicacion.administracion.Calificacion import Calificacion
 from datetime import datetime
 
 sprite = Gaseosas("Sprite", 2000, 20)
@@ -105,19 +106,24 @@ pedido5.agregarComidaAlPedido(vegetariana)
 pedido5.confirmarOrden()
 
 
-
-for factura in Factura.facturasSinPagar:
-    print(factura.__str__())
-
-def pagarFactura1( id):
+def pagarFacturaMain( id):
     for factura in Factura.facturasSinPagar:
         if factura.getIdFactura() == id:
             factura.pagarFactura()
             break
+def calificarEmpleadoMain(id,valoracion):
+    for factura in Factura.facturasPagadas:
+        if factura.getIdFactura() == pedido4:
+            factura.calificarEmpleado(valoracion)
 
-pagarFactura1(10000004)
-print(factura.facturasSinPagar.__str__())
-print(Factura.facturasPagadas.__str__())
+pagarFacturaMain(10000004)
+calificarEmpleadoMain(10000004, 5)
 
-for factura in Factura.facturasPagadas:
-    print(factura.__str__())
+pagarFacturaMain(10000003)
+calificarEmpleadoMain(10000003,4)
+
+
+print(Calificacion.calificaciones.__str__())
+
+
+

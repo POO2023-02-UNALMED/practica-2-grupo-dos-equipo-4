@@ -19,7 +19,7 @@ class Factura:
         self.precioTotalSinGanancia = precioTotalSinGanancia
 
     def pagarFactura(self):
-        self.facturaPagada = True
+        self.factura_pagada = True
         self.precioTotal = self.pedido.precioTotal()
         Factura.facturasPagadas.append(self)
         Factura.facturasSinPagar.remove(self)
