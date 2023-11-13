@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 # __________________________________________________________________________________________
 # Funciones y Eventos
-hojas_de_vidas = ["", "Juanfe", "Cristian", "David", "Ivan"]
+hojas_de_vidas = ["Nombre: Nicolas Ruiz Blandon\nFecha de nacimiento: 01/23/04\nGustos: El fercho", "Nombre: Juan Felipe Moreno Ruiz\nFecha de nacimiento: 01/22/07\nGustos: El fercho", "Nombre: David Delgado Ortiz\nFecha de nacimiento: 01/23/02\nGustos: El fercho", "Nombre: Cristian David Pérez Lopera\nFecha de nacimiento: 01/23/02\nGustos: El fercho", "Nombre: Ivan Dario Gomez Cabrera\nFecha de nacimiento: 01/09/04\nGustos: El fercho"]
 indice_hojas_vida = 0
 
 
@@ -26,10 +26,14 @@ def ingreso_al_sistema():
     ventana_del_usuario.config(cursor="spider")
     ventana_del_usuario.resizable(width=False, height=False)
 
+# Funcion en la que se crea una messagebox en la que se proporciona información sobre la aplicación
     def informacion_basica():
         informacion = messagebox.showinfo("Información de la Aplicación",
-                                          "Esta plataforma integral de gestión para un restaurante de hambueguesas facilita el seguimiento de información clave de empleados. Además, ofrece un servicio de reserva de mesas para garantizar la comodidad de los clientes. Simplifica el proceso de pedidos, facturación y lleva un control eficiente de la contabilidad y el inventario del restaurante, mejorando la eficiencia operativa. ")
-
+                                          "Esta plataforma integral de gestión para un restaurante de hambueguesas facilita "
+                                          "el seguimiento de información clave de empleados. Además, ofrece un servicio de reserva "
+                                          "de mesas para garantizar la comodidad de los clientes. Simplifica el proceso de pedidos, "
+                                          "facturación y lleva un control eficiente de la contabilidad y el inventario del restaurante, "
+                                          "mejorando la eficiencia operativa. ")
     # Funcion para limpiar los widgets de la ventana
     def limpiarVentana():
         for widget in ventana_del_usuario.winfo_children():
@@ -107,18 +111,14 @@ def ingreso_al_sistema():
         menuBar.add_cascade(label="Ayuda", menu=ayudaMenu)
         ayudaMenu.add_command(label="Acerca de", command=acercaDe)
 
+    # Funcion que crea una mesaagebox en donde se muestran los nombres de los integrantes del grupo
     def acercaDe():
-        ventana_acerca_de = tk.Toplevel(ventana)
-        ventana_acerca_de.title("Acerca De")
-        texto = ("Nicolas Ruiz Blandon" + "\n" +
-                 "Juan Felipe Moreno Ruiz" + "\n" +
-                 "David Delgado Ortiz" + "\n" +
-                 "Cristian David Pérez Lopera" + "\n" +
-                 "Ivan Dario Gomez Cabrera")
-        label = tk.Label(ventana_acerca_de, text=texto)
-        ventana_acerca_de.resizable(width=False, height=False)
-        label = tk.Label(ventana_acerca_de, text=texto, font=("Helvetica", 14, "bold"))
-        label.pack()
+        def informacion_basica():
+            informacion = messagebox.showinfo("Nicolás Ruiz Blandón" + "\n" +
+                                              "Juan Felipe Moreno Ruiz" + "\n" +
+                                              "David Delgado Ortiz" + "\n" +
+                                              "Cristian David Pérez Lopera" + "\n" +
+                                              "Ivan Dario Gomez Cabrera")
 
     def habilitar_boton(event):
         boton_Ventana_Principal.config(state="normal")
@@ -199,14 +199,14 @@ frame_principal2 = tk.Frame(ventana, bg="white")
 frame_principal2.config(bd=5, relief="groove")
 frame_principal2.pack(side="right", fill="both", expand=True)
 frame3 = tk.Frame(frame_principal2, bg="green")  # P5
-label3_1 = tk.Label(frame3, text=hojas_de_vidas[indice_hojas_vida])
-label3_1.grid(row=0, column=0, padx=10, pady=10)
-label3_1.bind("<Button-1>", cambia_hojas_vida)
-
-frame4 = tk.Frame(frame_principal2, bg="yellow")  # P6
-
 frame3.pack(side="top", fill="both", padx=10, pady=10, expand=True)
 frame3.config(bd=4, relief="groove")
+label3_1 = tk.Label(frame3, text=hojas_de_vidas[indice_hojas_vida], width=30, height=10)
+label3_1.grid(row=0, column=0, padx=150, pady=0)
+label3_1.bind("<Button-1>", cambia_hojas_vida)
+label3_1.config(font=("Helvetica", 12, "bold"))
+
+frame4 = tk.Frame(frame_principal2, bg="yellow")  # P6
 frame4.pack(side="bottom", fill="both", padx=10, pady=10, expand=True)
 frame4.config(bd=4, relief="groove")
 # Crear el objeto PhotoImage con cada imagen
