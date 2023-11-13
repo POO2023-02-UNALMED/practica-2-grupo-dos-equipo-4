@@ -1,3 +1,5 @@
+import datetime
+
 class Mesas:
     mesas = []
 
@@ -8,22 +10,20 @@ class Mesas:
         self.ocupadoEnFecha = {}
         Mesas.mesas.append(self)
 
-    @staticmethod
-    def crearReserva(idCliente, idMesa, fecha):
+    def crearReserva(self, idCliente, idMesa, fecha):
         for mesa in Mesas.mesas:
             if mesa.getIdMesa() == idMesa and fecha not in mesa.reservaPorCliente.values():
                 mesa.reservaPorCliente[idCliente] = fecha
-                mesa.ocupadoEnFecha[fecha] = True
+                mesa.ocupadoEnFecha[fecha] = False
 
-    @staticmethod
-    def efectuarReserva(idCliente, fecha):
-        for mesa in Mesas.mesas:
-            if idCliente in mesa.reservaPorCliente and fecha in mesa.ocupadoEnFecha:
-                del mesa.reservaPorCliente[idCliente]
-                mesa.ocupadoEnFecha[fecha] = True
+    def efectuarReserva(self, idCliente, fecha):
+        if self.isOcupadoEnFecha(fecha):
+            raise Exception("La mesa ya está reservada en esta fecha")
+        self.reservaPorCliente.pop(idCliente, None)
+        self.ocupadoEnFecha[fecha] = True
 
-    @staticmethod
-    def cancelarReserva(idCliente, fecha):
+
+    def cancelarReserva(self, idCliente, fecha):
         for mesa in Mesas.mesas:
             if idCliente in mesa.reservaPorCliente and fecha in mesa.ocupadoEnFecha:
                 del mesa.reservaPorCliente[idCliente]
@@ -33,10 +33,14 @@ class Mesas:
         stringBuilder = []
         stringBuilder.append(f"Mesa número: {self.idMesa}\n")
         stringBuilder.append(f"Número de sillas: {self.numeroDeSillas}\n")
-        stringBuilder.append(f"Está ocupada: {list(self.ocupadoEnFecha.keys())}\n")
+        stringBuilder.append("Está ocupada: ")
+        ocupada_fechas = [fecha.strftime("%d/%m/%Y %H:%M:%S") for fecha, ocupada in self.ocupadoEnFecha.items() if ocupada]
+        stringBuilder.append(", ".join(ocupada_fechas))
+        stringBuilder.append("\n")
         stringBuilder.append("Reservas:\n")
         for idCliente, fecha in self.reservaPorCliente.items():
-            stringBuilder.append(f"ID de cliente: {idCliente}, Fecha de reserva: {fecha}\n")
+            fecha_texto = fecha.strftime("%d/%m/%Y %H:%M:%S")  # Formatear la fecha en formato dd/mm/yyyy HH:MM:SS
+            stringBuilder.append(f"ID de cliente: {idCliente}, Fecha de reserva: {fecha_texto}\n")
         return ''.join(stringBuilder)
 
     # Getters and Setters
@@ -54,7 +58,7 @@ class Mesas:
         self.numeroDeSillas = numeroDeSillas
 
     def isOcupadoEnFecha(self, fecha):
-        return self.ocupadoEnFecha.get(fecha, False)
+        return  self.ocupadoEnFecha.get(fecha, False)
 
     def setOcupadoEnFecha(self, estadoMesa, fecha):
         self.ocupadoEnFecha[fecha] = estadoMesa

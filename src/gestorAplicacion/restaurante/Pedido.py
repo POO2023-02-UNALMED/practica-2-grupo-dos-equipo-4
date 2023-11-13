@@ -1,29 +1,30 @@
 from src.gestorAplicacion.restaurante.Mesas import Mesas
 from src.gestorAplicacion.administracion.Factura import Factura
 from src.gestorAplicacion.restaurante.Gaseosas import Gaseosas
-
+from datetime import datetime
 
 class Pedido:
     idPedido = 10000000
 
-    def __init__(self, mesa, fecha, idCliente, empleado):
-        Pedido.idPedido += 1
-        self.mesa = mesa
-        self.idCliente = idCliente
-        self.fecha = fecha
-        self.pedidoComidas = []
-        self.pedidoGaseosas = []
-        self.empleado = empleado
-        Mesas.efectuarReserva(idCliente, fecha)
+    class Pedido:
+        idPedido = 0
 
-    def __init__(self, mesa, fecha, empleado):  # el constructor que se usa para clientes que no tienen reserva
+    class Pedido:
+        idPedido = 10000000
+
+    class Pedido:
+        idPedido = 0
+
+    def __init__(self, mesa, fecha, empleado, idCliente=None):
         Pedido.idPedido += 1
         self.mesa = mesa
         self.fecha = fecha
         self.pedidoComidas = []
         self.pedidoGaseosas = []
         self.empleado = empleado
-        Mesas.efectuarReserva(1, fecha)
+        self.idCliente = idCliente if idCliente is not None else 1
+
+        mesa.efectuarReserva(self.idCliente, fecha)
 
     def agregarComidaAlPedido(self, *comidas):
         self.pedidoComidas.extend(comidas)
