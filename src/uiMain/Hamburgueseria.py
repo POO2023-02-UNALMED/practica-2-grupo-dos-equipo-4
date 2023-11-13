@@ -13,8 +13,22 @@ def ingreso_al_sistema():
     ventana_del_usuario.geometry("1280x600")
     ventana_del_usuario.config(cursor="spider")
     ventana_del_usuario.resizable(width=False, height=False)
+
     def informacion_basica():
         informacion = messagebox.showinfo("Información de la Apliación", "Esta plataforma integral de gestión para un restaurante de hambueguesas facilita el seguimiento de información clave de empleados. Además, ofrece un servicio de reserva de mesas para garantizar la comodidad de los clientes. Simplifica el proceso de pedidos, facturación y lleva un control eficiente de la contabilidad y el inventario del restaurante, mejorando la eficiencia operativa. ")
+
+    def limpiarVentana():
+        for widget in ventana_del_usuario.winfo_children():
+            widget.destroy()
+
+    def opcionMesas():
+        limpiarVentana()
+        frameMesas = tk.Frame(ventana_del_usuario, bg= "red")
+        frameMesas.config(bd= 5, relief="groove")
+        frameMesas.pack(side="left", fill="both", expand=True)
+        labelMesas = tk.Label(frameMesas, text="Mesas")
+        labelMesas.pack(side="top", anchor="nw")
+        labelMesas.config(bd=5, relief="groove")
 
     menuBar = tk.Menu(ventana_del_usuario)
     ventana_del_usuario.config(menu=menuBar)
@@ -25,7 +39,7 @@ def ingreso_al_sistema():
     pycMenu = tk.Menu(menuBar, tearoff=0)
     menuBar.add_cascade(label="Procesos y Consultas", menu=pycMenu)
     pycMenu.add_command(label="Toma de Pedidos")
-    pycMenu.add_command(label="Gestion de Reservas")
+    pycMenu.add_command(label="Gestion de Reservas", command=opcionMesas)
     pycMenu.add_command(label="Gestion de Empleados")
     pycMenu.add_command(label="Gestion de Inventario")
     pycMenu.add_command(label="Contabilidad")
@@ -36,6 +50,9 @@ def ingreso_al_sistema():
 
         # En la función ingreso_al_sistema
     ventana_del_usuario.bind("<Destroy>", habilitar_boton)
+
+    #Funcion para limpiar los widgets de la ventana
+
     #Frame Zona1
     frameUser1 = tk.Frame(ventana_del_usuario, bg= "yellow")
     frameUser1.config(bd= 5, relief="groove")
@@ -43,6 +60,7 @@ def ingreso_al_sistema():
     labelUser1 = tk.Label(frameUser1, text="Zona 1")
     labelUser1.pack(side="top", anchor="nw")
     labelUser1.config(bd=5, relief="groove")
+
 
 
 def salir_sistema(): #Salir de la aplicación
