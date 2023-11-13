@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 # __________________________________________________________________________________________
 # Funciones y Eventos
-hojas_de_vidas = ["Nombre: Nicolas Ruiz Blandon\nFecha de nacimiento: 01/23/04\nGustos: El fercho", "Nombre: Juan Felipe Moreno Ruiz\nFecha de nacimiento: 01/22/07\nGustos: El fercho", "Nombre: David Delgado Ortiz\nFecha de nacimiento: 01/23/02\nGustos: El fercho", "Nombre: Cristian David Pérez Lopera\nFecha de nacimiento: 01/23/02\nGustos: El fercho", "Nombre: Ivan Dario Gomez Cabrera\nFecha de nacimiento: 01/09/04\nGustos: El fercho"]
+hojas_de_vidas = ["Breve biografia de los autores\n \n \n" "Nombre: Nicolas Ruiz Blandon\nFecha de nacimiento: 01/23/04\nGustos: El fercho","Breve biografia de los autores\n \n \n" "Nombre: Juan Felipe Moreno Ruiz\nFecha de nacimiento: 01/22/07\nGustos: El fercho","Breve biografia de los autores\n \n \n" "Nombre: David Delgado Ortiz\nFecha de nacimiento: 01/23/02\nGustos: El fercho","Breve biografia de los autores\n \n \n" "Nombre: Cristian David Pérez Lopera\nFecha de nacimiento: 01/23/02\nGustos: El fercho","Breve biografia de los autores\n \n \n" "Nombre: Ivan Dario Gomez Cabrera\nFecha de nacimiento: 01/09/04\nGustos: Le gusta los videojuegos y la música"]
 indice_hojas_vida = 0
 
 
@@ -122,8 +122,7 @@ def ingreso_al_sistema():
 
     # Funcion que crea una mesaagebox en donde se muestran los nombres de los integrantes del grupo
     def acercaDe():
-        def informacion_basica():
-            informacion = messagebox.showinfo("Nicolás Ruiz Blandón" + "\n" +
+            informacion = messagebox.showinfo("Nombres de los integrantes","Nicolás Ruiz Blandón" + "\n" +
                                               "Juan Felipe Moreno Ruiz" + "\n" +
                                               "David Delgado Ortiz" + "\n" +
                                               "Cristian David Pérez Lopera" + "\n" +
