@@ -14,7 +14,7 @@ quatro = Gaseosas("Quatro", 1960, 20)
 
 pan = Ingredientes("Pan", 1000, 20)
 carneDeRes = Ingredientes("Carne de res", 6000, 20)
-carneDePollo = Ingredientes("Carne de pollo", 7000, 20)
+carneDePollo = Ingredientes("Carne de pollo", 7000, 0)
 carneVegana = Ingredientes("Carne vegana", 4000, 20)
 tomate = Ingredientes("Tomate", 400, 20)
 cebolla = Ingredientes("Cebolla", 200, 20)
@@ -32,10 +32,9 @@ clasicaDeCarne = Comida("Clasica de carne", IngredientesClasicaCarne, Cantidades
 
 ingredientesCarneQuesoYTocineta = [pan, carneDeRes, queso, tocineta, tomate, cebolla, lechuga]
 cantidadesCarneQuesoYTocineta = [2, 1, 2, 3, 1, 2, 2]
-especialQuesoYTocineta = Comida("Especial con queso y tocineta", ingredientesCarneQuesoYTocineta,
-                                cantidadesCarneQuesoYTocineta)
+especialQuesoYTocineta = Comida("Especial con queso y tocineta", ingredientesCarneQuesoYTocineta,cantidadesCarneQuesoYTocineta)
 
-ingredientesClasicaPollo = [pan, carneDeRes, tomate, cebolla, lechuga]
+ingredientesClasicaPollo = [pan, carneDePollo, tomate, cebolla, lechuga]
 cantidadesClasicaPollo = [2, 1, 1, 1, 1]
 clasicaDePollo = Comida("Clasica de Pollo", ingredientesClasicaPollo, cantidadesClasicaPollo)
 
@@ -55,15 +54,6 @@ ingredientesCarnibora = [pan, carneDeRes, carneDePollo, tocineta, queso]
 cantidadesCarnibora = [2, 1, 1, 4, 2]
 carnibora = Comida("Carnibora", ingredientesCarnibora, cantidadesCarnibora)
 
-print(carnibora.calcularPrecio())
-print(carnibora.calcularPrecioConGanancia())
-
-print(carnibora.verificarIngredientes())
-
-print(clasicaDeCarne.__str__())
-print(especialQuesoYTocineta.__str__())
-print(clasicaDePollo.__str__())
-print(polloconQueso.__str__())
 
 Comida.listaComida.append(clasicaDeCarne)
 Comida.listaComida.append(especialQuesoYTocineta)
@@ -73,7 +63,6 @@ Comida.listaComida.append(dobleCarneTocineta)
 Comida.listaComida.append(vegetariana)
 Comida.listaComida.append(carnibora)
 
-print(Comida.listaComida.__str__())
 
 mesa1 = Mesas(1, 2)
 mesa2 = Mesas(2, 2)
@@ -101,22 +90,29 @@ listaPedido = []
 pedido3 = Pedido(mesa4, "23-10-2023 8:50:00", camilo)
 pedido3.agregarGaseosaAlPedido(coca_cola, coca_cola)
 pedido3.agregarComidaAlPedido(clasicaDeCarne, dobleCarneTocineta)
-pedido3.confirmarOrden()
 
 pedido5 = Pedido(mesa2, "23-10-2023 5:50:00", camilo)
 pedido5.agregarGaseosaAlPedido(coca_cola, sprite)
 pedido5.agregarComidaAlPedido(vegetariana)
-pedido5.confirmarOrden()
+
 
 pedido4 = Pedido(mesa1, "23-10-2023 3:50:00",camilo)
 pedido4.agregarGaseosaAlPedido(quatro, sprite)
 pedido4.agregarComidaAlPedido(clasicaDePollo, especialQuesoYTocineta)
-pedido4.confirmarOrden()
+print(pan.__str__())
+print(quatro.__str__())
+print(carneDePollo.__str__())
+
+print(pedido4.confirmarOrden())
+
+print(pan.__str__())
+print(quatro.__str__())
+print(carneDePollo.__str__())
 
 listaPedido.append(pedido4)
 listaPedido.append(pedido3)
 listaPedido.append(pedido5)
 
-print(pedido4.imprimirComidas() + pedido4.imprimirGaseosas())
+
 
 

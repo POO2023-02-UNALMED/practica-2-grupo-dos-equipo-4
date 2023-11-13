@@ -33,7 +33,6 @@ class Pedido:
 
     def confirmarOrden(self):
         insufficientItems = []
-        ordenConfirmada = None
 
         for comida in self.pedidoComidas:
             if not comida.verificarIngredientes():
@@ -51,10 +50,9 @@ class Pedido:
             return ''.join(insufficientItems)
 
         ordenConfirmada = "Orden confirmada y factura creada"
-        if ordenConfirmada == "Orden confirmada y factura creada":
-            factura = Factura(self.getEmpleado(), self.getMesa(), self, self.getIdPedido(), self.fecha,
-                              self.precioTotal(), self.precioTotalSinGanancia())
-            Factura.facturasSinPagar.append(factura)
+        if len(insufficientItems) == 0:
+                factura = Factura(self.getEmpleado(), self.getMesa(), self, self.getIdPedido(), self.fecha,self.precioTotal(), self.precioTotalSinGanancia())
+                Factura.facturasSinPagar.append(factura)
         return ordenConfirmada
 
     def precioTotal(self):
