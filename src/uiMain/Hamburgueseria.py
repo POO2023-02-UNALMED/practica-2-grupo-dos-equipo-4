@@ -200,18 +200,18 @@ boton_Ventana_Principal = tk.Button(frame2, text="Ingresar al Sistema",
                                     command=ingreso_al_sistema)  # Permite ingresar a la Ventana de Usuario
 boton_Ventana_Principal.pack(side="bottom", anchor="s")
 
-frame1.pack(side="top", fill="both", padx=10, pady=10, expand=True)
+frame1.pack(side="top", fill="both", padx=10, pady=10)
 frame1.config(bd=4, relief="groove")
-frame2.pack(side="bottom", fill="both", padx=10, pady=10, expand=True)
+frame2.pack(side="bottom", fill="both", padx=10, pady=10)
 frame2.config(bd=4, relief="groove")
 # ____________________________________________________________________________
 
 ## contenedor 2
 frame_principal2 = tk.Frame(ventana, bg="white")
 frame_principal2.config(bd=5, relief="groove")
-frame_principal2.pack(side="right", fill="both", expand=True)
+frame_principal2.pack(side="right", fill="both")
 frame3 = tk.Frame(frame_principal2, bg="green")  # P5
-frame3.pack(side="top", fill="both", padx=10, pady=10, expand=True)
+frame3.pack(side="top", fill="both", padx=10, pady=10)
 frame3.config(bd=4, relief="groove")
 label3_1 = tk.Label(frame3, text=hojas_de_vidas[indice_hojas_vida], width=30, height=10)
 label3_1.grid(row=0, column=0, padx=150, pady=0)
@@ -219,12 +219,13 @@ label3_1.bind("<Button-1>", cambia_hojas_vida)
 label3_1.config(font=("Helvetica", 12, "bold"))
 
 frame4 = tk.Frame(frame_principal2, bg="yellow")  # P6
-frame4.pack(side="bottom", fill="both", padx=10, pady=10, expand=True)
+frame4.pack(side="bottom", fill="both", padx=10, pady=10)
 frame4.config(bd=4, relief="groove")
 
 for i in range(2):
     frame4.grid_rowconfigure(i, weight=1)
-    frame4.grid_columnconfigure(i, weight=1)    
+    frame4.grid_columnconfigure(i, weight=1)
+
 # Crear el objeto PhotoImage con cada imagen
 imagen1 = tk.PhotoImage(file="1.png")
 imagen2 = tk.PhotoImage(file="2.png")
@@ -237,7 +238,7 @@ label2 = tk.Label(frame4, image=imagen2)
 label3 = tk.Label(frame4, image=imagen3)
 label4 = tk.Label(frame4, image=imagen4)
 
-label1.grid(row=0, column=0)
+label1.grid(row=0, column=0, sticky="nsew")
 label2.grid(row=0, column=1, sticky="nsew")
 label3.grid(row=1, column=0, sticky="nsew")
 label4.grid(row=1, column=1, sticky="nsew")
