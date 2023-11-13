@@ -1,6 +1,6 @@
 
-import Contabilidad
-import Calificacion
+from src.gestorAplicacion.administracion import Contabilidad
+from src.gestorAplicacion.administracion import Calificacion
 from src.gestorAplicacion.restaurante import Mesas
 from src.gestorAplicacion.administracion.Calificacion import Calificacion
 

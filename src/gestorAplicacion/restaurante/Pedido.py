@@ -1,5 +1,8 @@
 from src.gestorAplicacion.restaurante.Mesas import Mesas
 from src.gestorAplicacion.administracion.Factura import Factura
+from src.gestorAplicacion.restaurante.Gaseosas import Gaseosas
+
+
 class Pedido:
     idPedido = 10000000
 
@@ -12,6 +15,15 @@ class Pedido:
         self.pedidoGaseosas = []
         self.empleado = empleado
         Mesas.efectuarReserva(idCliente, fecha)
+
+    def __init__(self, mesa, fecha, empleado):  # el constructor que se usa para clientes que no tienen reserva
+        Pedido.idPedido += 1
+        self.mesa = mesa
+        self.fecha = fecha
+        self.pedidoComidas = []
+        self.pedidoGaseosas = []
+        self.empleado = empleado
+        Mesas.efectuarReserva(1, fecha)
 
     def agregarComidaAlPedido(self, *comidas):
         self.pedidoComidas.extend(comidas)
@@ -40,7 +52,8 @@ class Pedido:
 
         ordenConfirmada = "Orden confirmada y factura creada"
         if ordenConfirmada == "Orden confirmada y factura creada":
-            factura = Factura(self.getEmpleado(), self.getMesa(), self, self.getIdPedido(), self.fecha, self.precioTotal(), self.precioTotalSinGanancia())
+            factura = Factura(self.getEmpleado(), self.getMesa(), self, self.getIdPedido(), self.fecha,
+                              self.precioTotal(), self.precioTotalSinGanancia())
             Factura.facturasSinPagar.append(factura)
         return ordenConfirmada
 
@@ -84,3 +97,16 @@ class Pedido:
 
     def setEmpleado(self, empleado):
         self.empleado = empleado
+
+    def imprimirGaseosas(self):
+        sb = ''
+        for gaseosas in self.pedidoGaseosas:
+            sb += "Gaseosa: " + gaseosas.getNombre() + " - " + str(gaseosas.getPrecioConGanancia())+"\n"
+        return sb
+
+    def imprimirComidas(self):
+        sb = ""
+        for comida in self.pedidoComidas:
+            sb += "Comida: " + comida.getNombre() + " - "+ str(comida.calcularPrecioConGanancia())+"\n"
+        return sb
+
