@@ -23,9 +23,7 @@ lechuga = Ingredientes("Lechuga", 150, 20)
 queso = Ingredientes("Queso", 2000, 20)
 tocineta = Ingredientes("Tocineta", 1000, 20)
 
-print(pan.__str__())
 pan.comprarIngredientes(20, "Pan")
-print(pan.__str__())
 
 IngredientesClasicaCarne = [pan, carneDeRes, tomate, cebolla, lechuga]
 CantidadesClasicaCarne = [2, 1, 1, 1, 1]
@@ -81,36 +79,45 @@ mesa14 = Mesas(14, 10)
 mesa15 = Mesas(15, 10)
 
 camilo = Mesero("Camilo", 100, 2000)
-print(camilo.accion())
-
 david = Cocinero("David", 100, 50000, "Calvas")
-print(david.getOcupacion())
 
 mesa12.crearReserva(890123, 12, datetime(2023,10,4,12,0,0))
-mesa12.crearReserva(89012, 12, datetime(2023,12,3,1,0,0))
-print(mesa12.__str__())
 
 listaPedido = []
 # pedidos con reservas
 pedido1 = Pedido(mesa12, datetime(2023,10,4,12,0,0), camilo, 890123)
-print(mesa12.__str__())
 pedido1.agregarComidaAlPedido(especialQuesoYTocineta, polloconQueso, vegetariana)
 pedido1.agregarGaseosaAlPedido(quatro, coca_cola, coca_cola)
-
+pedido1.confirmarOrden()
 # pedidos sin reservas
 pedido3 = Pedido(mesa4, datetime(2023,10,4,12,0,0), camilo)
 pedido3.agregarGaseosaAlPedido(coca_cola, coca_cola)
 pedido3.agregarComidaAlPedido(clasicaDeCarne, dobleCarneTocineta)
 
-pedido5 = Pedido(mesa2, datetime(2023,3,11,2,0,0), camilo)
-pedido5.agregarGaseosaAlPedido(coca_cola, sprite)
-pedido5.agregarComidaAlPedido(vegetariana)
-print(pedido5.confirmarOrden())
-
 pedido4 = Pedido(mesa1,datetime(2023,3,10,4,30,0), camilo)
 pedido4.agregarGaseosaAlPedido(quatro, sprite)
 pedido4.agregarComidaAlPedido(clasicaDePollo, especialQuesoYTocineta)
+pedido4.confirmarOrden()
 
-listaPedido.append(pedido4)
-listaPedido.append(pedido3)
-listaPedido.append(pedido5)
+pedido5 = Pedido(mesa2, datetime(2023,3,11,2,0,0), camilo)
+pedido5.agregarGaseosaAlPedido(coca_cola, sprite)
+pedido5.agregarComidaAlPedido(vegetariana)
+pedido5.confirmarOrden()
+
+
+
+for factura in Factura.facturasSinPagar:
+    print(factura.__str__())
+
+def pagarFactura1( id):
+    for factura in Factura.facturasSinPagar:
+        if factura.getIdFactura() == id:
+            factura.pagarFactura()
+            break
+
+pagarFactura1(10000004)
+print(factura.facturasSinPagar.__str__())
+print(Factura.facturasPagadas.__str__())
+
+for factura in Factura.facturasPagadas:
+    print(factura.__str__())

@@ -21,44 +21,92 @@ def ingreso_al_sistema():
     ventana_del_usuario.resizable(width=False, height=False)
 
     def informacion_basica():
-        informacion = messagebox.showinfo("Información de la Apliación", "Esta plataforma integral de gestión para un restaurante de hambueguesas facilita el seguimiento de información clave de empleados. Además, ofrece un servicio de reserva de mesas para garantizar la comodidad de los clientes. Simplifica el proceso de pedidos, facturación y lleva un control eficiente de la contabilidad y el inventario del restaurante, mejorando la eficiencia operativa. ")
+        informacion = messagebox.showinfo("Información de la Aplicación", "Esta plataforma integral de gestión para un restaurante de hambueguesas facilita el seguimiento de información clave de empleados. Además, ofrece un servicio de reserva de mesas para garantizar la comodidad de los clientes. Simplifica el proceso de pedidos, facturación y lleva un control eficiente de la contabilidad y el inventario del restaurante, mejorando la eficiencia operativa. ")
 
+    #Funcion para limpiar los widgets de la ventana
     def limpiarVentana():
         for widget in ventana_del_usuario.winfo_children():
             widget.destroy()
 
-    def opcionMesas():
+#====================Creador de pestañas de Funcionalidades==========================================#
+
+    def opcionGestionReserva():
         limpiarVentana()
+        creadorMenu()
         frameMesas = tk.Frame(ventana_del_usuario, bg= "red")
         frameMesas.config(bd= 5, relief="groove")
         frameMesas.pack(side="left", fill="both", expand=True)
-        labelMesas = tk.Label(frameMesas, text="Mesas")
+        labelMesas = tk.Label(frameMesas, text="Gestion de Reservas")
         labelMesas.pack(side="top", anchor="nw")
         labelMesas.config(bd=5, relief="groove")
 
-    menuBar = tk.Menu(ventana_del_usuario)
-    ventana_del_usuario.config(menu=menuBar)
-    archivoMenu = tk.Menu(menuBar, tearoff=0)
-    menuBar.add_cascade(label="Archivo", menu=archivoMenu)
-    archivoMenu.add_command(label="Aplicación", command=informacion_basica)
-    archivoMenu.add_command(label="Salir", command = ventana_del_usuario.destroy)
-    pycMenu = tk.Menu(menuBar, tearoff=0)
-    menuBar.add_cascade(label="Procesos y Consultas", menu=pycMenu)
-    pycMenu.add_command(label="Toma de Pedidos")
-    pycMenu.add_command(label="Gestion de Reservas", command=opcionMesas)
-    pycMenu.add_command(label="Gestion de Empleados")
-    pycMenu.add_command(label="Gestion de Inventario")
-    pycMenu.add_command(label="Contabilidad")
-    ayudaMenu = tk.Menu(menuBar, tearoff=0)
-    menuBar.add_cascade(label="Acerca de", menu=ayudaMenu)
+
+    def opcionTomaDePedidos():
+        limpiarVentana()
+        creadorMenu()
+        frameMesas = tk.Frame(ventana_del_usuario, bg= "red")
+        frameMesas.config(bd= 5, relief="groove")
+        frameMesas.pack(side="left", fill="both", expand=True)
+        labelMesas = tk.Label(frameMesas, text="Toma de Pedidos")
+        labelMesas.pack(side="top", anchor="nw")
+        labelMesas.config(bd=5, relief="groove")
+
+    def opcionGestionEmpleados():
+        limpiarVentana()
+        creadorMenu()
+        frameMesas = tk.Frame(ventana_del_usuario, bg= "red")
+        frameMesas.config(bd= 5, relief="groove")
+        frameMesas.pack(side="left", fill="both", expand=True)
+        labelMesas = tk.Label(frameMesas, text="Gestion de Empleados")
+        labelMesas.pack(side="top", anchor="nw")
+        labelMesas.config(bd=5, relief="groove")
+
+    def opcionGestionDeInventario():
+        limpiarVentana()
+        creadorMenu()
+        frameMesas = tk.Frame(ventana_del_usuario, bg= "red")
+        frameMesas.config(bd= 5, relief="groove")
+        frameMesas.pack(side="left", fill="both", expand=True)
+        labelMesas = tk.Label(frameMesas, text="Gestion de Inventario")
+        labelMesas.pack(side="top", anchor="nw")
+        labelMesas.config(bd=5, relief="groove")
+
+    def opcionContabilidad():
+        limpiarVentana()
+        creadorMenu()
+        frameMesas = tk.Frame(ventana_del_usuario, bg= "red")
+        frameMesas.config(bd= 5, relief="groove")
+        frameMesas.pack(side="left", fill="both", expand=True)
+        labelMesas = tk.Label(frameMesas, text="Contabilidad")
+        labelMesas.pack(side="top", anchor="nw")
+        labelMesas.config(bd=5, relief="groove")
+
+#===================================================================================================#
+
+    def creadorMenu():
+        menuBar = tk.Menu(ventana_del_usuario)
+        ventana_del_usuario.config(menu=menuBar)
+        archivoMenu = tk.Menu(menuBar, tearoff=0)
+        menuBar.add_cascade(label="Archivo", menu=archivoMenu)
+        archivoMenu.add_command(label="Aplicación", command=informacion_basica)
+        archivoMenu.add_command(label="Salir", command = ventana_del_usuario.destroy)
+        pycMenu = tk.Menu(menuBar, tearoff=0)
+        menuBar.add_cascade(label="Procesos y Consultas", menu=pycMenu)
+        pycMenu.add_command(label="Toma de Pedidos", command=opcionTomaDePedidos)
+        pycMenu.add_command(label="Gestion de Reservas", command=opcionGestionReserva)
+        pycMenu.add_command(label="Gestion de Empleados", command=opcionGestionEmpleados)
+        pycMenu.add_command(label="Gestion de Inventario", command=opcionGestionDeInventario)
+        pycMenu.add_command(label="Contabilidad", command=opcionContabilidad)
+        ayudaMenu = tk.Menu(menuBar, tearoff=0)
+        menuBar.add_cascade(label="Acerca de", menu=ayudaMenu)
+
     def habilitar_boton(event):
         boton_Ventana_Principal.config(state="normal")
 
         # En la función ingreso_al_sistema
     ventana_del_usuario.bind("<Destroy>", habilitar_boton)
 
-    #Funcion para limpiar los widgets de la ventana
-
+    creadorMenu()
     #Frame Zona1
     frameUser1 = tk.Frame(ventana_del_usuario, bg= "yellow")
     frameUser1.config(bd= 5, relief="groove")
@@ -106,7 +154,7 @@ frame_principal1.config(bd=5, relief="groove")
 
 frame_principal1.pack(side="left", fill="both")
 frame1 = tk.Frame(frame_principal1, bg="red") #P3
-label1 = tk.Label(frame1, text= "¡Bienvenido a Las Calvas, el paraíso de las hamburgesas! 🍔🎉 "+"\n"+"En nuestro rincón gastronómico, cada hamburguesa"+"\n"+" es una obra maestra hecha con amor y sabores inigualables."+"\n"+" Prepárate para un viaje culinario que despierte tus sentidos"+"\n"+" y te haga amar cada bocado. ¡Sumérgete en el sabor "+"\n"+"auténtico de Las Calvas y déjanos conquistar tu paladar"+"\n"+" con nuestras deliciosas creaciones!"+"\n"+" ¡Bienvenido a la experiencia de hamburguesas que siempre soñaste!", font=("Helvetica", 12,"bold"), width=60, wraplength=600)#Brindar un saludo de bienvenida al sistema
+label1 = tk.Label(frame1, text= "¡Bienvenido a Las Calvas, el paraíso de las hamburguesas! 🍔🎉 "+"\n"+"En nuestro rincón gastronómico, cada hamburguesa"+"\n"+" es una obra maestra hecha con amor y sabores inigualables."+"\n"+" Prepárate para un viaje culinario que despierte tus sentidos"+"\n"+" y te haga amar cada bocado. ¡Sumérgete en el sabor "+"\n"+"auténtico de Las Calvas y déjanos conquistar tu paladar"+"\n"+" con nuestras deliciosas creaciones!"+"\n"+" ¡Bienvenido a la experiencia de hamburguesas que siempre soñaste!", font=("Helvetica", 12,"bold"), width=60, wraplength=600)#Brindar un saludo de bienvenida al sistema
 label1.grid(row = 0, column = 0, padx = 10, pady = 10, sticky="n")
 label1.pack(side="top")
 frame2 = tk.Frame(frame_principal1, bg="blue")#P4

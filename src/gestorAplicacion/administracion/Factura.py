@@ -8,7 +8,7 @@ class Factura:
     facturasSinPagar = []
     facturasPagadas = []
 
-    def __init__(self, empleado=None, mesa=None, pedido=None, idFactura=None, fecha=None, precioTotal=None, precioTotalSinGanancia=None):
+    def __init__(self, empleado, mesa, pedido, idFactura, fecha, precioTotal, precioTotalSinGanancia):
         self.empleado = empleado
         self.mesa = mesa
         self.pedido = pedido
@@ -25,7 +25,7 @@ class Factura:
         Factura.facturasSinPagar.remove(self)
         Contabilidad.Contabilidad.sumarIngresosPedidoAlSaldo(self.getPrecioTotal())
         Contabilidad.Contabilidad.calcularUtilidades(self.getPrecioTotal(), self.getPrecioTotalSinGanancia())
-        Mesas.Mesas.cancelarReserva(self.getIdFactura(), self.getFecha())
+        self.mesa.cancelarReserva(self.getIdFactura(), self.getFecha())
 
     def calificarEmpleado(self, valoracion):
         calificacion = Calificacion(self.getIdFactura(), self.getEmpleado(), valoracion)
@@ -61,6 +61,8 @@ class Factura:
     def setIdFactura(self, idFactura):
         self.idFactura = idFactura
 
+    def getNombreEmpleado(self):
+        return self.empleado.nombre
     def getEmpleado(self):
         return self.empleado
 
@@ -84,14 +86,21 @@ class Factura:
 
     def setPrecioTotalSinGanancia(self, precioTotalSinGanancia):
         self.precioTotalSinGanancia = precioTotalSinGanancia
+    def estaPagada(self):
+        if self.factura_pagada is True:
+            return "La factura está pagada"
+        else:
+            return  "La factura no está pagada"
 
     def __str__(self):
-        estado_factura = "La factura está pagada" if self.factura_pagada else "La factura no está pagada"
-        pedido_str = self.pedido.imprimir_comidas() + "\n" + self.pedido.imprimir_gaseosas()
-        return (f" Id factura: {self.idFactura}\n"
-                f"fecha: {self.fecha}\n"
-                f"{estado_factura}\n"
-                f" tu pedido fue: \n{pedido_str}\n"
-                f" te atendio: {self.empleado}\n"
-                f" estuviste en la Mesa: {self.mesa.get_id_mesa()}\n"
-                f" el valor a pagar es: {self.pedido.precio_total()}\n\n")
+        sb = ""
+        sb += "  Id factura:  " + str(self.getIdFactura()) + "\n"
+        sb += "fecha: " + str(self.getFecha()) + "\n"
+        sb += self.estaPagada() + "\n"
+        sb += "  tu pedido fue: \n" + self.pedido.imprimirComidas() + "\n"
+        sb += self.pedido.imprimirGaseosas() + "\n"
+        sb += "  te atendio: " + str(self.getNombreEmpleado()) + "\n"
+        sb += "  estuviste en la Mesa: " + str(self.mesa.getIdMesa()) + "\n"
+        sb += "  el valor a pagar es: " + str(self.pedido.precioTotal()) + "\n"
+        sb += "\n"
+        return sb

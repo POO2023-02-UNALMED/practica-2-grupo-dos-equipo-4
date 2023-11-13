@@ -76,10 +76,10 @@ class Pedido:
 
     # Getters y Setters
     def getIdPedido(self):
-        return Pedido.idPedido
+        return self.idPedido
 
     def setIdPedido(self, idPedido):
-        Pedido.idPedido = idPedido
+        self.idPedido = idPedido
 
     def getMesa(self):
         return self.mesa
