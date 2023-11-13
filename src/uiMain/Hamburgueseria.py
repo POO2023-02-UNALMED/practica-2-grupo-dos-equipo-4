@@ -3,6 +3,12 @@ from tkinter import *
 from tkinter import messagebox
 #__________________________________________________________________________________________
 #Funciones y Eventos
+hojas_de_vidas = ["", "Juanfe", "Cristian", "David", "Ivan"]
+indice_hojas_vida = 0
+def cambia_hojas_vida(event): # Evento para cambiar las hojas de vida al hacer click.
+    global indice_hojas_vida
+    indice_hojas_vida = (indice_hojas_vida + 1) % len(hojas_de_vidas)
+    label3_1.config(text=hojas_de_vidas[indice_hojas_vida])
 def evento():
     pass
 def ingreso_al_sistema():
@@ -120,6 +126,10 @@ frame_principal2 = tk.Frame(ventana, bg="white")
 frame_principal2.config(bd=5, relief="groove")
 frame_principal2.pack(side="right", fill="both", expand = True)
 frame3 = tk.Frame(frame_principal2, bg="green")#P5
+label3_1 = tk.Label(frame3, text=hojas_de_vidas[indice_hojas_vida])
+label3_1.grid(row=0, column=0, padx=10, pady=10)
+label3_1.bind("<Button-1>", cambia_hojas_vida)
+
 frame4 = tk.Frame(frame_principal2, bg="yellow")#P6
 
 frame3.pack(side="top", fill="both", padx=10, pady=10, expand=True)
