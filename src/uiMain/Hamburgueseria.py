@@ -9,6 +9,7 @@ def ingreso_al_sistema():
     ventana_del_usuario.title("Hamburgueseria las Calvas")
     ventana_del_usuario.geometry("800x600")
     ventana_del_usuario.config(cursor="spider")
+    ventana_del_usuario.resizable(width=False, height=False)
     frame0 = tk.Frame(ventana_del_usuario, bg= "yellow")
     frame0.config(bd= 5, relief="groove")
     frame0.pack(side="left", fill="both", expand=True)
@@ -61,11 +62,15 @@ menu1 = tk.Menu(menuInicial)
 menuInicial.add_cascade(label="Inicio",menu=menu1,command=evento)
 menu1.add_command(label="Salir de la Aplicación",command=salir_sistema)
 menu1.add_command(label="Descripción del Sistema",command=descripcion)
+ventana.resizable(width=False, height=False)
 #__________________________________________________________________________
 
 ## contenedor 1
 frame_principal1 = tk.Frame(ventana, bg="white")
+frame_principal1.place(x=10, y=10, width=5, height=9)
+frame_principal1.pack(padx=10, pady=10, ipadx=2, ipady=3)
 frame_principal1.config(bd=5, relief="groove")
+
 frame_principal1.pack(side="left", fill="both", expand=True)
 frame1 = tk.Frame(frame_principal1, bg="red") #P3
 label1 = tk.Label(frame1, text= "¡Bienvenido a Las Calvas, el paraíso de las hamburgesas! 🍔🎉 "+"\n"+"En nuestro rincón gastronómico, cada hamburguesa"+"\n"+" es una obra maestra hecha con amor y sabores inigualables."+"\n"+" Prepárate para un viaje culinario que despierte tus sentidos"+"\n"+" y te haga amar cada bocado. ¡Sumérgete en el sabor "+"\n"+"auténtico de Las Calvas y déjanos conquistar tu paladar"+"\n"+" con nuestras deliciosas creaciones!"+"\n"+" ¡Bienvenido a la experiencia de hamburguesas que siempre soñaste!", font=("Helvetica", 12,"bold"))#Brindar un saludo de bienvenida al sistema
