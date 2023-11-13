@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import *
+from tkinter import messagebox
 #__________________________________________________________________________________________
 #Funciones y Eventos
 def evento():
@@ -12,12 +13,14 @@ def ingreso_al_sistema():
     ventana_del_usuario.geometry("800x600")
     ventana_del_usuario.config(cursor="spider")
     ventana_del_usuario.resizable(width=False, height=False)
+    def informacion_basica():
+        informacion = messagebox.showinfo("Información de la Apliación", "Esta plataforma integral de gestión para un restaurante de hambueguesas facilita el seguimiento de información clave de empleados. Además, ofrece un servicio de reserva de mesas para garantizar la comodidad de los clientes. Simplifica el proceso de pedidos, facturación y lleva un control eficiente de la contabilidad y el inventario del restaurante, mejorando la eficiencia operativa. ")
 
     menuBar = tk.Menu(ventana_del_usuario)
     ventana_del_usuario.config(menu=menuBar)
     archivoMenu = tk.Menu(menuBar, tearoff=0)
     menuBar.add_cascade(label="Archivo", menu=archivoMenu)
-    archivoMenu.add_command(label="Aplicación")
+    archivoMenu.add_command(label="Aplicación", command=informacion_basica)
     archivoMenu.add_command(label="Salir", command = ventana_del_usuario.destroy)
     pycMenu = tk.Menu(menuBar, tearoff=0)
     menuBar.add_cascade(label="Procesos y Consultas", menu=pycMenu)
