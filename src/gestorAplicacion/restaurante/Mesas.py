@@ -12,34 +12,36 @@ class Mesas:
         Mesas.mesas.append(self)
 
     def crearReserva(self, idCliente, idMesa, fecha):
+        fecha_str = fecha.strftime("%d/%m/%Y %H:%M:%S")
         for mesa in Mesas.mesas:
-            if mesa.getIdMesa() == idMesa and fecha not in mesa.reservaPorCliente.values():
-                mesa.reservaPorCliente[idCliente] = fecha
-                mesa.ocupadoEnFecha[fecha] = False
+            if mesa.getIdMesa() == idMesa and fecha_str not in mesa.reservaPorCliente.values():
+                mesa.reservaPorCliente[idCliente] = fecha_str
+                mesa.ocupadoEnFecha[fecha_str] = False
 
     def efectuarReserva(self, idCliente, fecha):
-        if self.isOcupadoEnFecha(fecha):
+        fecha_str = fecha.strftime("%d/%m/%Y %H:%M:%S")
+        if self.isOcupadoEnFecha(fecha_str):
             raise Exception("La mesa ya está reservada en esta fecha")
         self.reservaPorCliente.pop(idCliente, None)
-        self.ocupadoEnFecha[fecha] = True
+        self.ocupadoEnFecha[fecha_str] = True
 
     def cancelarReserva(self, idCliente, fecha):
-        if idCliente in self.reservaPorCliente and fecha in self.ocupadoEnFecha:
+        fecha_str = fecha  # Ya no necesitas llamar a strftime
+        if idCliente in self.reservaPorCliente and fecha_str in self.ocupadoEnFecha:
             self.reservaPorCliente.pop(idCliente, None)
-            self.ocupadoEnFecha.pop(fecha, None)
+            self.ocupadoEnFecha.pop(fecha_str, None)
 
     def __str__(self):
         stringBuilder = []
         stringBuilder.append(f"Mesa número: {self.idMesa}\n")
         stringBuilder.append(f"Número de sillas: {self.numeroDeSillas}\n")
         stringBuilder.append("Está ocupada: ")
-        ocupada_fechas = [fecha.strftime("%d/%m/%Y %H:%M:%S") for fecha, ocupada in self.ocupadoEnFecha.items() if
-                          ocupada]
+        ocupada_fechas = [fecha for fecha, ocupada in self.ocupadoEnFecha.items() if ocupada]
         stringBuilder.append(", ".join(ocupada_fechas))
         stringBuilder.append("\n")
         stringBuilder.append("Reservas:\n")
         for idCliente, fecha in self.reservaPorCliente.items():
-            fecha_texto = fecha.strftime("%d/%m/%Y %H:%M:%S")  # Formatear la fecha en formato dd/mm/yyyy HH:MM:SS
+            fecha_texto = fecha  # Ya no necesitas llamar a strftime
             stringBuilder.append(f"ID de cliente: {idCliente}, Fecha de reserva: {fecha_texto}\n")
         return ''.join(stringBuilder)
 
