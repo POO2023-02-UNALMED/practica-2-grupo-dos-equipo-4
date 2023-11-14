@@ -3,6 +3,7 @@ from src.gestorAplicacion.administracion.Factura import Factura
 from src.gestorAplicacion.restaurante.Gaseosas import Gaseosas
 from datetime import datetime
 
+
 class Pedido:
     idPedido = 10000000
 
@@ -39,11 +40,9 @@ class Pedido:
             if not comida.verificarIngredientes():
                 insufficientItems.append(f"No hay suficientes ingredientes para preparar {comida.getNombre()}\n")
 
-
         for gaseosa in self.pedidoGaseosas:
             if gaseosa.getCantidad() < 1:
                 insufficientItems.append(f"No hay suficientes {gaseosa.getNombre()}\n")
-
 
         if len(insufficientItems) > 0:
             return ''.join(insufficientItems)
@@ -54,7 +53,8 @@ class Pedido:
                 gaseosa.restarGaseosas(1, gaseosa)
             for comida in self.pedidoComidas:
                 comida.restarCantidad()
-            factura = Factura(self.getEmpleado(), self.getMesa(), self, self.getIdPedido(), self.fecha,self.precioTotal(), self.precioTotalSinGanancia(), self.idCliente)
+            factura = Factura(self.getEmpleado(), self.getMesa(), self, self.getIdPedido(), self.fecha,
+                              self.precioTotal(), self.precioTotalSinGanancia(), self.idCliente)
             Factura.facturasSinPagar.append(factura)
         return ordenConfirmada
 
@@ -78,6 +78,7 @@ class Pedido:
 
     def getIdCliente(self):
         return self.idCliente
+
     def getIdPedido(self):
         return self.idPedido
 
@@ -105,12 +106,11 @@ class Pedido:
     def imprimirGaseosas(self):
         sb = ''
         for gaseosas in self.pedidoGaseosas:
-            sb += "Gaseosa: " + gaseosas.getNombre() + " - " + str(gaseosas.getPrecioConGanancia())+"\n"
+            sb += "Gaseosa: " + gaseosas.getNombre() + " - " + str(gaseosas.getPrecioConGanancia()) + "\n"
         return sb
 
     def imprimirComidas(self):
         sb = ""
         for comida in self.pedidoComidas:
-            sb += "Comida: " + comida.getNombre() + " - "+ str(comida.calcularPrecioConGanancia())+"\n"
+            sb += "Comida: " + comida.getNombre() + " - " + str(comida.calcularPrecioConGanancia()) + "\n"
         return sb
-

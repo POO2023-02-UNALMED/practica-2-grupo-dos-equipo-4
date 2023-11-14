@@ -24,7 +24,6 @@ lechuga = Ingredientes("Lechuga", 150, 20)
 queso = Ingredientes("Queso", 2000, 20)
 tocineta = Ingredientes("Tocineta", 1000, 20)
 
-
 IngredientesClasicaCarne = [pan, carneDeRes, tomate, cebolla, lechuga]
 CantidadesClasicaCarne = [2, 1, 1, 1, 1]
 clasicaDeCarne = Comida("Clasica de carne", IngredientesClasicaCarne, CantidadesClasicaCarne)
@@ -79,70 +78,75 @@ mesa14 = Mesas(14, 10)
 mesa15 = Mesas(15, 10)
 
 camilo = Mesero("Camilo", 100)
-linda = Mesero("Linda", 100 )
+linda = Mesero("Linda", 100)
 david = Cocinero("David", 100, "Calvas")
 
-mesa12.crearReserva(890123, 12, datetime(2023,10,4,12,0,0))
-print(mesa12.__str__())
+mesa12.crearReserva(890123, 12, datetime(2023, 10, 4, 12, 0, 0))
+
+
 listaPedido = []
 # pedidos con reservas
-pedido1 = Pedido(mesa12, datetime(2023,10,4,12,0,0), camilo, 890123)
+pedido1 = Pedido(mesa12, datetime(2023, 10, 4, 12, 0, 0), camilo, 890123)
 pedido1.agregarComidaAlPedido(especialQuesoYTocineta, polloconQueso, vegetariana)
 pedido1.agregarGaseosaAlPedido(quatro, coca_cola, coca_cola)
 pedido1.confirmarOrden()
-print(mesa12.__str__())
+
+
 # pedidos sin reservas
-pedido3 = Pedido(mesa4, datetime(2023,10,4,12,0,0), camilo)
+pedido3 = Pedido(mesa4, datetime(2023, 10, 4, 12, 0, 0), camilo)
 pedido3.agregarGaseosaAlPedido(coca_cola, coca_cola)
 pedido3.agregarComidaAlPedido(clasicaDeCarne, dobleCarneTocineta)
 pedido3.confirmarOrden()
 
-pedido4 = Pedido(mesa1,datetime(2023,3,10,4,30,0), camilo)
+pedido4 = Pedido(mesa1, datetime(2023, 3, 10, 4, 30, 0), camilo)
 pedido4.agregarGaseosaAlPedido(quatro, sprite)
 pedido4.agregarComidaAlPedido(clasicaDePollo, especialQuesoYTocineta)
 pedido4.confirmarOrden()
 
-pedido5 = Pedido(mesa2, datetime(2023,3,11,2,0,0), camilo)
+pedido5 = Pedido(mesa2, datetime(2023, 3, 11, 2, 0, 0), camilo)
 pedido5.agregarGaseosaAlPedido(coca_cola, sprite)
 pedido5.agregarComidaAlPedido(vegetariana)
 pedido5.confirmarOrden()
 
-pedido6 = Pedido(mesa2, datetime(2023,2,11,2,0,0), linda)
+pedido6 = Pedido(mesa2, datetime(2023, 2, 11, 2, 0, 0), linda)
 pedido6.agregarGaseosaAlPedido(coca_cola, sprite)
 pedido6.agregarComidaAlPedido(vegetariana)
 pedido6.confirmarOrden()
 
-pedido7 = Pedido(mesa7, datetime(2023,2,11,2,0,0), linda)
+
+pedido7 = Pedido(mesa7, datetime(2023, 2, 11, 2, 0, 0), linda)
 pedido7.agregarGaseosaAlPedido(coca_cola, sprite)
 pedido7.agregarComidaAlPedido(vegetariana)
 pedido7.confirmarOrden()
 
 for factura in Factura.facturasSinPagar:
-  print(factura.__str__())
+    print(factura.__str__())
 
-def pagarFacturaYCalificar( id, valoracion):
+
+def pagarFacturaYCalificar(id, valoracion):
     for factura in Factura.facturasSinPagar:
         if factura.getIdFactura() == id:
             factura.pagarFactura()
             factura.calificarEmpleado(valoracion)
             break
 
-pagarFacturaYCalificar(10000001,5)
 
-print(mesa12.__str__())
+pagarFacturaYCalificar(10000001, 5)
 
-pagarFacturaYCalificar(10000002,5)
-pagarFacturaYCalificar(10000003,5)
-pagarFacturaYCalificar(10000004,3.5)
-pagarFacturaYCalificar(10000005,4.5)
-pagarFacturaYCalificar(10000006,5)
 
-#for calificacion in Calificacion.calificaciones:
+pagarFacturaYCalificar(10000002, 5)
+pagarFacturaYCalificar(10000003, 5)
+pagarFacturaYCalificar(10000004, 3.5)
+pagarFacturaYCalificar(10000005, 4.5)
+pagarFacturaYCalificar(10000006, 5)
+
+
+# for calificacion in Calificacion.calificaciones:
 #    print(calificacion.__str__())
 
 # print(camilo.bono())
 
-#for empleado in Mesero.empleados:
+# for empleado in Mesero.empleados:
 #    print(empleado.__str__())
 
 '''
@@ -170,4 +174,3 @@ print(Contabilidad.saldo)
 print(Contabilidad.gastos)
 
 '''
-

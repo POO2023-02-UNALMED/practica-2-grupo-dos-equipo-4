@@ -26,7 +26,7 @@ class Factura:
         Factura.facturasSinPagar.remove(self)
         Contabilidad.sumarIngresosPedidoAlSaldo(self.getPrecioTotal())
         Contabilidad.calcularUtilidades(self.getPrecioTotal(), self.getPrecioTotalSinGanancia())
-        fecha_str = self.fecha.strftime("%d/%m/%Y %H:%M:%S")
+        fecha_str = self.fecha.strftime("%Y/%m/%d %H:%M:%S")
         self.mesa.cancelarReserva(self.getIdCliente(), fecha_str)
 
     def calificarEmpleado(self, valoracion):
