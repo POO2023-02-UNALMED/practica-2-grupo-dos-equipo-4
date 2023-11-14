@@ -155,18 +155,9 @@ def salir_sistema():  # Salir de la aplicación
     ventana.destroy()
 
 
-def descripcion():  # Descripción del sistema (con esta aparecerá en alguna parte de la ventana de inicio una breve descripción de lo que hace el sistema)
-    ventana_descripcion = tk.Toplevel(ventana)
-    ventana_descripcion.title("Descripción del sistema")
-    texto = ("El sistema administrarivo de 'Las Calvas' es un programa integral diseñado para optimizar" + "\n" +
-             "la gestión de la hamburguesería 'Las Calvas'. Desde la contabilidad hasta la gestión de " + "\n" +
-             "personal y la toma de pedidos, automatiza procesos clave para una operación eficiente. " + "\n" +
-             "Proporciona información financiera precisa, facilita la programación de empleados y agiliza " + "\n" +
-             "la toma de pedidos, mejorando la experiencia global en Las Calvas")
-    label = tk.Label(ventana_descripcion, text=texto)
-    ventana_descripcion.resizable(width=False, height=False)
-    label = tk.Label(ventana_descripcion, text=texto, font=("Helvetica", 14, "bold"))
-    label.pack()
+def descripcion():  # Descripción del sistema (con esta aparecerá en un messagebox una breve descripción de lo que hace el sistema)
+    texto = messagebox.showinfo("descripción del sistema", "El sistema administrarivo de 'Las Calvas' es un programa integral diseñado para optimizar la gestión de la hamburguesería 'Las Calvas'." + "\n" + "Desde la contabilidad hasta la gestión de personal y la toma de pedidos, automatiza procesos clave para una operación eficiente. Proporciona información financiera precisa, facilita la programación de empleados y agiliza la toma de pedidos, mejorando la experiencia global en Las Calvas")
+
     # label = tk.Label(ventana, text=texto)
     # label.pack()
     # label.place(x=170, y=150)
@@ -183,8 +174,8 @@ menuInicial = tk.Menu(ventana)
 ventana.config(menu=menuInicial)
 menu1 = tk.Menu(menuInicial, tearoff=0)
 menuInicial.add_cascade(label="Inicio", menu=menu1, command=evento)
-menu1.add_command(label="Salir de la Aplicación", command=salir_sistema)
 menu1.add_command(label="Descripción del Sistema", command=descripcion)
+menu1.add_command(label="Salir de la Aplicación", command=salir_sistema)
 ventana.resizable(width=False, height=False)
 # __________________________________________________________________________
 

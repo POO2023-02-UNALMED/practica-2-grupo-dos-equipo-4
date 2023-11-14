@@ -12,24 +12,23 @@ class Mesas:
         Mesas.mesas.append(self)
 
     def crearReserva(self, idCliente, idMesa, fecha):
-        fecha_str = fecha.strftime("%d/%m/%Y %H:%M:%S")
+        fecha_str = fecha.strftime("%Y/%m/%d %H:%M:%S")
         for mesa in Mesas.mesas:
             if mesa.getIdMesa() == idMesa and fecha_str not in mesa.reservaPorCliente.values():
                 mesa.reservaPorCliente[idCliente] = fecha_str
                 mesa.ocupadoEnFecha[fecha_str] = False
 
     def efectuarReserva(self, idCliente, fecha):
-        fecha_str = fecha.strftime("%d/%m/%Y %H:%M:%S")
+        fecha_str = fecha.strftime("%Y/%m/%d %H:%M:%S")
         if self.isOcupadoEnFecha(fecha_str):
             raise Exception("La mesa ya está reservada en esta fecha")
         self.reservaPorCliente.pop(idCliente, None)
         self.ocupadoEnFecha[fecha_str] = True
 
-    def cancelarReserva(self, idCliente, fecha):
-        fecha_str = fecha  # Ya no necesitas llamar a strftime
-        if idCliente in self.reservaPorCliente and fecha_str in self.ocupadoEnFecha:
+    def cancelarReserva(self, idCliente, fecha):  # falta cuadrarlo, no está borrando la fecha en ocupadoenfecha
+        if self.isOcupadoEnFecha(fecha):
             self.reservaPorCliente.pop(idCliente, None)
-            self.ocupadoEnFecha.pop(fecha_str, None)
+            self.ocupadoEnFecha.pop(fecha, None)
 
     def __str__(self):
         stringBuilder = []
