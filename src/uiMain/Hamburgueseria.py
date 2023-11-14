@@ -17,6 +17,11 @@ def cambia_hojas_vida(event):  # Evento para cambiar las hojas de vida al hacer 
     global indice_hojas_vida
     indice_hojas_vida = (indice_hojas_vida + 1) % len(hojas_de_vidas)
     label3_1.config(text=hojas_de_vidas[indice_hojas_vida])
+    label1.config(image=imagenes[indice_hojas_vida])
+    label2.config(image=imagenes[indice_hojas_vida])
+    label3.config(image=imagenes[indice_hojas_vida])
+    label4.config(image=imagenes[indice_hojas_vida])
+
 
 
 def evento():
@@ -217,8 +222,8 @@ frame_principal2.pack(side="right", fill="both")
 frame3 = tk.Frame(frame_principal2, bg="green")  # P5
 frame3.pack(side="top", fill="both", padx=10, pady=10)
 frame3.config(bd=4, relief="groove")
-label3_1 = tk.Label(frame3, text=hojas_de_vidas[indice_hojas_vida], width=30, height=10)
-label3_1.grid(row=0, column=0, padx=150, pady=0)
+label3_1 = tk.Label(frame3, text=hojas_de_vidas[indice_hojas_vida], width=50, height=10)
+label3_1.grid(row=0, column=0, padx=50, pady=0)
 label3_1.bind("<Button-1>", cambia_hojas_vida)
 label3_1.config(font=("Helvetica", 12, "bold"))
 
@@ -235,6 +240,8 @@ imagen1 = tk.PhotoImage(file="1.png")
 imagen2 = tk.PhotoImage(file="2.png")
 imagen3 = tk.PhotoImage(file="3.png")
 imagen4 = tk.PhotoImage(file="4.png")  # Reemplaza esto con la ruta a tu imagen
+
+imagenes = [imagen1, imagen2, imagen3, imagen4]# necesaria para poder vincular las imagenes con la funcion cambia_hojas_vida
 
 # Crear el widget Label con cada imagen y añadirlo al Frame 4
 label1 = tk.Label(frame4, image=imagen1)
