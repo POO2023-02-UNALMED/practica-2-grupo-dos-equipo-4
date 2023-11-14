@@ -19,7 +19,7 @@ class Contabilidad:
     @staticmethod
     def pagarServicios():
         Contabilidad.saldo -= Contabilidad.serviciosPublicos
-        return Contabilidad.saldo
+        return "se pagaron: " + str(Contabilidad.getServiciosPublicos()) + " de servicios públicos"
 
     @staticmethod
     def sumarIngresosPedidoAlSaldo(ingreso):
@@ -78,7 +78,13 @@ class Contabilidad:
     @staticmethod
     def getGastos():
         return Contabilidad.gastos
-
     @staticmethod
     def setGastos(gastos):
         Contabilidad.gastos += gastos
+
+    @staticmethod
+    def setServiciosPublicos(servicios):
+        Contabilidad.serviciosPublicos = servicios
+    @staticmethod
+    def getServiciosPublicos():
+        return Contabilidad.serviciosPublicos

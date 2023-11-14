@@ -24,7 +24,6 @@ lechuga = Ingredientes("Lechuga", 150, 20)
 queso = Ingredientes("Queso", 2000, 20)
 tocineta = Ingredientes("Tocineta", 1000, 20)
 
-pan.comprarIngredientes(20, "Pan")
 
 IngredientesClasicaCarne = [pan, carneDeRes, tomate, cebolla, lechuga]
 CantidadesClasicaCarne = [2, 1, 1, 1, 1]
@@ -94,6 +93,7 @@ pedido1.confirmarOrden()
 pedido3 = Pedido(mesa4, datetime(2023,10,4,12,0,0), camilo)
 pedido3.agregarGaseosaAlPedido(coca_cola, coca_cola)
 pedido3.agregarComidaAlPedido(clasicaDeCarne, dobleCarneTocineta)
+pedido3.confirmarOrden()
 
 pedido4 = Pedido(mesa1,datetime(2023,3,10,4,30,0), camilo)
 pedido4.agregarGaseosaAlPedido(quatro, sprite)
@@ -105,6 +105,18 @@ pedido5.agregarGaseosaAlPedido(coca_cola, sprite)
 pedido5.agregarComidaAlPedido(vegetariana)
 pedido5.confirmarOrden()
 
+pedido6 = Pedido(mesa2, datetime(2023,2,11,2,0,0), camilo)
+pedido6.agregarGaseosaAlPedido(coca_cola, sprite)
+pedido6.agregarComidaAlPedido(vegetariana)
+pedido6.confirmarOrden()
+
+pedido7 = Pedido(mesa7, datetime(2023,2,11,2,0,0), camilo)
+pedido7.agregarGaseosaAlPedido(coca_cola, sprite)
+pedido7.agregarComidaAlPedido(vegetariana)
+pedido7.confirmarOrden()
+
+#for factura in Factura.facturasSinPagar:
+#   print(factura.__str__())
 
 def pagarFacturaYCalificar( id, valoracion):
     for factura in Factura.facturasSinPagar:
@@ -113,12 +125,26 @@ def pagarFacturaYCalificar( id, valoracion):
             factura.calificarEmpleado(valoracion)
             break
 
-pagarFacturaYCalificar(10000004,5)
-pagarFacturaYCalificar(10000003,3)
+pagarFacturaYCalificar(10000001,5)
+pagarFacturaYCalificar(10000002,5)
+pagarFacturaYCalificar(10000003,5)
+pagarFacturaYCalificar(10000004,3.5)
+pagarFacturaYCalificar(10000005,4.5)
+pagarFacturaYCalificar(10000006,5)
 
-for calificacion in Calificacion.calificaciones:
-    print(calificacion.__str__())
+#for calificacion in Calificacion.calificaciones:
+#    print(calificacion.__str__())
 
+# print(camilo.bono())
+
+#for empleado in Mesero.empleados:
+#    print(empleado.__str__())
+
+print(Contabilidad.saldo)
+Contabilidad.setServiciosPublicos(20000)
+print(Contabilidad.pagarServicios())
+
+print(Contabilidad.saldo)
 
 
 

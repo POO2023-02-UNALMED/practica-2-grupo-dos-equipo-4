@@ -1,11 +1,15 @@
-class Mesero:
+from src.gestorAplicacion.administracion.Empleado import Empleado
+
+
+class Mesero(Empleado):
     ocupacion = "Mesero"
     mesasDeTrabajo = []
 
-    def __init__(self, nombre, idEmpleado, salario):
+    def __init__(self, nombre, salario, idEmpleado):
+        super().__init__(nombre,salario, idEmpleado)
         self.nombre = nombre
-        self.idEmpleado = idEmpleado
         self.salario = salario
+        self.idEmpleado = idEmpleado
 
     def agregarMesas(self, mesa):
         self.mesasDeTrabajo.append(mesa)
@@ -23,7 +27,7 @@ class Mesero:
     def accion(self):
         return "El Mesero " + self.nombre + " está atendiendo las mesas."
 
-    def __str__(self):
+    def mesasEncargadas(self):
         cadena = "EL mesero es el encargado de las mesas: "
         for mesa in self.mesasDeTrabajo:
             cadena += str(mesa.getIdMesa()) + ", "

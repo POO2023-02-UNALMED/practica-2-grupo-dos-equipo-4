@@ -4,12 +4,11 @@ class Empleado(ABC):
     empleados = []
     cantidadEmpleados = 0
 
-    def __init__(self, nombre=None, idEmpleado = 100, salario=0):
-        if nombre is not None:
+    def __init__(self, nombre, salario, idEmpleado = 100):
             Empleado.cantidadEmpleados += 1
             self.nombre = nombre
-            self.idEmpleado = idEmpleado
             self.salario = salario
+            self.idEmpleado = idEmpleado
             Empleado.empleados.append(self)
     @abstractmethod
     def getOcupacion(self):
@@ -22,13 +21,18 @@ class Empleado(ABC):
     def bono(self):
         calificacionesEmpleado = []
         suma = 0
-        for calificacion in Calificacion.Calificacion.calificaciones():
+        tieneBono = False
+        for calificacion in Calificacion.calificaciones:
             if calificacion.getEmpleado() == self:
                 calificacionesEmpleado.append(calificacion.getCalificacion())
+
         for califica in calificacionesEmpleado:
             suma += califica
-        promedio = suma / len(calificacionesEmpleado)
-        return promedio >= 4.5
+        promedio = float(float(suma) /float( len(calificacionesEmpleado))) if calificacionesEmpleado else 0
+
+        if promedio >= 4.50:
+            tieneBono = True
+        return tieneBono
 
     def getCantidadEmpleados(self):
         return Empleado.cantidadEmpleados

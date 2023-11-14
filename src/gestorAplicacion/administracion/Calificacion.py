@@ -19,8 +19,11 @@ class Calificacion:
     def getIdFactura(self):
         return self.idFactura
 
-    def getEmpleado(self):
+    def getEmpleadoNombre(self):
         return self.empleado.getNombre()
+
+    def getEmpleado(self):
+        return self.empleado
 
     def getCalificacion(self):
         return self.calificacion
@@ -28,7 +31,7 @@ class Calificacion:
     def __str__(self):
         sb = ""
         sb += "Id factura: " + str(self.getIdFactura()) + "\n"
-        sb += "Empleado: " + str(self.getEmpleado()) + "\n"
+        sb += "Empleado: " + str(self.getEmpleadoNombre()) + "\n"
         sb += "Calificación: " + str(self.getCalificacion()) + "\n"
         return sb
 
