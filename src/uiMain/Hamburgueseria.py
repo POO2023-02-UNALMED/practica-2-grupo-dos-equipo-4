@@ -4,7 +4,12 @@ from tkinter import messagebox
 
 # __________________________________________________________________________________________
 # Funciones y Eventos
-hojas_de_vidas = ["Breve biografia de los autores\n \n \n" "Nombre: Nicolas Ruiz Blandon\nFecha de nacimiento: 01/23/04\nGustos: El fercho","Breve biografia de los autores\n \n \n" "Nombre: Juan Felipe Moreno Ruiz\nFecha de nacimiento: 01/22/07\nGustos: El fercho","Breve biografia de los autores\n \n \n" "Nombre: David Delgado Ortiz\nFecha de nacimiento: 01/23/02\nGustos: El fercho","Breve biografia de los autores\n \n \n" "Nombre: Cristian David Pérez Lopera\nFecha de nacimiento: 01/23/02\nGustos: El fercho","Breve biografia de los autores\n \n \n" "Nombre: Ivan Dario Gomez Cabrera\nFecha de nacimiento: 01/09/04\nGustos: Le gusta los videojuegos y la música"]
+hojas_de_vidas = [
+    "Breve biografia de los autores\n \n \n" "Nombre: Nicolas Ruiz Blandon\nFecha de nacimiento: 01/23/04\nGustos: El fercho",
+    "Breve biografia de los autores\n \n \n" "Nombre: Juan Felipe Moreno Ruiz\nFecha de nacimiento: 01/22/07\nGustos: El fercho",
+    "Breve biografia de los autores\n \n \n" "Nombre: David Delgado Ortiz\nFecha de nacimiento: 01/23/02\nGustos: El fercho",
+    "Breve biografia de los autores\n \n \n" "Nombre: Cristian David Pérez Lopera\nFecha de nacimiento: 01/23/02\nGustos: El fercho",
+    "Breve biografia de los autores\n \n \n" "Nombre: Ivan Dario Gomez Cabrera\nFecha de nacimiento: 01/09/04\nGustos: Le gusta los videojuegos y la música"]
 indice_hojas_vida = 0
 
 
@@ -25,6 +30,7 @@ def ingreso_al_sistema():
     ventana_del_usuario.geometry("1280x600")
     ventana_del_usuario.config(cursor="spider")
     ventana_del_usuario.resizable(width=False, height=False)
+
     def cerrar_ventana():
         if messagebox.askokcancel("Cerrar", "¿Estás seguro de que quieres cerrar el sistema de 'Las Calvas Burgers'?"):
             habilitar_boton()
@@ -35,9 +41,7 @@ def ingreso_al_sistema():
     def habilitar_boton():
         boton_Ventana_Principal.config(state="normal")
 
-
-
-# Funcion en la que se crea una messagebox en la que se proporciona información sobre la aplicación
+    # Funcion en la que se crea una messagebox en la que se proporciona información sobre la aplicación
     def informacion_basica():
         informacion = messagebox.showinfo("Información de la Aplicación",
                                           "Esta plataforma integral de gestión para un restaurante de hambueguesas facilita "
@@ -51,10 +55,7 @@ def ingreso_al_sistema():
         for widget in ventana_del_usuario.winfo_children():
             widget.destroy()
 
-    #Funcion para deshabilitar el boton de la ventana principal
-
-
-
+    # Funcion para deshabilitar el boton de la ventana principal
 
     # ====================Creador de pestañas de Funcionalidades==========================================#
 
@@ -109,6 +110,10 @@ def ingreso_al_sistema():
         labelMesas.config(bd=5, relief="groove")
 
     # ===================================================================================================#
+    def cerrar_ventana():
+        if messagebox.askokcancel("Cerrar", "¿Estás seguro de que quieres cerrar el sistema de 'Las Calvas Burgers'?"):
+            habilitar_boton()
+            ventana_del_usuario.destroy()
 
     def creadorMenu():
         menuBar = tk.Menu(ventana_del_usuario)
@@ -116,7 +121,7 @@ def ingreso_al_sistema():
         archivoMenu = tk.Menu(menuBar, tearoff=0)
         menuBar.add_cascade(label="Archivo", menu=archivoMenu)
         archivoMenu.add_command(label="Aplicación", command=informacion_basica)
-        archivoMenu.add_command(label="Salir", command=ventana_del_usuario.destroy)
+        archivoMenu.add_command(label="Salir", command=cerrar_ventana)
         pycMenu = tk.Menu(menuBar, tearoff=0)
         menuBar.add_cascade(label="Procesos y Consultas", menu=pycMenu)
         pycMenu.add_command(label="Toma de Pedidos", command=opcionTomaDePedidos)
@@ -130,11 +135,12 @@ def ingreso_al_sistema():
 
     # Funcion que crea una mesaagebox en donde se muestran los nombres de los integrantes del grupo
     def acercaDe():
-            informacion = messagebox.showinfo("Nombres de los integrantes","Nicolás Ruiz Blandón" + "\n" +
-                                              "Juan Felipe Moreno Ruiz" + "\n" +
-                                              "David Delgado Ortiz" + "\n" +
-                                              "Cristian David Pérez Lopera" + "\n" +
-                                              "Ivan Dario Gomez Cabrera")
+        informacion = messagebox.showinfo("Nombres de los integrantes", "Nicolás Ruiz Blandón" + "\n" +
+                                          "Juan Felipe Moreno Ruiz" + "\n" +
+                                          "David Delgado Ortiz" + "\n" +
+                                          "Cristian David Pérez Lopera" + "\n" +
+                                          "Ivan Dario Gomez Cabrera")
+
     creadorMenu()
     # Frame Zona1
     frameUser1 = tk.Frame(ventana_del_usuario, bg="yellow")
@@ -250,8 +256,5 @@ label2.grid(row=0, column=1, sticky="nsew")
 label3.grid(row=1, column=0, sticky="nsew")
 label4.grid(row=1, column=1, sticky="nsew")
 label1.grid(row=0, column=0, sticky="nsew")
-
-
-
 
 ventana.mainloop()
