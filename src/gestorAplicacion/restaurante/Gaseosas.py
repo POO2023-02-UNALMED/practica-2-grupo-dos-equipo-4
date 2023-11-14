@@ -12,12 +12,10 @@ class Gaseosas(Inventario):
         if nombre is not None and precio is not None and cantidad is not None:
             Gaseosas.listaGaseosas.append(self)
 
-    def comprar(self, cantidad, gaseosa):
-        for i in Gaseosas.listaGaseosas:
-            if i == gaseosa:
-                gaseosa.cantidad += cantidad
-                Contabilidad.saldo -= gaseosa.precio * cantidad
-                Contabilidad.setGastos(gaseosa.precio * cantidad)
+    def comprar(self, cantidad):
+        self.cantidad += cantidad
+        Contabilidad.saldo -= self.precio * cantidad
+        Contabilidad.gastos += self.precio*cantidad
 
     def restarGaseosas(self, cantidad, gaseosas):
         gaseosas.cantidad -= cantidad

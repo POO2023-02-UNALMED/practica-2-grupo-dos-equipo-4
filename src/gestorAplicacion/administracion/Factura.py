@@ -1,13 +1,14 @@
-
 from src.gestorAplicacion.administracion import Contabilidad
 from src.gestorAplicacion.administracion.Calificacion import Calificacion
 from src.gestorAplicacion.restaurante import Mesas
+from src.gestorAplicacion.administracion.Contabilidad import Contabilidad
+
 
 class Factura:
     facturasSinPagar = []
     facturasPagadas = []
 
-    def __init__(self, empleado, mesa, pedido, idFactura, fecha, precioTotal, precioTotalSinGanancia):
+    def __init__(self, empleado, mesa, pedido, idFactura, fecha, precioTotal, precioTotalSinGanancia, idCliente):
         self.empleado = empleado
         self.mesa = mesa
         self.pedido = pedido
@@ -16,22 +17,25 @@ class Factura:
         self.fecha = fecha
         self.precioTotal = precioTotal
         self.precioTotalSinGanancia = precioTotalSinGanancia
+        self.idCliente = idCliente
 
     def pagarFactura(self):
         self.factura_pagada = True
         self.precioTotal = self.pedido.precioTotal()
         Factura.facturasPagadas.append(self)
         Factura.facturasSinPagar.remove(self)
-        Contabilidad.Contabilidad.sumarIngresosPedidoAlSaldo(self.getPrecioTotal())
-        Contabilidad.Contabilidad.calcularUtilidades(self.getPrecioTotal(), self.getPrecioTotalSinGanancia())
-        self.mesa.cancelarReserva(self.getIdFactura(), self.getFecha())
+        Contabilidad.sumarIngresosPedidoAlSaldo(self.getPrecioTotal())
+        Contabilidad.calcularUtilidades(self.getPrecioTotal(), self.getPrecioTotalSinGanancia())
+        fecha_str = self.fecha.strftime("%d/%m/%Y %H:%M:%S")
+        self.mesa.cancelarReserva(self.getIdCliente(), fecha_str)
 
     def calificarEmpleado(self, valoracion):
-        calificacion = Calificacion(self.idFactura,self.getEmpleado(), valoracion)
+        calificacion = Calificacion(self.idFactura, self.getEmpleado(), valoracion)
         Calificacion.calificaciones.append(calificacion)
 
-
     # Getters y setters
+    def getIdCliente(self):
+        return self.idCliente
 
     def getIdEmpleado(self):
         return self.empleado
@@ -62,6 +66,7 @@ class Factura:
 
     def getNombreEmpleado(self):
         return self.empleado.nombre
+
     def getEmpleado(self):
         return self.empleado
 
@@ -85,11 +90,12 @@ class Factura:
 
     def setPrecioTotalSinGanancia(self, precioTotalSinGanancia):
         self.precioTotalSinGanancia = precioTotalSinGanancia
+
     def estaPagada(self):
         if self.factura_pagada is True:
             return "La factura está pagada"
         else:
-            return  "La factura no está pagada"
+            return "La factura no está pagada"
 
     def __str__(self):
         sb = ""

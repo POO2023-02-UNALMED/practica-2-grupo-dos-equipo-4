@@ -3,13 +3,13 @@ from abc import ABC, abstractmethod
 class Empleado(ABC):
     empleados = []
     cantidadEmpleados = 0
+    idEmpleado = 100
 
-    def __init__(self, nombre, salario, idEmpleado = 100):
+    def __init__(self, nombre, salario):
             Empleado.cantidadEmpleados += 1
             self.nombre = nombre
             self.salario = salario
-            self.idEmpleado = idEmpleado
-            Empleado.empleados.append(self)
+            Empleado.idEmpleado += 1
     @abstractmethod
     def getOcupacion(self):
         pass

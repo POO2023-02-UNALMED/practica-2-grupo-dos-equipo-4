@@ -2,10 +2,11 @@ from src.gestorAplicacion.administracion.Empleado import Empleado
 
 
 class Cocinero(Empleado):
-    def __init__(self, nombre, id_empleado, salario, especialidad):
-        super().__init__(nombre, id_empleado, salario)
+    def __init__(self, nombre, salario, especialidad):
+        super().__init__(nombre, salario)
         self.especialidad = especialidad
         self.ocupacion = "Cocinero"
+        Empleado.empleados.append(self)
 
     def accion(self):
         return f"El Cocinero {self.nombre} esta cocinando."

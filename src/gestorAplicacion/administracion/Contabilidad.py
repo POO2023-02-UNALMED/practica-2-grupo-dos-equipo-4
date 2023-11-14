@@ -1,4 +1,6 @@
 from src.gestorAplicacion.administracion import Empleado
+from src.gestorAplicacion.administracion.Cocinero import Cocinero
+from src.gestorAplicacion.administracion.Mesero import Mesero
 
 
 class Contabilidad:
@@ -19,6 +21,7 @@ class Contabilidad:
     @staticmethod
     def pagarServicios():
         Contabilidad.saldo -= Contabilidad.serviciosPublicos
+        Contabilidad.gastos += Contabilidad.serviciosPublicos
         return "se pagaron: " + str(Contabilidad.getServiciosPublicos()) + " de servicios públicos"
 
     @staticmethod
@@ -33,13 +36,13 @@ class Contabilidad:
     @staticmethod
     def pagarSueldos():
         totalPago = 0
-        for empleado in Empleado.Empleado.empleados():
-            totalPago += empleado.getSalario()
-            if empleado.bono() == True:
-                totalPago += empleado.getSalario() * (15 / 100)
-            else:
-                totalPago += empleado.getSalario()
+        for mesero in Mesero.empleados:
+            totalPago += mesero.getSalario()
+            if mesero.bono():
+                totalPago += mesero.getSalario() * (15 / 100)
         Contabilidad.saldo -= totalPago
+        Contabilidad.gastos += totalPago
+
         return totalPago
 
     @staticmethod
@@ -78,9 +81,8 @@ class Contabilidad:
     @staticmethod
     def getGastos():
         return Contabilidad.gastos
-    @staticmethod
-    def setGastos(gastos):
-        Contabilidad.gastos += gastos
+    def setGastos(self, gasto):
+        Contabilidad.gastos += gasto
 
     @staticmethod
     def setServiciosPublicos(servicios):

@@ -5,11 +5,11 @@ class Mesero(Empleado):
     ocupacion = "Mesero"
     mesasDeTrabajo = []
 
-    def __init__(self, nombre, salario, idEmpleado):
-        super().__init__(nombre,salario, idEmpleado)
+    def __init__(self, nombre, salario):
+        super().__init__(nombre,salario)
         self.nombre = nombre
         self.salario = salario
-        self.idEmpleado = idEmpleado
+        Empleado.empleados.append(self)
 
     def agregarMesas(self, mesa):
         self.mesasDeTrabajo.append(mesa)

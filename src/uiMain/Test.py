@@ -78,17 +78,19 @@ mesa13 = Mesas(13, 8)
 mesa14 = Mesas(14, 10)
 mesa15 = Mesas(15, 10)
 
-camilo = Mesero("Camilo", 100, 2000)
-david = Cocinero("David", 100, 50000, "Calvas")
+camilo = Mesero("Camilo", 100)
+linda = Mesero("Linda", 100 )
+david = Cocinero("David", 100, "Calvas")
 
 mesa12.crearReserva(890123, 12, datetime(2023,10,4,12,0,0))
-
+print(mesa12.__str__())
 listaPedido = []
 # pedidos con reservas
 pedido1 = Pedido(mesa12, datetime(2023,10,4,12,0,0), camilo, 890123)
 pedido1.agregarComidaAlPedido(especialQuesoYTocineta, polloconQueso, vegetariana)
 pedido1.agregarGaseosaAlPedido(quatro, coca_cola, coca_cola)
 pedido1.confirmarOrden()
+print(mesa12.__str__())
 # pedidos sin reservas
 pedido3 = Pedido(mesa4, datetime(2023,10,4,12,0,0), camilo)
 pedido3.agregarGaseosaAlPedido(coca_cola, coca_cola)
@@ -105,18 +107,18 @@ pedido5.agregarGaseosaAlPedido(coca_cola, sprite)
 pedido5.agregarComidaAlPedido(vegetariana)
 pedido5.confirmarOrden()
 
-pedido6 = Pedido(mesa2, datetime(2023,2,11,2,0,0), camilo)
+pedido6 = Pedido(mesa2, datetime(2023,2,11,2,0,0), linda)
 pedido6.agregarGaseosaAlPedido(coca_cola, sprite)
 pedido6.agregarComidaAlPedido(vegetariana)
 pedido6.confirmarOrden()
 
-pedido7 = Pedido(mesa7, datetime(2023,2,11,2,0,0), camilo)
+pedido7 = Pedido(mesa7, datetime(2023,2,11,2,0,0), linda)
 pedido7.agregarGaseosaAlPedido(coca_cola, sprite)
 pedido7.agregarComidaAlPedido(vegetariana)
 pedido7.confirmarOrden()
 
-#for factura in Factura.facturasSinPagar:
-#   print(factura.__str__())
+for factura in Factura.facturasSinPagar:
+  print(factura.__str__())
 
 def pagarFacturaYCalificar( id, valoracion):
     for factura in Factura.facturasSinPagar:
@@ -126,6 +128,9 @@ def pagarFacturaYCalificar( id, valoracion):
             break
 
 pagarFacturaYCalificar(10000001,5)
+
+print(mesa12.__str__())
+
 pagarFacturaYCalificar(10000002,5)
 pagarFacturaYCalificar(10000003,5)
 pagarFacturaYCalificar(10000004,3.5)
@@ -140,15 +145,29 @@ pagarFacturaYCalificar(10000006,5)
 #for empleado in Mesero.empleados:
 #    print(empleado.__str__())
 
-print(Contabilidad.saldo)
-Contabilidad.setServiciosPublicos(20000)
+'''
+print(Contabilidad.saldo) #saldo con los ingresos de los pedidos
+print(Contabilidad.ingresos) # el dinero que ha ingresado de los pedidos
+print(Contabilidad.utilidades) #las ganancias de los pedidos
+
+Contabilidad.setServiciosPublicos(20000) #lo que se va a pagar de servicios publicos
 print(Contabilidad.pagarServicios())
 
+print(Contabilidad.saldo) #saldo después de pagar servicios
+
+print(Contabilidad.pagarSueldos()) #lo que se paga de sueldos
+
+print(Contabilidad.saldo) # después de pagar sueldos
+
+
+
+print(Contabilidad.gastos) #los gastos que hemos tenido
+
+tomate.comprar(1)
+coca_cola.comprar(1)
+
 print(Contabilidad.saldo)
+print(Contabilidad.gastos)
 
-
-
-
-
-
+'''
 

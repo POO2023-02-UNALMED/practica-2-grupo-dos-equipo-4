@@ -1,5 +1,6 @@
 import datetime
 
+
 class Mesas:
     mesas = []
 
@@ -22,19 +23,18 @@ class Mesas:
         self.reservaPorCliente.pop(idCliente, None)
         self.ocupadoEnFecha[fecha] = True
 
-
     def cancelarReserva(self, idCliente, fecha):
-        for mesa in Mesas.mesas:
-            if idCliente in mesa.reservaPorCliente and fecha in mesa.ocupadoEnFecha:
-                del mesa.reservaPorCliente[idCliente]
-                del mesa.ocupadoEnFecha[fecha]
+        if idCliente in self.reservaPorCliente and fecha in self.ocupadoEnFecha:
+            self.reservaPorCliente.pop(idCliente, None)
+            self.ocupadoEnFecha.pop(fecha, None)
 
     def __str__(self):
         stringBuilder = []
         stringBuilder.append(f"Mesa número: {self.idMesa}\n")
         stringBuilder.append(f"Número de sillas: {self.numeroDeSillas}\n")
         stringBuilder.append("Está ocupada: ")
-        ocupada_fechas = [fecha.strftime("%d/%m/%Y %H:%M:%S") for fecha, ocupada in self.ocupadoEnFecha.items() if ocupada]
+        ocupada_fechas = [fecha.strftime("%d/%m/%Y %H:%M:%S") for fecha, ocupada in self.ocupadoEnFecha.items() if
+                          ocupada]
         stringBuilder.append(", ".join(ocupada_fechas))
         stringBuilder.append("\n")
         stringBuilder.append("Reservas:\n")
@@ -58,7 +58,7 @@ class Mesas:
         self.numeroDeSillas = numeroDeSillas
 
     def isOcupadoEnFecha(self, fecha):
-        return  self.ocupadoEnFecha.get(fecha, False)
+        return self.ocupadoEnFecha.get(fecha, False)
 
     def setOcupadoEnFecha(self, estadoMesa, fecha):
         self.ocupadoEnFecha[fecha] = estadoMesa
