@@ -25,6 +25,17 @@ def ingreso_al_sistema():
     ventana_del_usuario.geometry("1280x600")
     ventana_del_usuario.config(cursor="spider")
     ventana_del_usuario.resizable(width=False, height=False)
+    def cerrar_ventana():
+        if messagebox.askokcancel("Cerrar", "¿Estás seguro de que quieres cerrar el sistema de 'Las Calvas Burgers'?"):
+            habilitar_boton()
+            ventana_del_usuario.destroy()
+
+    ventana_del_usuario.protocol("WM_DELETE_WINDOW", cerrar_ventana)
+
+    def habilitar_boton():
+        boton_Ventana_Principal.config(state="normal")
+
+
 
 # Funcion en la que se crea una messagebox en la que se proporciona información sobre la aplicación
     def informacion_basica():
@@ -41,10 +52,7 @@ def ingreso_al_sistema():
             widget.destroy()
 
     #Funcion para deshabilitar el boton de la ventana principal
-    def habilitar_boton(event):
-        boton_Ventana_Principal.config(state="normal")
-    # En la función ingreso_al_sistema
-        ventana_del_usuario.bind("<Destroy>", habilitar_boton)
+
 
 
 
