@@ -6,10 +6,10 @@ from src.gestorAplicacion.administracion.Mesero import Mesero
 class Contabilidad:
     saldo = 1000000
     utilidades = 0
-    ingresos = 0
-    sueldos = 0
+    ingresos = 500000
+    sueldos = 1200
     gastos = 0
-    serviciosPublicos = 0
+    serviciosPublicos = 50000
 
     def __init__(self):
         Contabilidad.utilidades = 0
@@ -22,7 +22,7 @@ class Contabilidad:
     def pagarServicios():
         Contabilidad.saldo -= Contabilidad.serviciosPublicos
         Contabilidad.gastos += Contabilidad.serviciosPublicos
-        return "se pagaron: " + str(Contabilidad.getServiciosPublicos()) + " de servicios públicos"
+        #return "se pagaron: " + str(Contabilidad.getServiciosPublicos()) + " de servicios públicos"
 
     @staticmethod
     def sumarIngresosPedidoAlSaldo(ingreso):

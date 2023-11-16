@@ -1,6 +1,10 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
+from tkinter import ttk
+from src.gestorAplicacion.administracion import *
+from src.gestorAplicacion.administracion.Contabilidad import Contabilidad
+from src.gestorAplicacion.restaurante import *
 
 # __________________________________________________________________________________________
 # Funciones y Eventos
@@ -8,7 +12,7 @@ hojas_de_vidas = [
     "Breve biografia de los autores\n \n \n" "Nombre: Nicolas Ruiz Blandon\nFecha de nacimiento: 01/23/04\nGustos: El fercho",
     "Breve biografia de los autores\n \n \n" "Nombre: Juan Felipe Moreno Ruiz\nFecha de nacimiento: 01/22/07\nGustos: El fercho",
     "Breve biografia de los autores\n \n \n" "Nombre: David Delgado Ortiz\nFecha de nacimiento: 01/23/02\nGustos: El fercho",
-    "Breve biografia de los autores\n \n \n" "Nombre: Cristian David Pérez Lopera\nFecha de nacimiento: 01/23/02\nGustos: El fercho",
+    "Breve biografia de los autores\n \n \n" "Nombre: Cristian David Pérez Lopera\nFecha de nacimiento: 10/10/05\nGustos: Perros > Gatos. Melómano, & cosas viejas enjoyer.",
     "Breve biografia de los autores\n \n \n" "Nombre: Ivan Dario Gomez Cabrera\nFecha de nacimiento: 01/09/04\nGustos: Le gusta los videojuegos y la música"]
 indice_hojas_vida = 0
 
@@ -32,7 +36,7 @@ def ingreso_al_sistema():
     boton_Ventana_Principal.config(state="disabled")
     ventana_del_usuario = Toplevel(frame2)
     ventana_del_usuario.title("Hamburgueseria las Calvas")
-    ventana_del_usuario.geometry("1280x600")
+    ventana_del_usuario.geometry("800x600")
     ventana_del_usuario.config(cursor="spider")
     ventana_del_usuario.resizable(width=False, height=False)
 
@@ -104,17 +108,110 @@ def ingreso_al_sistema():
         labelMesas.pack(side="top", anchor="nw")
         labelMesas.config(bd=5, relief="groove")
 
+
+        #------------------CONTABILIDAD-------------------#
+
     def opcionContabilidad():
+        #limpieza de ventana
         limpiarVentana()
         creadorMenu()
-        frameMesas = tk.Frame(ventana_del_usuario, bg="red")
-        frameMesas.config(bd=5, relief="groove")
-        frameMesas.pack(side="left", fill="both", expand=True)
-        labelMesas = tk.Label(frameMesas, text="Contabilidad")
-        labelMesas.pack(side="top", anchor="nw")
-        labelMesas.config(bd=5, relief="groove")
+        ventana_del_usuario.configure(pady=10)
+
+        #label de titulo y descripcion de la funcionalidad
+        tituloLabel = Label(ventana_del_usuario, text="CONTABILIDAD", justify="center", pady=10, font=("Helvetica", 16, "bold"))
+        tituloLabel.pack(side="top")
+        explicacionLabel = Label(ventana_del_usuario, pady=10, font=("Helvetica", 12),
+                                 text="Lleva las estadísticas al día sobre los ingresos y gastos del restaurante, y permite pagar las cuentas pendientes.")
+        explicacionLabel.pack(side="top", fill="x")
+
+        #creacion del Frame donde va el formulario de interaccion para la funcionalidad
+        frameContabilidad = tk.Frame(ventana_del_usuario, padx=10, pady=10)
+        frameContabilidad.config(bd=5, relief="groove")
+        frameContabilidad.pack(expand=True)
+
+        #definicion de funcion para el boton pagar
+        def botonPagar():
+            if comboPagos.get()=="Pagar Servicios":
+                Contabilidad.pagarServicios()
+                labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
+                print(Contabilidad.saldo)
+                entradaTotalPagos.set(str("PAGO REALIZADO CORRECTAMENTE. Dinero descontado del saldo"))
+            elif comboPagos.get()=="Pagar Sueldos":
+                entradaTotalPagos.set(str("PAGO REALIZADO CORRECTAMENTE. Dinero descontado del saldo"))
+                Contabilidad.pagarSueldos()
+                print(Contabilidad.getGastos())
+
+        #definicion de funcion para el cambio de opcion en Combobox de pagos
+        def descripPagos(event):
+            if comboPagos.get()=="Pagar Servicios":
+                labelDescripcion.config(text="Pagar el total del valor de los servicios publicos del restaurante.")
+            elif comboPagos.get()=="Pagar Sueldos":
+                labelDescripcion.config(text="Pagar el salario a todos los trabajadores del restaurante.")
+
+        #label de Pagos
+        labelPagos = tk.Label(frameContabilidad, text="PAGOS", anchor="w", width= 20)
+        labelPagos.grid(row = 0, column = 0)
+        #entrada Pagos
+        entradaTotalPagos = tk.StringVar()
+        entryTotalPagos = Entry(frameContabilidad, width= 40, state="disabled", textvariable=entradaTotalPagos)
+        entryTotalPagos.grid(row = 1, column = 1, padx=10, pady=10)
+        #combobox
+        comboPagos = ttk.Combobox(frameContabilidad, state="readonly", values=["Pagar Servicios", "Pagar Sueldos"])
+        comboPagos.current(0)
+        comboPagos.bind("<<ComboboxSelected>>", descripPagos)
+        comboPagos.grid(row = 1, column = 0, padx=10, pady=10)
+        #label descriptivo
+        labelDescripcion = Label(frameContabilidad, text="Pagar el total del valor de los servicios publicos del restaurante.", width=40, wraplength=200, padx=10)
+        labelDescripcion.grid(row=2, column=1)
+        #boton
+        botonPagar = Button(frameContabilidad, text="Realizar Pago", padx=10, command=botonPagar)
+        botonPagar.grid(row=1, column=2)
+
+        #definicion de funcion del boton para calcular estadisticas
+        def botonCalcular():
+            if comboEstadisticas.get()=="Calcular Gastos":
+                entradaEstadisticas.set(str(Contabilidad.getIngresos()))
+            elif comboEstadisticas.get()=="Calcular Ingresos":
+                entradaEstadisticas.set(str(9))
+            elif comboEstadisticas.get()=="Calcular Utilidad":
+                entradaEstadisticas.set(str(15))
+
+        #definicion de funcion para el cambio de opcion en el combobox de estadisticas
+        def descripEstadisticas(event):
+            if comboEstadisticas.get()=="Calcular Gastos":
+                labelDescripcion2.config(text="Calcula el total de gastos en el mantenimiento del restaurante.")
+            elif comboEstadisticas.get()=="Calcular Ingresos":
+                labelDescripcion2.config(text="Calcula los ingresos por ventas que registra el restaurante.")
+            elif comboEstadisticas.get()=="Calcular Utilidad":
+                labelDescripcion2.config(text="Calcula las ganancias netas que obtiene el restaurante según sus costos e ingresos.")
+
+        #label Estadisticas
+        labelEstadisticas = tk.Label(frameContabilidad, text="ESTADISTICAS", anchor="w", width= 20)
+        labelEstadisticas.grid(row = 3, column = 0)
+        #Entry
+        entradaEstadisticas = tk.StringVar()
+        entryEstadisticas = Entry(frameContabilidad, width= 40, state="disabled", textvariable=entradaEstadisticas)
+        entryEstadisticas.grid(row = 4, column = 1, padx=10, pady=10)
+        #Combobox
+        comboEstadisticas = ttk.Combobox(frameContabilidad, state="readonly", values=["Calcular Ingresos", "Calcular Gastos", "Calcular Utilidad"])
+        comboEstadisticas.current(0)
+        comboEstadisticas.bind("<<ComboboxSelected>>", descripEstadisticas)
+        comboEstadisticas.grid(row = 4, column = 0, padx=10, pady=10)
+        #label descriptivo
+        labelDescripcion2 = Label(frameContabilidad, text="Calcula los ingresos por ventas que registra el restaurante.", width=40, wraplength=200, padx=10)
+        labelDescripcion2.grid(row=5, column=1)
+        #boton
+        botonCalcular = Button(frameContabilidad, text="Calcular", padx=10, command=botonCalcular)
+        botonCalcular.grid(row=4, column=2)
+
+        #Label que muestra el saldo en la parte inferior derecha
+        labelSaldo = Label(frameContabilidad,text=f"SALDO {Contabilidad.saldo}", width=20, wraplength=150, font=("Helvetica", 12, "bold"), padx=10, pady=15)
+        labelSaldo.grid(row=7, column=2)
+
 
     # ===================================================================================================#
+
+    
     def cerrar_ventana():
         if messagebox.askokcancel("Cerrar", "¿Estás seguro de que quieres cerrar el sistema de 'Las Calvas Burgers'?"):
             habilitar_boton()
@@ -140,7 +237,7 @@ def ingreso_al_sistema():
 
     # Funcion que crea una mesaagebox en donde se muestran los nombres de los integrantes del grupo
     def acercaDe():
-        informacion = messagebox.showinfo("Nombres de los integrantes", "Nicolás Ruiz Blandón" + "\n" +
+        informacion = messagebox.showinfo("Nombres de los creadores", "Nicolás Ruiz Blandón" + "\n" +
                                           "Juan Felipe Moreno Ruiz" + "\n" +
                                           "David Delgado Ortiz" + "\n" +
                                           "Cristian David Pérez Lopera" + "\n" +
