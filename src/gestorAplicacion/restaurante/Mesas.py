@@ -1,5 +1,7 @@
 import datetime
 
+from src.errorAplicacion.ErrorRestaurante import ErrorRestaurante
+
 
 class Mesas:
     mesas = []
@@ -19,11 +21,14 @@ class Mesas:
                 mesa.ocupadoEnFecha[fecha_str] = False
 
     def efectuarReserva(self, idCliente, fecha):
-        fecha_str = fecha.strftime("%Y/%m/%d %H:%M:%S")
-        if self.isOcupadoEnFecha(fecha_str):
-            raise Exception("La mesa ya está reservada en esta fecha")
-        self.reservaPorCliente.pop(idCliente, None)
-        self.ocupadoEnFecha[fecha_str] = True
+        try:
+            fecha_str = fecha.strftime("%Y/%m/%d %H:%M:%S")
+            if self.isOcupadoEnFecha(fecha_str):
+                raise ErrorRestaurante("mesa_ocupada")
+            self.reservaPorCliente.pop(idCliente, None)
+            self.ocupadoEnFecha[fecha_str] = True
+        except ErrorRestaurante as e:
+            e.manejo_error()
 
     def cancelarReserva(self, idCliente, fecha):  # falta cuadrarlo, no está borrando la fecha en ocupadoenfecha
         if self.isOcupadoEnFecha(fecha):

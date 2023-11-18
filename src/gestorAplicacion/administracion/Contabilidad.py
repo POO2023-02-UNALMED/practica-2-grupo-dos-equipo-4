@@ -1,3 +1,4 @@
+from src.errorAplicacion.ErrorAdministracion import ErroresAdministracion
 from src.gestorAplicacion.administracion import Empleado
 from src.gestorAplicacion.administracion.Cocinero import Cocinero
 from src.gestorAplicacion.administracion.Mesero import Mesero
@@ -20,9 +21,14 @@ class Contabilidad:
 
     @staticmethod
     def pagarServicios():
-        Contabilidad.saldo -= Contabilidad.serviciosPublicos
-        Contabilidad.gastos += Contabilidad.serviciosPublicos
-        #return "se pagaron: " + str(Contabilidad.getServiciosPublicos()) + " de servicios públicos"
+        try:
+            if Contabilidad.serviciosPublicos> Contabilidad.saldo:
+                raise ErroresAdministracion("saldo_insuficiente")
+            Contabilidad.saldo -= Contabilidad.serviciosPublicos
+            Contabilidad.gastos += Contabilidad.serviciosPublicos
+        except ErroresAdministracion as e:
+            e.manejo_error()
+            #return "se pagaron: " + str(Contabilidad.getServiciosPublicos()) + " de servicios públicos"
 
     @staticmethod
     def sumarIngresosPedidoAlSaldo(ingreso):
@@ -35,15 +41,20 @@ class Contabilidad:
 
     @staticmethod
     def pagarSueldos():
-        totalPago = 0
-        for mesero in Mesero.empleados:
-            totalPago += mesero.getSalario()
-            if mesero.bono():
-                totalPago += mesero.getSalario() * (15 / 100)
-        Contabilidad.saldo -= totalPago
-        Contabilidad.gastos += totalPago
+        try:
+            totalPago = 0
+            for mesero in Mesero.empleados:
+                totalPago += mesero.getSalario()
+                if mesero.bono():
+                    totalPago += mesero.getSalario() * (15 / 100)
+            if totalPago > Contabilidad.saldo:
+                raise ErroresAdministracion("saldo_insuficiente")
+            Contabilidad.saldo -= totalPago
+            Contabilidad.gastos += totalPago
+            return totalPago
 
-        return totalPago
+        except ErroresAdministracion as e:
+            e.manejo_error()
 
     @staticmethod
     def calcularGastos():

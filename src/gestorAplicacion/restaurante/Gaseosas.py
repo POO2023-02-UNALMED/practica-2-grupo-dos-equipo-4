@@ -1,3 +1,4 @@
+from src.errorAplicacion.ErrorAdministracion import ErroresAdministracion
 from src.gestorAplicacion.administracion.Contabilidad import Contabilidad
 from src.gestorAplicacion.restaurante.Inventario import Inventario
 
@@ -13,9 +14,14 @@ class Gaseosas(Inventario):
             Gaseosas.listaGaseosas.append(self)
 
     def comprar(self, cantidad):
-        self.cantidad += cantidad
-        Contabilidad.saldo -= self.precio * cantidad
-        Contabilidad.gastos += self.precio*cantidad
+        try:
+            if self.cantidad*self.precio > Contabilidad.saldo:
+                raise ErroresAdministracion("saldo_insuficiente")
+            self.cantidad += cantidad
+            Contabilidad.saldo -= self.precio * cantidad
+            Contabilidad.gastos += self.precio*cantidad
+        except ErroresAdministracion as e:
+            e.manejo_error()
 
     def restarGaseosas(self, cantidad, gaseosas):
         gaseosas.cantidad -= cantidad

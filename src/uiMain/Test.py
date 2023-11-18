@@ -1,3 +1,4 @@
+from src.errorAplicacion.ErrorAdministracion import ErroresAdministracion
 from src.gestorAplicacion.administracion.Cocinero import Cocinero
 from src.gestorAplicacion.administracion.Mesero import Mesero
 from src.gestorAplicacion.restaurante.Ingredientes import Ingredientes
@@ -23,6 +24,7 @@ cebolla = Ingredientes("Cebolla", 200, 20)
 lechuga = Ingredientes("Lechuga", 150, 20)
 queso = Ingredientes("Queso", 2000, 20)
 tocineta = Ingredientes("Tocineta", 1000, 20)
+
 
 IngredientesClasicaCarne = [pan, carneDeRes, tomate, cebolla, lechuga]
 CantidadesClasicaCarne = [2, 1, 1, 1, 1]
@@ -91,12 +93,15 @@ pedido1.agregarComidaAlPedido(especialQuesoYTocineta, polloconQueso, vegetariana
 pedido1.agregarGaseosaAlPedido(quatro, coca_cola, coca_cola)
 pedido1.confirmarOrden()
 
+print(mesa12.__str__())
 
 # pedidos sin reservas
-pedido3 = Pedido(mesa4, datetime(2023, 10, 4, 12, 0, 0), camilo)
+pedido3 = Pedido(mesa12, datetime(2023, 10, 4, 12, 1, 0), camilo)
 pedido3.agregarGaseosaAlPedido(coca_cola, coca_cola)
 pedido3.agregarComidaAlPedido(clasicaDeCarne, dobleCarneTocineta)
 pedido3.confirmarOrden()
+
+print(mesa12.__str__())
 
 pedido4 = Pedido(mesa1, datetime(2023, 3, 10, 4, 30, 0), camilo)
 pedido4.agregarGaseosaAlPedido(quatro, sprite)
@@ -118,29 +123,32 @@ pedido7 = Pedido(mesa7, datetime(2023, 2, 11, 2, 0, 0), linda)
 pedido7.agregarGaseosaAlPedido(coca_cola, sprite)
 pedido7.agregarComidaAlPedido(vegetariana)
 pedido7.confirmarOrden()
-
+'''
 for factura in Factura.facturasSinPagar:
     print(factura.__str__())
-
+'''
 
 def pagarFacturaYCalificar(id, valoracion):
-    for factura in Factura.facturasSinPagar:
-        if factura.getIdFactura() == id:
-            factura.pagarFactura()
-            factura.calificarEmpleado(valoracion)
-            break
+    try:
+        for factura in Factura.facturasSinPagar + Factura.facturasPagadas:
+            if factura.getIdFactura() == id:
+                if factura.factura_pagada:
+                    raise ErroresAdministracion("factura_ya_pagada")
+                factura.pagarFactura()
+                factura.calificarEmpleado(valoracion)
+                break
+    except ErroresAdministracion as e:
+        e.manejo_error()
 
-
+'''
 pagarFacturaYCalificar(10000001, 5)
-
-
 pagarFacturaYCalificar(10000002, 5)
 pagarFacturaYCalificar(10000003, 5)
 pagarFacturaYCalificar(10000004, 3.5)
 pagarFacturaYCalificar(10000005, 4.5)
 pagarFacturaYCalificar(10000006, 5)
 
-
+'''
 # for calificacion in Calificacion.calificaciones:
 #    print(calificacion.__str__())
 
@@ -149,7 +157,7 @@ pagarFacturaYCalificar(10000006, 5)
 # for empleado in Mesero.empleados:
 #    print(empleado.__str__())
 
-'''
+
 print(Contabilidad.saldo) #saldo con los ingresos de los pedidos
 print(Contabilidad.ingresos) # el dinero que ha ingresado de los pedidos
 print(Contabilidad.utilidades) #las ganancias de los pedidos
@@ -173,4 +181,4 @@ coca_cola.comprar(1)
 print(Contabilidad.saldo)
 print(Contabilidad.gastos)
 
-'''
+

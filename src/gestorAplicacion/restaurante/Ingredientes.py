@@ -1,5 +1,7 @@
+from src.errorAplicacion.ErrorAdministracion import ErroresAdministracion
 from src.gestorAplicacion.administracion.Contabilidad import Contabilidad
 from src.gestorAplicacion.restaurante.Inventario import Inventario
+
 
 
 class Ingredientes(Inventario):
@@ -13,9 +15,14 @@ class Ingredientes(Inventario):
             Ingredientes.listaIngredientes.append(self)
 
     def comprar(self, cantidad): #Este metodo activa comprar ingredientes desde el objeto en si (Usar este de ser necesario)
-        self.cantidad += cantidad
-        Contabilidad.saldo -= self.precio * cantidad
-        Contabilidad.gastos += self.precio*cantidad
+        try:
+            if self.cantidad*self.precio > Contabilidad.saldo:
+                raise ErroresAdministracion("saldo_insuficiente")
+            self.cantidad += cantidad
+            Contabilidad.saldo -= self.precio * cantidad
+            Contabilidad.gastos += self.precio*cantidad
+        except ErroresAdministracion as e:
+            e.manejo_error()
 
     @staticmethod
     def comprarIngredientes(cantidad, ingrediente): #Este metodo activa comprar ingredientes desde la clase recibiendo el nombre del ingrediente (Usar este de ser necesario)

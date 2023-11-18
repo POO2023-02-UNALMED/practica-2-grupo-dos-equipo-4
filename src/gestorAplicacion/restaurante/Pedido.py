@@ -1,6 +1,7 @@
 from src.gestorAplicacion.restaurante.Mesas import Mesas
 from src.gestorAplicacion.administracion.Factura import Factura
 from src.gestorAplicacion.restaurante.Gaseosas import Gaseosas
+from src.errorAplicacion.ErrorRestaurante import ErrorRestaurante
 from datetime import datetime
 
 
@@ -34,29 +35,37 @@ class Pedido:
         self.pedidoGaseosas.extend(gaseosas)
 
     def confirmarOrden(self):
-        insufficientItems = []
+        try:
+            insufficientItems = []
 
-        for comida in self.pedidoComidas:
-            if not comida.verificarIngredientes():
-                insufficientItems.append(f"No hay suficientes ingredientes para preparar {comida.getNombre()}\n")
-
-        for gaseosa in self.pedidoGaseosas:
-            if gaseosa.getCantidad() < 1:
-                insufficientItems.append(f"No hay suficientes {gaseosa.getNombre()}\n")
-
-        if len(insufficientItems) > 0:
-            return ''.join(insufficientItems)
-
-        ordenConfirmada = "Orden confirmada y factura creada"
-        if len(insufficientItems) == 0:
-            for gaseosa in self.pedidoGaseosas:
-                gaseosa.restarGaseosas(1, gaseosa)
             for comida in self.pedidoComidas:
-                comida.restarCantidad()
-            factura = Factura(self.getEmpleado(), self.getMesa(), self, self.getIdPedido(), self.fecha,
+                if not comida.verificarIngredientes():
+                    insufficientItems.append(f"No hay suficientes ingredientes para preparar {comida.getNombre()}\n")
+
+            for gaseosa in self.pedidoGaseosas:
+                if gaseosa.getCantidad() < 1:
+                    insufficientItems.append(f"No hay suficientes {gaseosa.getNombre()}\n")
+
+            if len(insufficientItems) > 0:
+                raise ErrorRestaurante("sin_ingredientes")
+
+            if len(self.pedidoComidas) == 0 and len(self.pedidoGaseosas) == 0:
+                raise ErrorRestaurante("pedido_vacio")
+
+            ordenConfirmada = "Orden confirmada y factura creada"
+            if len(insufficientItems) == 0:
+                for gaseosa in self.pedidoGaseosas:
+                    gaseosa.restarGaseosas(1, gaseosa)
+                for comida in self.pedidoComidas:
+                    comida.restarCantidad()
+                factura = Factura(self.getEmpleado(), self.getMesa(), self, self.getIdPedido(), self.fecha,
                               self.precioTotal(), self.precioTotalSinGanancia(), self.idCliente)
-            Factura.facturasSinPagar.append(factura)
-        return ordenConfirmada
+                Factura.facturasSinPagar.append(factura)
+
+            return ordenConfirmada
+
+        except ErrorRestaurante as e:
+            e.manejo_error()
 
     def precioTotal(self):
         suma = 0

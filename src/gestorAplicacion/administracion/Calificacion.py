@@ -1,3 +1,5 @@
+from src.errorAplicacion.ErrorAdministracion import ErroresAdministracion
+
 
 class Calificacion:
     calificaciones = []
@@ -14,8 +16,12 @@ class Calificacion:
         self.empleado = idEmpleado
 
     def setCalificacion(self, calificacion):
-        self.calificacion = calificacion
-
+        try:
+            if calificacion < 0 or calificacion > 5:
+                raise ErroresAdministracion("calificacion_invalida")
+            self.calificacion = calificacion
+        except ErroresAdministracion as e:
+            e.manejo_error()
     def getIdFactura(self):
         return self.idFactura
 

@@ -1,3 +1,4 @@
+from src.errorAplicacion.ErrorAdministracion import ErroresAdministracion
 from src.gestorAplicacion.administracion import Contabilidad
 from src.gestorAplicacion.administracion.Calificacion import Calificacion
 from src.gestorAplicacion.restaurante import Mesas
@@ -20,18 +21,23 @@ class Factura:
         self.idCliente = idCliente
 
     def pagarFactura(self):
-        self.factura_pagada = True
-        self.precioTotal = self.pedido.precioTotal()
-        Factura.facturasPagadas.append(self)
-        Factura.facturasSinPagar.remove(self)
-        Contabilidad.sumarIngresosPedidoAlSaldo(self.getPrecioTotal())
-        Contabilidad.calcularUtilidades(self.getPrecioTotal(), self.getPrecioTotalSinGanancia())
-        fecha_str = self.fecha.strftime("%Y/%m/%d %H:%M:%S")
-        self.mesa.cancelarReserva(self.getIdCliente(), fecha_str)
+            self.factura_pagada = True
+            self.precioTotal = self.pedido.precioTotal()
+            Factura.facturasPagadas.append(self)
+            Factura.facturasSinPagar.remove(self)
+            Contabilidad.sumarIngresosPedidoAlSaldo(self.getPrecioTotal())
+            Contabilidad.calcularUtilidades(self.getPrecioTotal(), self.getPrecioTotalSinGanancia())
+            fecha_str = self.fecha.strftime("%Y/%m/%d %H:%M:%S")
+            self.mesa.cancelarReserva(self.getIdCliente(), fecha_str)
 
     def calificarEmpleado(self, valoracion):
-        calificacion = Calificacion(self.idFactura, self.getEmpleado(), valoracion)
-        Calificacion.calificaciones.append(calificacion)
+        try:
+            if valoracion<0 or valoracion > 5:
+                raise ErroresAdministracion("calificacion_invalida")
+            calificacion = Calificacion(self.idFactura, self.getEmpleado(), valoracion)
+            Calificacion.calificaciones.append(calificacion)
+        except ErroresAdministracion as e:
+            e.manejo_error()
 
     # Getters y setters
     def getIdCliente(self):
