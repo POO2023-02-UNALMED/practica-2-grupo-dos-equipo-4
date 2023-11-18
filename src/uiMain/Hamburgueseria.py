@@ -21,13 +21,20 @@ def cambia_hojas_vida(event):  # Evento para cambiar las hojas de vida al hacer 
     global indice_hojas_vida
     indice_hojas_vida = (indice_hojas_vida + 1) % len(hojas_de_vidas)
     label3_1.config(text=hojas_de_vidas[indice_hojas_vida])
-    label1.config(image=imagenes[indice_hojas_vida])
-    label2.config(image=imagenes[indice_hojas_vida])
-    label3.config(image=imagenes[indice_hojas_vida])
-    label4.config(image=imagenes[indice_hojas_vida])
+    label1.config(image=fotos[indice_hojas_vida])
+    label2.config(image=fotos[indice_hojas_vida])
+    label3.config(image=fotos[indice_hojas_vida])
+    label4.config(image=fotos[indice_hojas_vida])
 
+def onEnter(event):
+    global imagenes, imagenes_index
+    imagenes_index = (imagenes_index + 1) % len(imagenes)
+    boton_cambiante.config(image=imagenes[imagenes_index])
 
-
+#def onLeave(event):
+ #   global imagen
+  #  imagen = PhotoImage(file='Hamburguesa.ppm')
+   # boton_Cambiante.config(image=imagen)
 def evento():
     pass
 
@@ -302,6 +309,14 @@ label1 = tk.Label(frame1,
 label1.grid(row=0, column=0, padx=10, pady=10, sticky="n")
 label1.pack(side="top")
 frame2 = tk.Frame(frame_principal1, bg="blue")  # P4
+
+imagenes = [PhotoImage(file='carnes1.ppm'), PhotoImage(file='Hamburguesa1.ppm'), PhotoImage(file='Burger_one.ppm'), PhotoImage(file='3.ppm'), PhotoImage(file='2.ppm')] # lista de fotos
+imagenes_index = 0  # índice de la foto actual
+boton_cambiante = Button(frame2, image=imagenes[imagenes_index])
+boton_cambiante.pack()
+boton_cambiante.bind('<Enter>',  onEnter)
+
+
 boton_Ventana_Principal = tk.Button(frame2, text="Ingresar al Sistema",
                                     command=ingreso_al_sistema)  # Permite ingresar a la Ventana de Usuario
 boton_Ventana_Principal.pack(side="bottom", anchor="s")
@@ -338,7 +353,7 @@ imagen2 = tk.PhotoImage(file="2.png")
 imagen3 = tk.PhotoImage(file="3.png")
 imagen4 = tk.PhotoImage(file="4.png")  # Reemplaza esto con la ruta a tu imagen
 
-imagenes = [imagen1, imagen2, imagen3, imagen4]# necesaria para poder vincular las imagenes con la funcion cambia_hojas_vida
+fotos = [imagen1, imagen2, imagen3, imagen4]# necesaria para poder vincular las imagenes con la funcion cambia_hojas_vida
 
 # Crear el widget Label con cada imagen y añadirlo al Frame 4
 label1 = tk.Label(frame4, image=imagen1)
