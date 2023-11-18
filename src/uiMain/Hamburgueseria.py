@@ -25,16 +25,13 @@ def cambia_hojas_vida(event):  # Evento para cambiar las hojas de vida al hacer 
     label2.config(image=fotos[indice_hojas_vida])
     label3.config(image=fotos[indice_hojas_vida])
     label4.config(image=fotos[indice_hojas_vida])
+    label5.config(image=fotos[indice_hojas_vida])
 
-def onEnter(event):
+def onEnter(event):# Evento del ratón que al pasar sobre la misma región de la foto se podrán cambiar entre 5 imágenes.
     global imagenes, imagenes_index
     imagenes_index = (imagenes_index + 1) % len(imagenes)
     boton_cambiante.config(image=imagenes[imagenes_index])
 
-#def onLeave(event):
- #   global imagen
-  #  imagen = PhotoImage(file='Hamburguesa.ppm')
-   # boton_Cambiante.config(image=imagen)
 def evento():
     pass
 
@@ -267,11 +264,6 @@ def salir_sistema():  # Salir de la aplicación
 def descripcion():  # Descripción del sistema (con esta aparecerá en un messagebox una breve descripción de lo que hace el sistema)
     texto = messagebox.showinfo("descripción del sistema", "El sistema administrarivo de 'Las Calvas' es un programa integral diseñado para optimizar la gestión de la hamburguesería 'Las Calvas'." + "\n" + "Desde la contabilidad hasta la gestión de personal y la toma de pedidos, automatiza procesos clave para una operación eficiente. Proporciona información financiera precisa, facilita la programación de empleados y agiliza la toma de pedidos, mejorando la experiencia global en Las Calvas")
 
-    # label = tk.Label(ventana, text=texto)
-    # label.pack()
-    # label.place(x=170, y=150)
-    # label.config(bd=2, relief="groove")
-
 
 # __________________________________________________________________________________
 ventana = tk.Tk()
@@ -334,7 +326,7 @@ frame_principal2.pack(side="right", fill="both")
 frame3 = tk.Frame(frame_principal2, bg="green")  # P5
 frame3.pack(side="top", fill="both", padx=10, pady=10)
 frame3.config(bd=4, relief="groove")
-label3_1 = tk.Label(frame3, text=hojas_de_vidas[indice_hojas_vida], width=50, height=10)
+label3_1 = tk.Label(frame3, text=hojas_de_vidas[indice_hojas_vida], width=50, height=10)# Label asociado al evento de mouse al pasar sobre las imagenes.
 label3_1.grid(row=0, column=0, padx=50, pady=0)
 label3_1.bind("<Button-1>", cambia_hojas_vida)
 label3_1.config(font=("Helvetica", 12, "bold"))
@@ -351,20 +343,22 @@ for i in range(2):
 imagen1 = tk.PhotoImage(file="1.png")
 imagen2 = tk.PhotoImage(file="2.png")
 imagen3 = tk.PhotoImage(file="3.png")
-imagen4 = tk.PhotoImage(file="4.png")  # Reemplaza esto con la ruta a tu imagen
+imagen4 = tk.PhotoImage(file="4.png")
+imagen5 = tk.PhotoImage(file="1.png")# Reemplaza esto con la ruta a tu imagen
 
-fotos = [imagen1, imagen2, imagen3, imagen4]# necesaria para poder vincular las imagenes con la funcion cambia_hojas_vida
+fotos = [imagen1, imagen2, imagen3, imagen4, imagen5]# necesaria para poder vincular las imagenes con la funcion cambia_hojas_vida
 
 # Crear el widget Label con cada imagen y añadirlo al Frame 4
 label1 = tk.Label(frame4, image=imagen1)
 label2 = tk.Label(frame4, image=imagen2)
 label3 = tk.Label(frame4, image=imagen3)
 label4 = tk.Label(frame4, image=imagen4)
+label5 = tk.Label(frame4, image=imagen5)
 
 label1.grid(row=0, column=0, sticky="nsew")
 label2.grid(row=0, column=1, sticky="nsew")
 label3.grid(row=1, column=0, sticky="nsew")
 label4.grid(row=1, column=1, sticky="nsew")
-label1.grid(row=0, column=0, sticky="nsew")
+label5.grid(row=0, column=0, sticky="nsew")
 
 ventana.mainloop()
