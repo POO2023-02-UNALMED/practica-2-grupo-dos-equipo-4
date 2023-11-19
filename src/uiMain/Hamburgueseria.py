@@ -99,7 +99,14 @@ def ingreso_al_sistema():
         #label descriptivo
         labelDescripcion_efectuar_reserva = Label(frameReserva, text="Aqui puedes verificar la confirmacion de tu reserva fue un exito", width=40, wraplength=200, padx=10)
         labelDescripcion_efectuar_reserva.grid(row = 1, column = 1, padx=10, pady=10)
-        def efectuar_reserva():
+        def efectuar_reserva():# Funcion en cargada de mostrar el formulario tipo FieldFrame
+            titulos_criterios=["Ingresa el Id asociado a la reserva", "Ingresar id de la mesa"]
+            titulos_valores=["###", "###"]
+            habilitados=[True, True]
+
+            frame_efectuar_reserva= Toplevel(frameReserva)
+            formulario_efectuar_reserva =FieldFrame(frame_efectuar_reserva, "Asociados con tu reserva", titulos_criterios, "ID", titulos_valores,habilitados  )
+            formulario_efectuar_reserva.grid()
             pass
         #boton efectuar reserva
         botonEfectuar = Button(frameReserva, text="Efectuar", padx=10, command= efectuar_reserva)
@@ -111,8 +118,14 @@ def ingreso_al_sistema():
         #label descriptivo
         labelDescripcion_hacer_reserva = Label(frameReserva, text="Aqui puedes Crear tu reserva a tu gusto", width=40, wraplength=200, padx=10)
         labelDescripcion_hacer_reserva.grid(row = 4, column = 1, padx=10, pady=10)
-        def crear_reserva():
-            pass
+        def crear_reserva():# Funcion en cargada de mostrar el formulario tipo FieldFrame
+            titulos_criterios=["Selecciona la hora de la reserva", "Selecciona el número de asientos de la mesa"]
+            titulos_valores=["00/00/00", "Numero de sillas"]
+            habilitados=[True, True]
+
+            frame_crear_reserva= Toplevel(frameReserva)
+            formulario_crear_reserva =FieldFrame(frame_crear_reserva, "Importante", titulos_criterios, "Datos", titulos_valores,habilitados)
+            formulario_crear_reserva.grid()
         #boton
         boton_Crear_reserva = Button(frameReserva, text="Crear reserva", padx=10, command= crear_reserva)
         boton_Crear_reserva.grid(row = 4, column = 0, padx=10, pady=10)
@@ -123,16 +136,22 @@ def ingreso_al_sistema():
         #label descriptivo
         labelDescripcion_cancelar_reserva = Label(frameReserva, text="Puedes deshacer tu reserva sin ningun tipo de costo", width=40, wraplength=200, padx=10)
         labelDescripcion_cancelar_reserva.grid(row = 7, column = 1, padx=10, pady=10)
-        def cancelar_reserva():
+        def cancelar_reserva():# Funcion en cargada de mostrar el formulario tipo FieldFrame
+            titulos_criterios=["Ingresa el ID asociada a tu reserva"]
+            titulos_valores=["###"]
+            habilitados=[True, True]
+
+            frame_cancelar_reserva= Toplevel(frameReserva)
+            formulario_cancelar_reserva =FieldFrame(frame_cancelar_reserva, "Asociado a la reserva", titulos_criterios, "ID", titulos_valores,habilitados  )
+            formulario_cancelar_reserva.grid()
             pass
         #boton cancelar reserva
         boton_Cancelar_reserva = Button(frameReserva, text="Cancelar reserva", padx=10, command=cancelar_reserva)
         boton_Cancelar_reserva.grid(row = 7, column = 0, padx=10, pady=10)
 
 
-        #Label que muestra el saldo en la parte inferior derecha
-        labelSaldo = Label(frameReserva,text=f"SALDO {Contabilidad.saldo}", width=20, wraplength=150, font=("Helvetica", 12, "bold"), padx=10, pady=15)
-        labelSaldo.grid(row=7, column=2)
+
+
 
 
     def opcionTomaDePedidos():
@@ -333,7 +352,7 @@ class FieldFrame(Frame):
         self.habilitado = habilitado
 
         # Contenedor que tiene todo el formulario de la consulta
-        frameForm = Frame(self, bg="blue", borderwidth=1, relief="solid")
+        frameForm = Frame(self, bg="white", borderwidth=1, relief="solid")
         frameForm.grid(padx=5, pady=5)
         frameForm.grid_rowconfigure(0, weight=1)
         frameForm.grid_columnconfigure(0, weight=1)
