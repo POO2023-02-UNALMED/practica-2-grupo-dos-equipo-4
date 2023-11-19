@@ -446,7 +446,11 @@ imagen3 = tk.PhotoImage(file="3.png")
 imagen4 = tk.PhotoImage(file="4.png")
 imagen5 = tk.PhotoImage(file="images.png")# Reemplaza esto con la ruta a tu imagen
 
-fotos = [imagen1, imagen2, imagen3, imagen4, imagen5]# necesaria para poder vincular las imagenes con la funcion cambia_hojas_vida
+fotos_nico = [imagen1, imagen2, imagen3, imagen4, imagen5]# necesaria para poder vincular las imagenes con la funcion cambia_hojas_vida
+fotos_david = [imagen1, imagen2, imagen3, imagen4, imagen5]
+fotos_juanfe = [imagen1, imagen2, imagen3, imagen4, imagen5]
+fotos_ivan = [imagen1, imagen2, imagen3, imagen4, imagen5]
+fotos_cristian = [imagen1, imagen2, imagen3, imagen4, imagen5]
 
 # Crear el widget Label con cada imagen y añadirlo al Frame 4
 label1 = tk.Label(frame4, image=imagen1)
