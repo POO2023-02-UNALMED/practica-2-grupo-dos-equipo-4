@@ -72,26 +72,67 @@ def ingreso_al_sistema():
 
     # ====================Creador de pestañas de Funcionalidades==========================================#
 
+    #------------------RESERVAS-------------------#
+
     def opcionGestionReserva():
+        #limpieza de ventana
         limpiarVentana()
         creadorMenu()
-        frameMesas = tk.Frame(ventana_del_usuario, bg="red")
-        frameMesas.config(bd=5, relief="groove")
-        frameMesas.pack(side="left", fill="both", expand=True)
-        labelMesas = tk.Label(frameMesas, text="Gestion de Reservas")
-        labelMesas.pack(side="top", anchor="nw")
-        labelMesas.config(bd=5, relief="groove")
+        ventana_del_usuario.configure(pady=10)
 
-        frame_reservas = tk.Frame(frameMesas, bg= "blue")
-        frame_reservas.config(bd=4, relief="groove")
-        frame_reservas.pack(side="top", fill="both", expand=True)
-        criterios = ["Criterio1", "criterio 2", "criterio 3"]
-        valores_iniciales = ["Valor1", "21312321", "xd"]
-        campos_no_editables = [True, True, False]  # True para campos no editables, False para editables
-        formulario_gestionreservas = FieldFrame(frame_reservas, "Mesas" , criterios, "Mesas valores",valores_iniciales , campos_no_editables)
-        formulario_gestionreservas.pack(side="bottom", fill="both", expand=True)
-        button = Button(frameMesas, text="Obtener Valores", command=lambda: frame_reservas)
-        button.pack(pady=10)
+        #label de titulo y descripcion de la funcionalidad
+        tituloLabel_Gestion = Label(ventana_del_usuario, text="RESERVAS", justify="center", pady=10, font=("Helvetica", 16, "bold"))
+        tituloLabel_Gestion.pack(side="top")
+        explicacionLabel_Gestion = Label(ventana_del_usuario, pady=10, font=("Helvetica", 12),
+                                 text="Una forma muy eficiente para llegar un buena gestio de tus reservas.")
+        explicacionLabel_Gestion.pack(side="top", fill="x")
+
+        #creacion del Frame donde va el formulario de interaccion para la funcionalidad
+        frameReserva = tk.Frame(ventana_del_usuario, padx=10, pady=10)
+        frameReserva.config(bd=5, relief="groove")
+        frameReserva.pack(expand=True)
+        label_1= tk.Label(frameReserva, text="Descripción")
+        label_1.grid(row=0, column=1)
+        #label de Efectuar reserva
+        label_efectuar_reserva = tk.Label(frameReserva, text="EFECTUAR RESERVA", anchor="w", width= 20)
+        label_efectuar_reserva.grid(row = 0, column = 0)
+        #label descriptivo
+        labelDescripcion_efectuar_reserva = Label(frameReserva, text="Aqui puedes verificar la confirmacion de tu reserva fue un exito", width=40, wraplength=200, padx=10)
+        labelDescripcion_efectuar_reserva.grid(row = 1, column = 1, padx=10, pady=10)
+        def efectuar_reserva():
+            pass
+        #boton efectuar reserva
+        botonEfectuar = Button(frameReserva, text="Efectuar", padx=10, command= efectuar_reserva)
+        botonEfectuar.grid(row = 1, column = 0, padx=10, pady=10)
+        #________________________________________________________________________________________________________________________________
+        #label Hacer reserva
+        label_Hacer_reserva = tk.Label(frameReserva, text="HACER RESERVA", anchor="w", width= 20)
+        label_Hacer_reserva.grid(row = 3, column = 0)
+        #label descriptivo
+        labelDescripcion_hacer_reserva = Label(frameReserva, text="Aqui puedes Crear tu reserva a tu gusto", width=40, wraplength=200, padx=10)
+        labelDescripcion_hacer_reserva.grid(row = 4, column = 1, padx=10, pady=10)
+        def crear_reserva():
+            pass
+        #boton
+        boton_Crear_reserva = Button(frameReserva, text="Crear reserva", padx=10, command= crear_reserva)
+        boton_Crear_reserva.grid(row = 4, column = 0, padx=10, pady=10)
+        #_____________________________________________________________________________________________________________________________________
+        #label Cancelar reserva
+        label_cancelar_reserva = tk.Label(frameReserva, text="CANCELAR RESERVA", anchor="w", width= 20)
+        label_cancelar_reserva.grid(row = 6, column = 0)
+        #label descriptivo
+        labelDescripcion_cancelar_reserva = Label(frameReserva, text="Puedes deshacer tu reserva sin ningun tipo de costo", width=40, wraplength=200, padx=10)
+        labelDescripcion_cancelar_reserva.grid(row = 7, column = 1, padx=10, pady=10)
+        def cancelar_reserva():
+            pass
+        #boton cancelar reserva
+        boton_Cancelar_reserva = Button(frameReserva, text="Cancelar reserva", padx=10, command=cancelar_reserva)
+        boton_Cancelar_reserva.grid(row = 7, column = 0, padx=10, pady=10)
+
+
+        #Label que muestra el saldo en la parte inferior derecha
+        labelSaldo = Label(frameReserva,text=f"SALDO {Contabilidad.saldo}", width=20, wraplength=150, font=("Helvetica", 12, "bold"), padx=10, pady=15)
+        labelSaldo.grid(row=7, column=2)
 
 
     def opcionTomaDePedidos():
