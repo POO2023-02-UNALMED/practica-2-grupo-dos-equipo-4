@@ -87,10 +87,10 @@ def ingreso_al_sistema():
         frame_reservas.pack(side="top", fill="both", expand=True)
         criterios = ["Criterio1", "criterio 2", "criterio 3"]
         valores_iniciales = ["Valor1", "21312321", "xd"]
-        campos_no_editables = [True]  # True para campos no editables, False para editables
-        formulario_gestionreservas = FieldFrame(frame_reservas, "Mesas" , criterios, "Mesas valores",valores_iniciales , [True, False, True, True])
+        campos_no_editables = [True, True, False]  # True para campos no editables, False para editables
+        formulario_gestionreservas = FieldFrame(frame_reservas, "Mesas" , criterios, "Mesas valores",valores_iniciales , campos_no_editables)
         formulario_gestionreservas.pack(side="bottom", fill="both", expand=True)
-        button = Button(frameMesas, text="Obtener Valores", command=lambda: frame_reservas.submitForm())
+        button = Button(frameMesas, text="Obtener Valores", command=lambda: frame_reservas)
         button.pack(pady=10)
 
 
@@ -352,10 +352,10 @@ class FieldFrame(Frame):
             info["widget"].delete(0, END)
             info["value"] = None
 
-    #def enviar(self):
-     #   self.submitForm()
-      #  valores = self.getValue()
-       # self.criterios(valores)
+    def enviar(self):
+        self.submitForm()
+        valores = self.getValue()
+        self.criterios(valores)
     def submitForm(self):
         resultados = []
         for criterio, info in self.data.items():
