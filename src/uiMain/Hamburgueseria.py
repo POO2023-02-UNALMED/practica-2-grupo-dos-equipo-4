@@ -15,12 +15,19 @@ hojas_de_vidas = [
     "Breve biografia de los autores\n \n \n" "Nombre: Cristian David Pérez Lopera\nFecha de nacimiento: 10/10/05\nGustos: Perros > Gatos. Melómano, & cosas viejas enjoyer.",
     "Breve biografia de los autores\n \n \n" "Nombre: Ivan Dario Gomez Cabrera\nFecha de nacimiento: 01/09/04\nGustos: Le gusta los videojuegos y la música"]
 indice_hojas_vida = 0
+indice_lista_de_imagenes = 0
 
-
-def cambia_hojas_vida(event):  # Evento para cambiar las hojas de vida al hacer click.
+def cambia_hojas_vida(event):# Función que controla el vento de cambio de hojas de vida al hacer click en el texto
     global indice_hojas_vida
+    global indice_lista_de_imagenes
     indice_hojas_vida = (indice_hojas_vida + 1) % len(hojas_de_vidas)
     label3_1.config(text=hojas_de_vidas[indice_hojas_vida])
+
+    # Update the current list of images
+    indice_lista_de_imagenes = (indice_lista_de_imagenes + 1) % len(listas_de_imagenes)
+    fotos = listas_de_imagenes[indice_lista_de_imagenes]
+
+    # Update the images in the labels
     label1.config(image=fotos[indice_hojas_vida], text=hojas_de_vidas[indice_hojas_vida])
     label2.config(image=fotos[(indice_hojas_vida + 1) % len(fotos)], text=hojas_de_vidas[(indice_hojas_vida + 1) % len(hojas_de_vidas)])
     label3.config(image=fotos[(indice_hojas_vida + 2) % len(fotos)], text=hojas_de_vidas[(indice_hojas_vida + 2) % len(hojas_de_vidas)])
@@ -462,7 +469,7 @@ label1.grid(row=0, column=0, padx=10, pady=10, sticky="n")
 label1.pack(side="top")
 frame2 = tk.Frame(frame_principal1, bg="blue")  # P4
 
-imagenes = [PhotoImage(file='carnes1.ppm'), PhotoImage(file='Hamburguesa1.ppm'), PhotoImage(file='Burger_one.ppm'), PhotoImage(file='3.ppm'), PhotoImage(file='2.ppm')] # lista de fotos
+imagenes = [PhotoImage(file='../imagenes/carnes1.ppm'), PhotoImage(file='../imagenes/Hamburguesa1.ppm'), PhotoImage(file='../imagenes/Burger_one.ppm'), PhotoImage(file='../imagenes/3.ppm'), PhotoImage(file='../imagenes/2.ppm')] # lista de fotos
 imagenes_index = 0  # índice de la foto actual
 boton_cambiante = Button(frame2, image=imagenes[imagenes_index])
 boton_cambiante.pack(side="top")
@@ -499,31 +506,28 @@ for i in range(2):
     frame4.grid_rowconfigure(i, weight=1)
     frame4.grid_columnconfigure(i, weight=1)
 
-# Crear el objeto PhotoImage con cada imagen
-imagen1 = tk.PhotoImage(file="1.png")
-imagen2 = tk.PhotoImage(file="2.png")
-imagen3 = tk.PhotoImage(file="3.png")
-imagen4 = tk.PhotoImage(file="4.png")
-imagen5 = tk.PhotoImage(file="images.png")# Reemplaza esto con la ruta a tu imagen
+# Crear el objeto PhotoImage con cada Foto de los desarrolladores
+imagen1 = tk.PhotoImage(file="../imagenes/1.png")
+imagen2 = tk.PhotoImage(file="../imagenes/2.png")
+imagen3 = tk.PhotoImage(file="../imagenes/3.png")
+imagen4 = tk.PhotoImage(file="../imagenes/4.png")
+imagen5 = tk.PhotoImage(file="../imagenes/images.png")# Reemplaza esto con la ruta a tu imagen
+imagen6 = tk.PhotoImage(file="../imagenes/imagen1.png")
 
-fotos_nico = [imagen1, imagen2, imagen3, imagen4, imagen5]# necesaria para poder vincular las imagenes con la funcion cambia_hojas_vida
+# Listas de las fotos de los desarrolladores
+fotos_nico = [imagen2, imagen1, imagen3, imagen4, imagen5]
 fotos_david = [imagen1, imagen2, imagen3, imagen4, imagen5]
 fotos_juanfe = [imagen1, imagen2, imagen3, imagen4, imagen5]
 fotos_ivan = [imagen1, imagen2, imagen3, imagen4, imagen5]
 fotos_cristian = [imagen1, imagen2, imagen3, imagen4, imagen5]
+listas_de_imagenes = [fotos_nico, fotos_david, fotos_juanfe, fotos_ivan, fotos_cristian]# Lista con las listas de fotos de cada desarrollador
 
 # Crear el widget Label con cada imagen y añadirlo al Frame 4
-label1 = tk.Label(frame4, image=imagen1)
-label2 = tk.Label(frame4, image=imagen2)
+label1 = tk.Label(frame4, image=imagen2)
+label2 = tk.Label(frame4, image=imagen1)
 label3 = tk.Label(frame4, image=imagen3)
 label4 = tk.Label(frame4, image=imagen4)
 label5 = tk.Label(frame4, image=imagen5)
-
-label1.bind("<Button-1>", cambia_hojas_vida)
-label2.bind("<Button-1>", cambia_hojas_vida)
-label3.bind("<Button-1>", cambia_hojas_vida)
-label4.bind("<Button-1>", cambia_hojas_vida)
-label5.bind("<Button-1>", cambia_hojas_vida)
 
 
 label1.grid(row=0, column=0, sticky="nsew")
@@ -532,6 +536,7 @@ label3.grid(row=1, column=0, sticky="nsew")
 label4.grid(row=1, column=1, sticky="nsew")
 label5.grid(row=0, column=0, sticky="nsew")
 
+#===================================================================================================================================================
 #Instancias
 from src.errorAplicacion.ErrorAdministracion import ErroresAdministracion
 from src.gestorAplicacion.administracion.Cocinero import Cocinero
