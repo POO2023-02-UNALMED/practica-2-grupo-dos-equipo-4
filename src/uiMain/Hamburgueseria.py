@@ -21,11 +21,11 @@ def cambia_hojas_vida(event):  # Evento para cambiar las hojas de vida al hacer 
     global indice_hojas_vida
     indice_hojas_vida = (indice_hojas_vida + 1) % len(hojas_de_vidas)
     label3_1.config(text=hojas_de_vidas[indice_hojas_vida])
-    label1.config(image=fotos[indice_hojas_vida])
-    label2.config(image=fotos[indice_hojas_vida])
-    label3.config(image=fotos[indice_hojas_vida])
-    label4.config(image=fotos[indice_hojas_vida])
-    label5.config(image=fotos[indice_hojas_vida])
+    label1.config(image=fotos[indice_hojas_vida], text=hojas_de_vidas[indice_hojas_vida])
+    label2.config(image=fotos[(indice_hojas_vida + 1) % len(fotos)], text=hojas_de_vidas[(indice_hojas_vida + 1) % len(hojas_de_vidas)])
+    label3.config(image=fotos[(indice_hojas_vida + 2) % len(fotos)], text=hojas_de_vidas[(indice_hojas_vida + 2) % len(hojas_de_vidas)])
+    label4.config(image=fotos[(indice_hojas_vida + 3) % len(fotos)], text=hojas_de_vidas[(indice_hojas_vida + 3) % len(hojas_de_vidas)])
+    label5.config(image=fotos[(indice_hojas_vida + 4) % len(fotos)], text=hojas_de_vidas[(indice_hojas_vida + 4) % len(hojas_de_vidas)])
 
 def onEnter(event):# Evento del ratón que al pasar sobre la misma región de la foto se podrán cambiar entre 5 imágenes.
     global imagenes, imagenes_index
@@ -81,6 +81,18 @@ def ingreso_al_sistema():
         labelMesas = tk.Label(frameMesas, text="Gestion de Reservas")
         labelMesas.pack(side="top", anchor="nw")
         labelMesas.config(bd=5, relief="groove")
+
+        frame_reservas = tk.Frame(frameMesas, bg= "blue")
+        frame_reservas.config(bd=4, relief="groove")
+        frame_reservas.pack(side="top", fill="both", expand=True)
+        criterios = ["Criterio1", "criterio 2", "criterio 3"]
+        valores_iniciales = ["Valor1", "21312321", "xd"]
+        campos_no_editables = [True]  # True para campos no editables, False para editables
+        formulario_gestionreservas = FieldFrame(frame_reservas, "Mesas" , criterios, "Mesas valores",valores_iniciales , [True, False, True, True])
+        formulario_gestionreservas.pack(side="bottom", fill="both", expand=True)
+        button = Button(frameMesas, text="Obtener Valores", command=lambda: frame_reservas.submitForm())
+        button.pack(pady=10)
+
 
     def opcionTomaDePedidos():
         limpiarVentana()
@@ -215,7 +227,7 @@ def ingreso_al_sistema():
 
     # ===================================================================================================#
 
-    
+
     def cerrar_ventana():
         if messagebox.askokcancel("Cerrar", "¿Estás seguro de que quieres cerrar el sistema de 'Las Calvas Burgers'?"):
             habilitar_boton()
@@ -266,6 +278,94 @@ def descripcion():  # Descripción del sistema (con esta aparecerá en un messag
 
 
 # __________________________________________________________________________________
+class FieldFrame(Frame):
+    def __init__(self, master, tituloCriterios, criterios, tituloValores, valores, habilitado):
+
+        super().__init__(master)
+
+        self.data = {}
+        self.dataform = {}
+        self.tituloValores = tituloValores
+        self.tituloCriterios = tituloCriterios
+        self.criterios = criterios
+        self.valores = valores
+        self.habilitado = habilitado
+
+        # Contenedor que tiene todo el formulario de la consulta
+        frameForm = Frame(self, bg="blue", borderwidth=1, relief="solid")
+        frameForm.grid(padx=5, pady=5)
+        frameForm.grid_rowconfigure(0, weight=1)
+        frameForm.grid_columnconfigure(0, weight=1)
+
+        tituloCriterios = Label(frameForm, text=f"{tituloCriterios}")
+        tituloCriterios.grid(row=0, column=0, padx=5, pady =10)
+        frameForm.grid_rowconfigure(0, weight=1)
+        frameForm.grid_columnconfigure(0, weight=1)
+
+        tituloValores = Label(frameForm, text=f"{tituloValores}")
+        tituloValores.grid(row=0, column=1, pady =10)
+        frameForm.grid_rowconfigure(0, weight=1)
+        frameForm.grid_columnconfigure(1, weight=1)
+
+        # Etiqueta para mostrar el titulo de la consulta
+        for index, criterio in enumerate(criterios):
+            criterio_label = Label(frameForm, text=f"{criterio}")
+            criterio_label.grid(row=index+1, column=0, padx=5)
+            frameForm.grid_rowconfigure(index+1, weight=1)
+            frameForm.grid_columnconfigure(0, weight=1)
+
+            input_widget = Entry(frameForm)
+            input_widget.grid(row=index+1, column=1, padx=5)
+            frameForm.grid_rowconfigure(index+1, weight=1)
+            frameForm.grid_columnconfigure(0, weight=1)
+
+            if valores and index < len(valores):
+                input_widget.insert(0, valores[index])
+
+            if not habilitado[index]:
+                input_widget.config(state="disabled")
+
+            self.data[criterio] = {
+                "widget": input_widget,
+                "value": None
+            }
+
+        # Botón para enviar el formulario
+        button = Button(frameForm, text="enviar",  height=1, width=7)
+        button.grid(row=index+2, column=0, pady=20)
+        frameForm.grid_rowconfigure(index+2, weight=1)
+        frameForm.grid_columnconfigure(0, weight=1)
+
+        clear = Button(frameForm, text="clear", bg="white", command=self.clear, height=1, width=6)
+        clear.grid(row=index + 2, column=1)
+        frameForm.grid_rowconfigure(index+2, weight=1)
+        frameForm.grid_columnconfigure(1, weight=1)
+
+    def getValue(self, criterio):
+        return self.data[criterio]["value"]
+
+    def getValues(self):
+        return self.dataform
+
+    def clear(self):
+        for criterio, info in self.data.items():
+            info["widget"].delete(0, END)
+            info["value"] = None
+
+    #def enviar(self):
+     #   self.submitForm()
+      #  valores = self.getValue()
+       # self.criterios(valores)
+    def submitForm(self):
+        resultados = []
+        for criterio, info in self.data.items():
+            valor = info["widget"].get()
+            if valor is None or valor == "":
+                messagebox.showinfo("Alerta", f"Campo '{criterio}' no puede estar vacío.")
+                return
+            resultados.append(f"{criterio}: {valor}")
+        self.resultado_label.config(text="\n".join(resultados))
+#___________________________________________________________________________________________________________________________________
 ventana = tk.Tk()
 ventana.title("Hamburgueseria")
 ventana.geometry("1280x600")
@@ -305,7 +405,7 @@ frame2 = tk.Frame(frame_principal1, bg="blue")  # P4
 imagenes = [PhotoImage(file='carnes1.ppm'), PhotoImage(file='Hamburguesa1.ppm'), PhotoImage(file='Burger_one.ppm'), PhotoImage(file='3.ppm'), PhotoImage(file='2.ppm')] # lista de fotos
 imagenes_index = 0  # índice de la foto actual
 boton_cambiante = Button(frame2, image=imagenes[imagenes_index])
-boton_cambiante.pack()
+boton_cambiante.pack(side="top")
 boton_cambiante.bind('<Enter>',  onEnter)
 
 
@@ -344,7 +444,7 @@ imagen1 = tk.PhotoImage(file="1.png")
 imagen2 = tk.PhotoImage(file="2.png")
 imagen3 = tk.PhotoImage(file="3.png")
 imagen4 = tk.PhotoImage(file="4.png")
-imagen5 = tk.PhotoImage(file="1.png")# Reemplaza esto con la ruta a tu imagen
+imagen5 = tk.PhotoImage(file="images.png")# Reemplaza esto con la ruta a tu imagen
 
 fotos = [imagen1, imagen2, imagen3, imagen4, imagen5]# necesaria para poder vincular las imagenes con la funcion cambia_hojas_vida
 
@@ -354,6 +454,13 @@ label2 = tk.Label(frame4, image=imagen2)
 label3 = tk.Label(frame4, image=imagen3)
 label4 = tk.Label(frame4, image=imagen4)
 label5 = tk.Label(frame4, image=imagen5)
+
+label1.bind("<Button-1>", cambia_hojas_vida)
+label2.bind("<Button-1>", cambia_hojas_vida)
+label3.bind("<Button-1>", cambia_hojas_vida)
+label4.bind("<Button-1>", cambia_hojas_vida)
+label5.bind("<Button-1>", cambia_hojas_vida)
+
 
 label1.grid(row=0, column=0, sticky="nsew")
 label2.grid(row=0, column=1, sticky="nsew")
