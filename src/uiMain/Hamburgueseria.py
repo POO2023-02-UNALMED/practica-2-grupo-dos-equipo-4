@@ -193,6 +193,7 @@ def ingreso_al_sistema():
             frame_verificacion_pedido= Toplevel(framePedidos)
             formulario_verificion_pedido =FieldFrame(frame_verificacion_pedido, "Asociados para la verificación", titulos_criterios, "ID", titulos_valores,habilitados  )
             formulario_verificion_pedido.grid()
+
         boton_si= tk.Button(framePedidos, text="Si", padx=50, command= verificacion)
         boton_si.grid(row = 1, column = 0, padx=10, pady=10)
         #label descriptivo de boton no
@@ -679,9 +680,9 @@ def descripcion():  # Descripción del sistema (con esta aparecerá en un messag
     texto = messagebox.showinfo("descripción del sistema", "El sistema administrarivo de 'Las Calvas' es un programa integral diseñado para optimizar la gestión de la hamburguesería 'Las Calvas'." + "\n" + "Desde la contabilidad hasta la gestión de personal y la toma de pedidos, automatiza procesos clave para una operación eficiente. Proporciona información financiera precisa, facilita la programación de empleados y agiliza la toma de pedidos, mejorando la experiencia global en Las Calvas")
 
 
-# __________________________________________________________________________________
+# _____________________________Clase FieldFrame_____________________________________________________
 class FieldFrame(Frame):
-    def __init__(self, master, tituloCriterios, criterios, tituloValores, valores, habilitado):
+    def __init__(self, master, tituloCriterios, criterios, tituloValores, valores, habilitado, enviar_func=None):
 
         super().__init__(master)
 
@@ -699,11 +700,13 @@ class FieldFrame(Frame):
         frameForm.grid_rowconfigure(0, weight=1)
         frameForm.grid_columnconfigure(0, weight=1)
 
+        # Labels de los titulos de los Criterios
         tituloCriterios = Label(frameForm, text=f"{tituloCriterios}")
         tituloCriterios.grid(row=0, column=0, padx=5, pady =10)
         frameForm.grid_rowconfigure(0, weight=1)
         frameForm.grid_columnconfigure(0, weight=1)
 
+        # Labels de los titulos de los valores
         tituloValores = Label(frameForm, text=f"{tituloValores}")
         tituloValores.grid(row=0, column=1, pady =10)
         frameForm.grid_rowconfigure(0, weight=1)
@@ -732,12 +735,20 @@ class FieldFrame(Frame):
                 "value": None
             }
 
-        # Botón para enviar el formulario
-        button = Button(frameForm, text="enviar",  height=1, width=7)
+
+        # Botón para enviar el formulario, para modificar la acción del botón en cada instnacia creada de FieldFrame
+        button = Button(frameForm, text="enviar", height=1, width=7, command=enviar_func if enviar_func else self.submitForm)
         button.grid(row=index+2, column=0, pady=20)
         frameForm.grid_rowconfigure(index+2, weight=1)
         frameForm.grid_columnconfigure(0, weight=1)
+        frameForm.grid_rowconfigure(index+2, weight=1)
+        frameForm.grid_columnconfigure(0, weight=1)
 
+        # Etiqueta para mostrar resultados
+        self.resultado_label = Label(self, text="")
+        self.resultado_label.grid(row=index + 2, column=0, pady=10)
+
+        # Botón para limpiar los entrys
         clear = Button(frameForm, text="clear", bg="white", command=self.clear, height=1, width=6)
         clear.grid(row=index + 2, column=1)
         frameForm.grid_rowconfigure(index+2, weight=1)
@@ -749,15 +760,16 @@ class FieldFrame(Frame):
     def getValues(self):
         return self.dataform
 
-    def clear(self):
+    def clear(self):   # Funcion para limpiar las entradas
         for criterio, info in self.data.items():
             info["widget"].delete(0, END)
             info["value"] = None
 
     def enviar(self):
         self.submitForm()
-        valores = self.getValue()
+        valores = self.getValues()
         self.criterios(valores)
+
     def submitForm(self):
         resultados = []
         for criterio, info in self.data.items():
@@ -768,6 +780,8 @@ class FieldFrame(Frame):
             resultados.append(f"{criterio}: {valor}")
         self.resultado_label.config(text="\n".join(resultados))
 #___________________________________________________________________________________________________________________________________
+
+# Ventana Principal
 ventana = tk.Tk()
 ventana.title("Hamburgueseria")
 ventana.geometry("1280x600")
