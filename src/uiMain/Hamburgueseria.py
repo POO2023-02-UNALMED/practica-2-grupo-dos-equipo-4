@@ -104,7 +104,7 @@ def ingreso_al_sistema():
         label_efectuar_reserva = tk.Label(frameReserva, text="EFECTUAR RESERVA", anchor="w", width= 20)
         label_efectuar_reserva.grid(row = 0, column = 0)
         #label descriptivo
-        labelDescripcion_efectuar_reserva = Label(frameReserva, text="Aqui puedes verificar la confirmacion de tu reserva fue un exito", width=40, wraplength=200, padx=10)
+        labelDescripcion_efectuar_reserva = Label(frameReserva, text="Aqui puedes efectuar la reserva de algún cliente que llegó al restaurante", width=40, wraplength=200, padx=10)
         labelDescripcion_efectuar_reserva.grid(row = 1, column = 1, padx=10, pady=10)
         def efectuar_reserva():# Funcion en cargada de mostrar el formulario tipo FieldFrame
             titulos_criterios=["Ingresa el Id asociado a la reserva", "Ingresar id de la mesa"]
@@ -123,7 +123,7 @@ def ingreso_al_sistema():
         label_Hacer_reserva = tk.Label(frameReserva, text="HACER RESERVA", anchor="w", width= 20)
         label_Hacer_reserva.grid(row = 3, column = 0)
         #label descriptivo
-        labelDescripcion_hacer_reserva = Label(frameReserva, text="Aqui puedes Crear tu reserva a tu gusto", width=40, wraplength=200, padx=10)
+        labelDescripcion_hacer_reserva = Label(frameReserva, text="Aqui puedes crear la reserva para algún cliente", width=40, wraplength=200, padx=10)
         labelDescripcion_hacer_reserva.grid(row = 4, column = 1, padx=10, pady=10)
         def crear_reserva():# Funcion en cargada de mostrar el formulario tipo FieldFrame
             titulos_criterios=["Selecciona la hora de la reserva", "Selecciona el número de asientos de la mesa"]
@@ -141,7 +141,7 @@ def ingreso_al_sistema():
         label_cancelar_reserva = tk.Label(frameReserva, text="CANCELAR RESERVA", anchor="w", width= 20)
         label_cancelar_reserva.grid(row = 6, column = 0)
         #label descriptivo
-        labelDescripcion_cancelar_reserva = Label(frameReserva, text="Puedes deshacer tu reserva sin ningun tipo de costo", width=40, wraplength=200, padx=10)
+        labelDescripcion_cancelar_reserva = Label(frameReserva, text="Para deshacer la reserva de algún cliente", width=40, wraplength=200, padx=10)
         labelDescripcion_cancelar_reserva.grid(row = 7, column = 1, padx=10, pady=10)
         def cancelar_reserva():# Funcion en cargada de mostrar el formulario tipo FieldFrame
             titulos_criterios=["Ingresa el ID asociada a tu reserva"]
