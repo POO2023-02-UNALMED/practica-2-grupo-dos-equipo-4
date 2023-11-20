@@ -20,18 +20,18 @@ hojas_de_vidas = [
 indice_hojas_vida = 0
 indice_lista_de_imagenes = 0
 
-def cambia_hojas_vida(event):# Función que controla el vento de cambio de hojas de vida al hacer click en el texto
+def cambia_hojas_vida(event):# Función que controla el evento de cambio de hojas de vida al hacer click en el texto
     global indice_hojas_vida
     global indice_lista_de_imagenes
     indice_hojas_vida = (indice_hojas_vida + 1) % len(hojas_de_vidas)
     label3_1.config(text=hojas_de_vidas[indice_hojas_vida])
 
-    # Update the current list of images
+    # control de indices de las imagenes
     indice_lista_de_imagenes = (indice_lista_de_imagenes + 1) % len(listas_de_imagenes)
     fotos = listas_de_imagenes[indice_lista_de_imagenes]
 
-    # Update the images in the labels
-    label1.config(image=fotos[indice_hojas_vida], text=hojas_de_vidas[indice_hojas_vida])
+    # control de indice imagen/label
+    label1.config(image=fotos[(indice_hojas_vida)%len(fotos)], text=hojas_de_vidas[indice_hojas_vida])
     label2.config(image=fotos[(indice_hojas_vida + 1) % len(fotos)], text=hojas_de_vidas[(indice_hojas_vida + 1) % len(hojas_de_vidas)])
     label3.config(image=fotos[(indice_hojas_vida + 2) % len(fotos)], text=hojas_de_vidas[(indice_hojas_vida + 2) % len(hojas_de_vidas)])
     label4.config(image=fotos[(indice_hojas_vida + 3) % len(fotos)], text=hojas_de_vidas[(indice_hojas_vida + 3) % len(hojas_de_vidas)])
@@ -902,14 +902,14 @@ fotos_david = [david1, david2, david3, david4]
 fotos_juanfe = [juanfe1, juanfe2, juanfe3, juanfe4]
 fotos_ivan = [ivan1, ivan2, ivan3, ivan4]
 fotos_cristian = [cristian1, cristian2, cristian3, cristian4]
-listas_de_imagenes = [fotos_nico, fotos_juanfe, fotos_david, fotos_ivan, fotos_cristian]# Lista con las listas de fotos de cada desarrollador
+listas_de_imagenes = [fotos_nico, fotos_juanfe, fotos_david,fotos_cristian,fotos_ivan]# Lista con las listas de fotos de cada desarrollador
 
 # Crear el widget Label con cada imagen y añadirlo al Frame 4
-label1 = tk.Label(frame4, image=imagen2)
-label2 = tk.Label(frame4, image=imagen1)
-label3 = tk.Label(frame4, image=imagen3)
-label4 = tk.Label(frame4, image=imagen4)
-label5 = tk.Label(frame4, image=imagen5)
+label1 = tk.Label(frame4, image=nico1)
+label2 = tk.Label(frame4, image=nico2)
+label3 = tk.Label(frame4, image=nico3)
+label4 = tk.Label(frame4, image=nico4)
+label5 = tk.Label(frame4, image=nico4)
 
 
 label1.grid(row=0, column=0, sticky="nsew")
