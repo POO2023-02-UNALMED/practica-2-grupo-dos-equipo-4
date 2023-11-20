@@ -788,7 +788,7 @@ frame_principal1.place(x=10, y=10, width=5, height=9)
 frame_principal1.config(bd=5, relief="groove")
 
 frame_principal1.pack(side="left", fill="both")
-frame1 = tk.Frame(frame_principal1, bg="red")  # P3
+frame1 = tk.Frame(frame_principal1, bg="green")  # P3
 label1 = tk.Label(frame1,
                   text="¡Bienvenido a Las Calvas, el paraíso de las hamburguesas! 🍔🎉 " + "\n" +
                        "En nuestro rincón gastronómico, cada hamburguesa" + "\n" +
@@ -809,6 +809,7 @@ imagenes_index = 0  # índice de la foto actual
 boton_cambiante = Button(frame2, image=imagenes[imagenes_index])
 boton_cambiante.pack(side="top")
 boton_cambiante.bind('<Enter>',  onEnter)
+boton_cambiante.config(bg="green")
 
 
 boton_Ventana_Principal = tk.Button(frame2, text="Ingresar al Sistema",
