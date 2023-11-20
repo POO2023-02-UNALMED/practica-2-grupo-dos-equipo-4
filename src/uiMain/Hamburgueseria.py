@@ -385,8 +385,8 @@ def ingreso_al_sistema():
 
         # Descripcion de las diferentes opciones
         def descripIngredientes(event):
-            if comboIngredientes.get() == "Pan":
-                labelDescripcionI.config(
+            if comboIngredientes.get() == "Pan":              # Se verifica que opción de ingredientes se elige
+                labelDescripcionI.config(     # Se configura el texto del label de la descripción dependiendo del ingrediente
                     text="Seleccionaste el ingrediente: Pan")
             elif comboIngredientes.get() == "Carne de res":
                 labelDescripcionI.config(
@@ -415,13 +415,14 @@ def ingreso_al_sistema():
 
         # combobox
         comboIngredientes = ttk.Combobox(frameInventario, state="readonly",
+                                         #Se ponen todas las opciones de Ingredientes en el comboBox
                                          values=["Pan", "Carne de res", "Carne de pollo", "Carne vegana", "Tomate",
                                                  "Cebolla", "Lechuga", "Queso", "Tocineta"])
         comboIngredientes.current(0)
         comboIngredientes.bind("<<ComboboxSelected>>", descripIngredientes)
         comboIngredientes.grid(row=1, column=0, padx=10, pady=10)
 
-        # label descriptivo
+        # label descriptivo que cambia segun el ingrediente elegido
         labelDescripcionI = Label(frameInventario,
                                   text="Seleccione un ingrediente", width=40,
                                   wraplength=200, padx=10)
@@ -434,12 +435,19 @@ def ingreso_al_sistema():
         # COMPRAR INGREDIENTES
 
         def comprar():
+            # Comprueba cuál Ingrediente se seleccionó en el ComboBox
             if comboIngredientes.get() == "Pan":
+                # Se aplica el metodó de comprar el ingrediente con la cantidad introducida en el Entry
+                #Si el saldo no es suficiente el metodo lo tiene en cuenta y sale una excepción
                 pan.comprar(int(entryComprar.get()))
+                # Se independiente del metodó verifica que el saldo sea suficiente
                 if (pan.precio*int(entryComprar.get())) <= Contabilidad.saldo:
+                    #Se imprime en un label la cantidad gastada en el ingrediente comprado
                     labelComprados.config(text= (f"Se gastaron {pan.precio * int(entryComprar.get())} en Pan"))
+                    #Se actualiza el label que imprime el saldo restante
                     labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
 
+        # Los pasos descritos anteriormente se repiten con cada uno de los ingredientes
             elif comboIngredientes.get() == "Carne de res":
                 carneDeRes.comprar(int(entryComprar.get()))
                 if (carneDeRes.precio*int(entryComprar.get())) <= Contabilidad.saldo:
