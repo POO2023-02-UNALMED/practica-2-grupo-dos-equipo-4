@@ -802,7 +802,7 @@ label1 = tk.Label(frame1,
                   wraplength=600)  # Brindar un saludo de bienvenida al sistema
 label1.grid(row=0, column=0, padx=10, pady=10, sticky="n")
 label1.pack(side="top")
-frame2 = tk.Frame(frame_principal1, bg="blue")  # P4
+frame2 = tk.Frame(frame_principal1, bg="green")  # P4
 
 imagenes = [PhotoImage(file='../imagenes/calvas chiko.png'), PhotoImage(file='../imagenes/carnes1.ppm'), PhotoImage(file='../imagenes/Burger_one.ppm'), PhotoImage(file='../imagenes/3.ppm'), PhotoImage(file='../imagenes/2.ppm')] # lista de fotos
 imagenes_index = 0  # índice de la foto actual
@@ -833,7 +833,7 @@ label3_1.grid(row=0, column=0, padx=50, pady=0)
 label3_1.bind("<Button-1>", cambia_hojas_vida)
 label3_1.config(font=("Helvetica", 12, "bold"))
 
-frame4 = tk.Frame(frame_principal2, bg="yellow")  # P6
+frame4 = tk.Frame(frame_principal2, bg="green")  # P6
 frame4.pack(side="bottom", fill="both", padx=10, pady=10)
 frame4.config(bd=4, relief="groove")
 
