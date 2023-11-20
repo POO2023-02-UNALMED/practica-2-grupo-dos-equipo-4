@@ -679,7 +679,7 @@ for i in range(2):
     frame4.grid_rowconfigure(i, weight=1)
     frame4.grid_columnconfigure(i, weight=1)
 
-# Crear el objeto PhotoImage con cada Foto de los desarrolladores
+
 imagen1 = tk.PhotoImage(file="../imagenes/1.png")
 imagen2 = tk.PhotoImage(file="../imagenes/2.png")
 imagen3 = tk.PhotoImage(file="../imagenes/3.png")
@@ -687,13 +687,39 @@ imagen4 = tk.PhotoImage(file="../imagenes/4.png")
 imagen5 = tk.PhotoImage(file="../imagenes/images.png")# Reemplaza esto con la ruta a tu imagen
 imagen6 = tk.PhotoImage(file="../imagenes/imagen1.png")
 
+# Crear el objeto PhotoImage con cada Foto de los desarrolladores
+david1 = tk.PhotoImage(file="../imagenes/david1.png")
+david2 = tk.PhotoImage(file="../imagenes/david2.png")
+david3 = tk.PhotoImage(file="../imagenes/david3.png")
+david4 = tk.PhotoImage(file="../imagenes/david4.png")
+
+cristian1 = tk.PhotoImage(file="../imagenes/cristian1.png")
+cristian2 = tk.PhotoImage(file="../imagenes/cristian2.png")
+cristian3 = tk.PhotoImage(file="../imagenes/cristian3.png")
+cristian4 = tk.PhotoImage(file="../imagenes/cristian4.png")
+
+ivan1 = tk.PhotoImage(file="../imagenes/ivan1.png")
+ivan2 = tk.PhotoImage(file="../imagenes/ivan2.png")
+ivan3 = tk.PhotoImage(file="../imagenes/ivan3.png")
+ivan4 = tk.PhotoImage(file="../imagenes/ivan4.png")
+
+nico1 = tk.PhotoImage(file="../imagenes/nico1.png")
+nico2 = tk.PhotoImage(file="../imagenes/nico2.png")
+nico3 = tk.PhotoImage(file="../imagenes/nico3.png")
+nico4 = tk.PhotoImage(file="../imagenes/nico4.png")
+
+juanfe1 = tk.PhotoImage(file="../imagenes/juanfe1.png")
+juanfe2 = tk.PhotoImage(file="../imagenes/juanfe2.png")
+juanfe3 = tk.PhotoImage(file="../imagenes/juanfe3.png")
+juanfe4 = tk.PhotoImage(file="../imagenes/juanfe4.png")
+
 # Listas de las fotos de los desarrolladores
-fotos_nico = [imagen2, imagen1, imagen3, imagen4, imagen5]
-fotos_david = [imagen1, imagen2, imagen3, imagen4, imagen5]
-fotos_juanfe = [imagen1, imagen2, imagen3, imagen4, imagen5]
-fotos_ivan = [imagen1, imagen2, imagen3, imagen4, imagen5]
-fotos_cristian = [imagen1, imagen2, imagen3, imagen4, imagen5]
-listas_de_imagenes = [fotos_nico, fotos_david, fotos_juanfe, fotos_ivan, fotos_cristian]# Lista con las listas de fotos de cada desarrollador
+fotos_nico = [nico1, nico2, nico3, nico4]
+fotos_david = [david1, david2, david3, david4]
+fotos_juanfe = [juanfe1, juanfe2, juanfe3, juanfe4]
+fotos_ivan = [ivan1, ivan2, ivan3, ivan4]
+fotos_cristian = [cristian1, cristian2, cristian3, cristian4]
+listas_de_imagenes = [fotos_nico, fotos_juanfe, fotos_david, fotos_ivan, fotos_cristian]# Lista con las listas de fotos de cada desarrollador
 
 # Crear el widget Label con cada imagen y añadirlo al Frame 4
 label1 = tk.Label(frame4, image=imagen2)
