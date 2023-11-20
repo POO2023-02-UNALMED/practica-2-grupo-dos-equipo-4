@@ -189,12 +189,12 @@ def ingreso_al_sistema():
         limpiarVentana()
         creadorMenu()
         ventana_del_usuario.configure(pady=10)
-        # label de titulo y descripcion de la funcionalidad
+            # label de titulo y descripcion de la funcionalidad
         tituloLabel = Label(ventana_del_usuario, text="GESTIÓN DE INVENTARIO", justify="center", pady=10,
-                            font=("Helvetica", 16, "bold"))
+                        font=("Helvetica", 16, "bold"))
         tituloLabel.pack(side="top")
         explicacionLabel = Label(ventana_del_usuario, pady=10, font=("Helvetica", 12),
-                                 text="Verifica la disponibilidad de tus ingredientes y compra los que necesites para hacer hamburguesas")
+                             text="Verifica la disponibilidad de tus ingredientes y compra los que necesites para hacer hamburguesas")
         explicacionLabel.pack(side="top", fill="x")
         frameInventario = tk.Frame(ventana_del_usuario, padx=10, pady=10)
         frameInventario.config(bd=5, relief="groove")
@@ -294,7 +294,7 @@ def ingreso_al_sistema():
 
         # Entrada Comprar Ingredientes
         ComprarIngredientes = tk.StringVar()
-        entryComprar = Entry(frameInventario, width=40, state="enabled", textvariable=ComprarIngredientes)
+        entryComprar = Entry(frameInventario, width=40, state="normal", textvariable=ComprarIngredientes)
         entryComprar.grid(row=1, column=1)
 
         # Boton Comprar
@@ -304,7 +304,9 @@ def ingreso_al_sistema():
         # Label que muestra el saldo en la parte inferior derecha
         labelSaldo = Label(frameInventario, text=f"SALDO {Contabilidad.saldo}", width=20, wraplength=150,
                            font=("Helvetica", 12, "bold"), padx=10, pady=15)
-        labelSaldo.grid(row=7, column=2)
+        labelSaldo.grid(row=7, column=2, sticky='e')  # Asegúrate de que el widget se coloque correctamente en la cuadrícula
+
+        ventana_del_usuario.update()
 
 
 
