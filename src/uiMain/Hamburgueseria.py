@@ -804,7 +804,7 @@ label1.grid(row=0, column=0, padx=10, pady=10, sticky="n")
 label1.pack(side="top")
 frame2 = tk.Frame(frame_principal1, bg="blue")  # P4
 
-imagenes = [PhotoImage(file='../imagenes/carnes1.ppm'), PhotoImage(file='../imagenes/Hamburguesa1.ppm'), PhotoImage(file='../imagenes/Burger_one.ppm'), PhotoImage(file='../imagenes/3.ppm'), PhotoImage(file='../imagenes/2.ppm')] # lista de fotos
+imagenes = [PhotoImage(file='../imagenes/calvas chiko.png'), PhotoImage(file='../imagenes/carnes1.ppm'), PhotoImage(file='../imagenes/Burger_one.ppm'), PhotoImage(file='../imagenes/3.ppm'), PhotoImage(file='../imagenes/2.ppm')] # lista de fotos
 imagenes_index = 0  # índice de la foto actual
 boton_cambiante = Button(frame2, image=imagenes[imagenes_index])
 boton_cambiante.pack(side="top")
