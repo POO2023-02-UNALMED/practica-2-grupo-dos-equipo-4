@@ -181,15 +181,129 @@ def ingreso_al_sistema():
         labelMesas.pack(side="top", anchor="nw")
         labelMesas.config(bd=5, relief="groove")
 
+        # ------------------GESTIÓN DE INVENTARIO-------------------#
+
     def opcionGestionDeInventario():
         limpiarVentana()
         creadorMenu()
-        frameMesas = tk.Frame(ventana_del_usuario, bg="red")
-        frameMesas.config(bd=5, relief="groove")
-        frameMesas.pack(side="left", fill="both", expand=True)
-        labelMesas = tk.Label(frameMesas, text="Gestion de Inventario")
-        labelMesas.pack(side="top", anchor="nw")
-        labelMesas.config(bd=5, relief="groove")
+        ventana_del_usuario.configure(pady=10)
+        # label de titulo y descripcion de la funcionalidad
+        tituloLabel = Label(ventana_del_usuario, text="GESTIÓN DE INVENTARIO", justify="center", pady=10,
+                            font=("Helvetica", 16, "bold"))
+        tituloLabel.pack(side="top")
+        explicacionLabel = Label(ventana_del_usuario, pady=10, font=("Helvetica", 12),
+                                 text="Verifica la disponibilidad de tus ingredientes y compra los que necesites para hacer hamburguesas")
+        explicacionLabel.pack(side="top", fill="x")
+        frameInventario = tk.Frame(ventana_del_usuario, padx=10, pady=10)
+        frameInventario.config(bd=5, relief="groove")
+        frameInventario.pack(expand=True)
+
+        # Descripcion de las diferentes opciones
+        def descripIngredientes(event):
+            if comboIngredientes.get() == "Pan":
+                labelDescripcionI.config(
+                    text="Seleccionaste el ingrediente: Pan")
+            elif comboIngredientes.get() == "Carne de res":
+                labelDescripcionI.config(
+                    text="Seleccionaste el ingrediente: Carne de res")
+            elif comboIngredientes.get() == "Carne de pollo":
+                labelDescripcionI.config(
+                    text="Seleccionaste el ingrediente: Carne de pollo")
+            elif comboIngredientes.get() == "Carne vegana":
+                labelDescripcionI.config(
+                    text="Seleccionaste el ingrediente: Carne vegana")
+            elif comboIngredientes.get() == "Tomate":
+                labelDescripcionI.config(
+                    text="Seleccionaste el ingrediente: Tomate ")
+            elif comboIngredientes.get() == "Cebolla":
+                labelDescripcionI.config(
+                    text="Seleccionaste el ingrediente: Cebolla")
+            elif comboIngredientes.get() == "Lechuga":
+                labelDescripcionI.config(
+                    text="Seleccionaste el ingrediente: Lechuga")
+            elif comboIngredientes.get() == "Queso":
+                labelDescripcionI.config(
+                    text="Seleccionaste el ingrediente: Queso")
+            elif comboIngredientes.get() == "Tocineta":
+                labelDescripcionI.config(
+                    text="Seleccionaste el ingrediente: Tocineta")
+
+        # combobox
+        comboIngredientes = ttk.Combobox(frameInventario, state="readonly",
+                                         values=["Pan", "Carne de res", "Carne de pollo", "Carne vegana", "Tomate",
+                                                 "Cebolla", "Lechuga", "Queso", "Tocineta"])
+        comboIngredientes.current(0)
+        comboIngredientes.bind("<<ComboboxSelected>>", descripIngredientes)
+        comboIngredientes.grid(row=1, column=0, padx=10, pady=10)
+
+        # label descriptivo
+        labelDescripcionI = Label(frameInventario,
+                                  text="Seleccione un ingrediente", width=40,
+                                  wraplength=200, padx=10)
+        labelDescripcionI.grid(row=2, column=0)
+
+        # label de Ingredientes
+        labelIngredientes = tk.Label(frameInventario, text="INGREDIENTES", anchor="w", width=20)
+        labelIngredientes.grid(row=0, column=0)
+
+        # COMPRAR INGREDIENTES
+
+        def comprar():
+            if comboIngredientes.get() == "Pan":
+                comprar(pan, int(entryComprar.get()))
+                if (pan.precio*int(entryComprar.get())) <= Contabilidad.saldo:
+                    entryComprar.set(f"Se gastaron {pan.precio*int(entryComprar.get())} en Pan")
+            elif comboIngredientes.get() == "Carne de res":
+                comprar(carneDeRes, int(entryComprar.get()))
+                if (carneDeRes.precio*int(entryComprar.get())) <= Contabilidad.saldo:
+                    entryComprar.set(f"Se gastaron {carneDeRes.precio*int(entryComprar.get())} en Pan")
+            elif comboIngredientes.get() == "Carne de pollo":
+                comprar(carneDePollo, int(entryComprar.get()))
+                if (carneDePollo.precio*int(entryComprar.get())) <= Contabilidad.saldo:
+                    entryComprar.set(f"Se gastaron {carneDePollo.precio*int(entryComprar.get())} en Pan")
+            elif comboIngredientes.get() == "Carne vegana":
+                comprar(carneVegana, int(entryComprar.get()))
+                if (carneVegana.precio*int(entryComprar.get())) <= Contabilidad.saldo:
+                    entryComprar.set(f"Se gastaron {carneVegana.precio*int(entryComprar.get())} en Pan")
+            elif comboIngredientes.get() == "Tomate":
+                comprar(tomate, int(entryComprar.get()))
+                if (tomate.precio*int(entryComprar.get())) <= Contabilidad.saldo:
+                    entryComprar.set(f"Se gastaron {tomate.precio*int(entryComprar.get())} en Pan")
+            elif comboIngredientes.get() == "Cebolla":
+                comprar(cebolla, int(entryComprar.get()))
+                if (cebolla.precio*int(entryComprar.get())) <= Contabilidad.saldo:
+                    entryComprar.set(f"Se gastaron {cebolla.precio*int(entryComprar.get())} en Pan")
+            elif comboIngredientes.get() == "Lechuga":
+                comprar(lechuga, int(entryComprar.get()))
+                if (lechuga.precio*int(entryComprar.get())) <= Contabilidad.saldo:
+                    entryComprar.set(f"Se gastaron {lechuga.precio*int(entryComprar.get())} en Pan")
+            elif comboIngredientes.get() == "Queso":
+                comprar(queso, int(entryComprar.get()))
+                if (queso.precio*int(entryComprar.get())) <= Contabilidad.saldo:
+                    entryComprar.set(f"Se gastaron {queso.precio*int(entryComprar.get())} en Pan")
+            elif comboIngredientes.get() == "Tocineta":
+                comprar(tocineta, int(entryComprar.get()))
+                if (tocineta.precio*int(entryComprar.get())) <= Contabilidad.saldo:
+                    entryComprar.set(f"Se gastaron {tocineta.precio*int(entryComprar.get())} en Pan")
+
+        # label de Ingresar numero de Ingredientes
+        labelPagos = tk.Label(frameInventario, text="Cantidad de ingredientes", anchor="w", width=20)
+        labelPagos.grid(row=0, column=1)
+
+        # Entrada Comprar Ingredientes
+        ComprarIngredientes = tk.StringVar()
+        entryComprar = Entry(frameInventario, width=40, state="enabled", textvariable=ComprarIngredientes)
+        entryComprar.grid(row=1, column=1)
+
+        # Boton Comprar
+        botonComprar = Button(frameInventario, text="Comprar", padx=10, command=comprar)
+        botonComprar.grid(row=1, column=2)
+
+        # Label que muestra el saldo en la parte inferior derecha
+        labelSaldo = Label(frameInventario, text=f"SALDO {Contabilidad.saldo}", width=20, wraplength=150,
+                           font=("Helvetica", 12, "bold"), padx=10, pady=15)
+        labelSaldo.grid(row=7, column=2)
+
 
 
         #------------------CONTABILIDAD-------------------#
