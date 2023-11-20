@@ -1,13 +1,17 @@
 from abc import ABC, abstractmethod
+from src.gestorAplicacion.restaurante import Gaseosas, Comida
 
-class MenuMethods(ABC):
-
+class MenuMethods:
     @staticmethod
-    @abstractmethod
     def mostrarMenuComidas():
-        pass
+        menuComidas = []
+        for comida in Comida.listaComida:
+            menuComidas.append(f"{comida.getNombre()} - Precio: ${comida.calcularPrecio()}")
+        return "\n".join(menuComidas)
 
     @staticmethod
-    @abstractmethod
     def mostrarMenuGaseosas():
-        pass
+        menuGaseosas = []
+        for gaseosa in Gaseosas.listaGaseosas:
+            menuGaseosas.append(f"{gaseosa.getNombre()} - Precio: ${gaseosa.getPrecio()}")
+        return "\n".join(menuGaseosas)
