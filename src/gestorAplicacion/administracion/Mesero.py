@@ -2,7 +2,7 @@ from src.gestorAplicacion.administracion.Empleado import Empleado
 
 
 class Mesero(Empleado):
-    ocupacion = "Mesero"
+    OCUPACION = "Mesero"
     mesasDeTrabajo = []
 
     def __init__(self, nombre, salario):

@@ -15,7 +15,7 @@ class Empleado(ABC):
         pass
 
 
-    def accion(self):
+    def accion(self):#Ligadura dinamica
         return "El Empleado esta Trabajando"
 
     def bono(self):
