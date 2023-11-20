@@ -184,7 +184,7 @@ def ingreso_al_sistema():
         label_efectuar_reserva = tk.Label(framePedidos, text="¿Tienes Reserva?", anchor="w", width= 13)
         label_efectuar_reserva.grid(row = 0, column = 0)
         #label descriptivo de boton si
-        labelDescripcion_si_reserva = Label(framePedidos, text="Aqui se verifica el pedido con el id asociado a la Mesa reservada", width=40, wraplength=200, padx=10)
+        labelDescripcion_si_reserva = Label(framePedidos, text="Aquí se verifica el pedido con el id asociado a la mesa reservada", width=40, wraplength=200, padx=10)
         labelDescripcion_si_reserva.grid(row = 1, column = 1, padx=10, pady=10)
         def verificacion():
             titulos_criterios=["Ingresa el Id asociado a la mesa reservada"]
@@ -196,15 +196,19 @@ def ingreso_al_sistema():
         boton_si= tk.Button(framePedidos, text="Si", padx=50, command= verificacion)
         boton_si.grid(row = 1, column = 0, padx=10, pady=10)
         #label descriptivo de boton no
-        labelDescripcion_no_reserva = Label(framePedidos, text="Aqui se le asignaremos una mesa ideal para ti\nMostraremos el menú", width=40, wraplength=200, padx=10)
+        labelDescripcion_no_reserva = labelDescripcion_no_reserva = Label(framePedidos, text="Aquí se asigna una mesa al cliente para luego\nMostrar el menú", width=40, wraplength=200, padx=10)
         labelDescripcion_no_reserva.grid(row = 4, column = 1, padx=10, pady=10)
         def mostrar_menu():
-            frame_menu= tk.Frame(framePedidos)
-            pedido = Pedido()  # Create an instance of Pedido
-            gaseosas_label = tk.Label(frame_menu, text=pedido.imprimirGaseosas())
-            comidas_label = tk.Label(frame_menu, text=pedido.imprimirComidas())
-            gaseosas_label.pack()
-            comidas_label.pack()
+            gaseosas = pedido1.imprimirGaseosas()
+            comidas = pedido1.imprimirComidas()
+            # Crea una nueva ventana
+            ventana_menu = tk.Toplevel()
+            # Configura el título de la ventana (opcional)
+            ventana_menu.title("Menú")
+            # Crea una etiqueta con el texto del menú
+            menu_label = tk.Label(ventana_menu, text=gaseosas + "\n" + comidas)
+            #Coloca la etiqueta en la ventana
+            menu_label.pack()
         boton_no= tk.Button(framePedidos, text="No", padx=50, command= mostrar_menu)
         boton_no.grid(row = 4, column = 0, padx=10, pady=10)
 
@@ -909,7 +913,7 @@ label1 = tk.Label(frame4, image=nico1)
 label2 = tk.Label(frame4, image=nico2)
 label3 = tk.Label(frame4, image=nico3)
 label4 = tk.Label(frame4, image=nico4)
-label5 = tk.Label(frame4, image=nico4)
+label5 = tk.Label(frame4, image=nico1)
 
 
 label1.grid(row=0, column=0, sticky="nsew")
