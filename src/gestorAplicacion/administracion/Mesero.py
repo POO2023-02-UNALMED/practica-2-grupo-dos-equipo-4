@@ -7,8 +7,6 @@ class Mesero(Empleado):
 
     def __init__(self, nombre, salario):
         super().__init__(nombre,salario)
-        self.nombre = nombre
-        self.salario = salario
         Empleado.empleados.append(self)
 
     def agregarMesas(self, mesa):

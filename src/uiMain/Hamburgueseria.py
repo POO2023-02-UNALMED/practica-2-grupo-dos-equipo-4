@@ -2,7 +2,9 @@ import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
-from src.gestorAplicacion.administracion import *
+from src.gestorAplicacion.administracion.Empleado import Empleado
+from src.gestorAplicacion.administracion.Cocinero import Cocinero
+from src.gestorAplicacion.administracion.Mesero import Mesero
 from src.gestorAplicacion.administracion.Contabilidad import Contabilidad
 from src.gestorAplicacion.restaurante import *
 from src.gestorAplicacion.restaurante import Pedido
@@ -211,12 +213,154 @@ def ingreso_al_sistema():
     def opcionGestionEmpleados():
         limpiarVentana()
         creadorMenu()
-        frameMesas = tk.Frame(ventana_del_usuario, bg="red")
-        frameMesas.config(bd=5, relief="groove")
-        frameMesas.pack(side="left", fill="both", expand=True)
-        labelMesas = tk.Label(frameMesas, text="Gestion de Empleados")
-        labelMesas.pack(side="top", anchor="nw")
-        labelMesas.config(bd=5, relief="groove")
+
+        #label de titulo y descripcion de la funcionalidad
+        tituloLabel = Label(ventana_del_usuario, text="GESTIONAR EMPLEADOS", justify="center", pady=10, font=("Helvetica", 16, "bold"))
+        tituloLabel.pack(side="top")
+        explicacionLabel = Label(ventana_del_usuario, pady=10, font=("Helvetica", 12),
+                                 text="Permite crear el perfil de los empleados, gestionar sus tareas y realizar informes sobre ellos.")
+        explicacionLabel.pack(side="top", fill="x")
+
+        #creacion del Frame donde va el formulario de interaccion para la funcionalidad
+        frameEmpleados = tk.Frame(ventana_del_usuario, padx=10, pady=10)
+        frameEmpleados.config(bd=5, relief="groove")
+        frameEmpleados.pack(expand=True)
+        explicacionLabel = Label(frameEmpleados, pady=10, font=("Helvetica", 12),
+                                 text="¿Que quieres hacer?"+"\n"+"Pulsa una opción.")
+        explicacionLabel.grid(row=0, column=1)
+
+
+        def eventoCrear():
+            def crearEmpleado():
+                if comboOcupacion.get() == "Cocinero":
+                    return Cocinero(entryNombre.get(), entrySalario.get(), "Inexperto")
+                elif comboOcupacion.get() == "Mesero":
+                    return Mesero(entryNombre.get(), entrySalario.get())
+
+            def limpiar():
+                ventanaCrear.destroy()
+                eventoCrear()
+
+            ventanaCrear = Toplevel(ventana_del_usuario)
+            ventanaCrear.title("Crear Empleado")
+            ventanaCrear.resizable(width=False, height=False)
+
+            tituloCrear = Label(ventanaCrear, text="Crear Empleados", justify="center", pady=10, font=("Helvetica", 16, "bold"))
+            tituloCrear.pack(side="top")
+
+            frameCrear = tk.Frame(ventanaCrear, padx=10, pady=10)
+            frameCrear.config(bd=5, relief="groove")
+            frameCrear.pack(expand=True)
+
+            labelNombre = Label(frameCrear, text="Nombre", padx= 10, pady=5)
+            labelNombre.grid(row=0, column=0)
+            entryNombre = Entry(frameCrear)
+            entryNombre.grid(row=0, column=1)
+
+            labelOcupacion = Label(frameCrear, text="Ocupacion", padx= 10, pady=5)
+            labelOcupacion.grid(row=1, column=0)
+            comboOcupacion = ttk.Combobox(frameCrear, state="readonly", values=["Cocinero", "Mesero"])
+            comboOcupacion.current(0)
+            comboOcupacion.grid(row=1, column=1)
+
+            labelSalario = Label(frameCrear, text="Salario", padx= 10, pady=5)
+            labelSalario.grid(row=2, column=0)
+            entrySalario = Entry(frameCrear)
+            entrySalario.grid(row=2, column=1)
+
+            labelId = Label(frameCrear, text="Id", padx= 10, pady=5)
+            labelId.grid(row=3, column=0)
+            idVariable = tk.StringVar()
+            idVariable.set(str(Empleado.cantidadEmpleados+1))
+            entryId = Entry(frameCrear, state="readonly", textvariable=idVariable)
+            entryId.grid(row=3, column=1)
+
+            btCrear = Button(frameCrear, text="Crear", command=crearEmpleado)
+            btCrear.grid(row=4, column=0)
+            btLimpiar = Button(frameCrear, text="Limpiar", command=limpiar)
+            btLimpiar.grid(row=4, column=1)
+
+
+        def eventoBuscar():
+
+            ventanaBuscar = Toplevel(ventana_del_usuario)
+            ventanaBuscar.title("Buscar Empleado")
+            ventanaBuscar.resizable(width=False, height=False)
+
+            criterios = ["ID", "Nombre", "Salario", "Ocupacion", "Labor"]
+            valores = ["###", "###", "###", "###", "###"]
+            habilitado = [True, False, False, False, False]
+
+            frameBuscar = FieldFrame(ventanaBuscar, "Criterios", criterios, "Resultado", valores, habilitado)
+            frameBuscar.grid()
+
+        def eventoGestionar():
+
+            ventanaGestion = Toplevel(ventana_del_usuario)
+            ventanaGestion.title("Gestionar Empleado")
+            #ventanaGestion.resizable(width=False, height=False)
+
+            tituloGestion = Label(ventanaGestion, text="Gestionar Empleados", justify="center", pady=10, font=("Helvetica", 16, "bold"))
+            tituloGestion.pack(side="top")
+
+            frameGestion = tk.Frame(ventanaGestion, padx=10, pady=10)
+            frameGestion.config(bd=5, relief="groove")
+            frameGestion.pack(expand=True)
+
+            labelID = Label(frameGestion, text="ID Empleado", padx= 10, pady=5)
+            labelID.grid(row=0, column=0)
+            entryID = Entry(frameGestion)
+            entryID.grid(row=0, column=1)
+
+            def cargo():
+                indice = int(entryID.get())
+                indice -= 1
+
+                if type(Empleado.empleados[indice]) == Cocinero:
+                    def guardar_cocinero():
+                        Empleado.empleados[indice].set_especialidad(entryEspecialidad.get())
+                        ventanaGestion.destroy()
+                        eventoGestionar()
+
+
+                    labelEspecialidad = Label(frameGestion, text="Especialidad", padx=10, pady=5)
+                    labelEspecialidad.grid(row=1, column=0)
+                    entryEspecialidad = Entry(frameGestion)
+                    entryEspecialidad.grid(row=1, column=1)
+                    botonGuardar = Button(frameGestion, text="Guardar", padx=10, pady=5, command=guardar_cocinero)
+                    botonGuardar.grid(row=1, column=2)
+
+
+                elif type(Empleado.empleados[indice]) == Mesero:
+                    def guardar_mesero():
+                        Empleado.empleados[indice].agregarMesas(entryMesa.get())
+                        ventanaGestion.destroy()
+                        eventoGestionar()
+
+                    labelMesa = Label(frameGestion, text="Agregar Mesa", padx=10, pady=5)
+                    labelMesa.grid(row=1, column=0)
+                    entryMesa = Entry(frameGestion)
+                    entryMesa.grid(row=1, column=1)
+                    botonGuardar = Button(frameGestion, text="Guardar", padx=10, pady=5, command=guardar_mesero)
+                    botonGuardar.grid(row=1, column=2)
+
+            botonCargar = Button(frameGestion, text="Cargar Opciones", padx=10, pady=5, command=cargo)
+            botonCargar.grid(row=0, column=2)
+
+
+        botonCrear = Button(frameEmpleados, text="Crear Empleados", padx=10, command=eventoCrear)
+        botonCrear.grid(row=1, column=0)
+        botonCrear = Button(frameEmpleados, text="Buscar Empleado", padx=10, command=eventoBuscar)
+        botonCrear.grid(row=1, column=1)
+        botonCrear = Button(frameEmpleados, text="Gestionar Empleado", padx=10, command=eventoGestionar)
+        botonCrear.grid(row=1, column=2)
+
+        labelTotalEmpleados = Label(frameEmpleados, text=f"Empleados Totales: {Empleado.cantidadEmpleados} ", width=10, wraplength=100, font=("Helvetica", 12, "bold"), padx=10, pady=15, anchor="w")
+        labelTotalEmpleados.grid(row=2, column=0)
+        def actualizadorTotal(event):
+            labelTotalEmpleados.config(text=f"Empleados Totales: {Empleado.cantidadEmpleados} ")
+
+        frameEmpleados.bind("<Motion>", actualizadorTotal)
 
         # ------------------GESTIÓN DE INVENTARIO-------------------#
 
