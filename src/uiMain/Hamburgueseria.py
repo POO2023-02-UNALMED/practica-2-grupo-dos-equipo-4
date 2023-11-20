@@ -5,6 +5,7 @@ from tkinter import ttk
 from src.gestorAplicacion.administracion import *
 from src.gestorAplicacion.administracion.Contabilidad import Contabilidad
 from src.gestorAplicacion.restaurante import *
+from src.gestorAplicacion.restaurante import Pedido
 
 # __________________________________________________________________________________________
 # Funciones y Eventos
@@ -164,12 +165,46 @@ def ingreso_al_sistema():
     def opcionTomaDePedidos():
         limpiarVentana()
         creadorMenu()
-        frameMesas = tk.Frame(ventana_del_usuario, bg="red")
-        frameMesas.config(bd=5, relief="groove")
-        frameMesas.pack(side="left", fill="both", expand=True)
-        labelMesas = tk.Label(frameMesas, text="Toma de Pedidos")
-        labelMesas.pack(side="top", anchor="nw")
-        labelMesas.config(bd=5, relief="groove")
+        ventana_del_usuario.configure(pady=10)
+        #label de titulo y descripcion de la funcionalidad
+        tituloLabel_toma_pedidos = Label(ventana_del_usuario, text="PEDIDOS", justify="center", pady=10, font=("Helvetica", 16, "bold"))
+        tituloLabel_toma_pedidos.pack(side="top")
+        explicacionLabel_toma_pedidos = Label(ventana_del_usuario, pady=10, font=("Helvetica", 12),
+                                          text="Puedes verificar los pedidos de los clientes, presentar nuestro menú y proporcionar nuestros productos.")
+        explicacionLabel_toma_pedidos.pack(side="top", fill="x")
+        #creacion del Frame donde va el formulario de interaccion para la funcionalidad
+        framePedidos = tk.Frame(ventana_del_usuario, padx=10, pady=10)
+        framePedidos.config(bd=5, relief="groove")
+        framePedidos.pack(expand=True)
+        label_1= tk.Label(framePedidos, text="Descripción")
+        label_1.grid(row=0, column=1)
+        #label de Efectuar reserva
+        label_efectuar_reserva = tk.Label(framePedidos, text="¿Tienes Reserva?", anchor="w", width= 13)
+        label_efectuar_reserva.grid(row = 0, column = 0)
+        #label descriptivo de boton si
+        labelDescripcion_si_reserva = Label(framePedidos, text="Aqui se verifica el pedido con el id asociado a la Mesa reservada", width=40, wraplength=200, padx=10)
+        labelDescripcion_si_reserva.grid(row = 1, column = 1, padx=10, pady=10)
+        def verificacion():
+            titulos_criterios=["Ingresa el Id asociado a la mesa reservada"]
+            titulos_valores=["###"]
+            habilitados=[True]
+            frame_verificacion_pedido= Toplevel(framePedidos)
+            formulario_verificion_pedido =FieldFrame(frame_verificacion_pedido, "Asociados para la verificación", titulos_criterios, "ID", titulos_valores,habilitados  )
+            formulario_verificion_pedido.grid()
+        boton_si= tk.Button(framePedidos, text="Si", padx=50, command= verificacion)
+        boton_si.grid(row = 1, column = 0, padx=10, pady=10)
+        #label descriptivo de boton no
+        labelDescripcion_no_reserva = Label(framePedidos, text="Aqui se le asignaremos una mesa ideal para ti\nMostraremos el menú", width=40, wraplength=200, padx=10)
+        labelDescripcion_no_reserva.grid(row = 4, column = 1, padx=10, pady=10)
+        def mostrar_menu():
+            frame_menu= tk.Frame(framePedidos)
+            pedido = Pedido()  # Create an instance of Pedido
+            gaseosas_label = tk.Label(frame_menu, text=pedido.imprimirGaseosas())
+            comidas_label = tk.Label(frame_menu, text=pedido.imprimirComidas())
+            gaseosas_label.pack()
+            comidas_label.pack()
+        boton_no= tk.Button(framePedidos, text="No", padx=50, command= mostrar_menu)
+        boton_no.grid(row = 4, column = 0, padx=10, pady=10)
 
         # ------------------GESTIÓN DE EMPLEADOS-------------------#
 
