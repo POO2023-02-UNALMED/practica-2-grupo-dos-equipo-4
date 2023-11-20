@@ -79,7 +79,7 @@ def ingreso_al_sistema():
 
     # ====================Creador de pestañas de Funcionalidades==========================================#
 
-    #------------------RESERVAS-------------------#
+    #------------------GESTION DE RESERVAS-------------------#
 
     def opcionGestionReserva():
         #limpieza de ventana
@@ -159,7 +159,7 @@ def ingreso_al_sistema():
 
 
 
-
+    # ------------------TOMA DE PEDIDO-------------------#
 
     def opcionTomaDePedidos():
         limpiarVentana()
@@ -170,6 +170,8 @@ def ingreso_al_sistema():
         labelMesas = tk.Label(frameMesas, text="Toma de Pedidos")
         labelMesas.pack(side="top", anchor="nw")
         labelMesas.config(bd=5, relief="groove")
+
+        # ------------------GESTIÓN DE EMPLEADOS-------------------#
 
     def opcionGestionEmpleados():
         limpiarVentana()
