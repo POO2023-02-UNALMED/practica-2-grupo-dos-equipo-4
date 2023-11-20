@@ -13,7 +13,7 @@ hojas_de_vidas = [
     "Breve biografia de los autores\n \n \n" "Nombre: Nicolas Ruiz Blandon\nFecha de nacimiento: 01/23/04\nGustos: El fercho",
     "Breve biografia de los autores\n \n \n" "Nombre: Juan Felipe Moreno Ruiz\nFecha de nacimiento: 01/22/07\nGustos: El fercho",
     "Breve biografia de los autores\n \n \n" "Nombre: David Delgado Ortiz\nFecha de nacimiento: 01/23/02\nGustos: El fercho",
-    "Breve biografia de los autores\n \n \n" "Nombre: Cristian David Pérez Lopera\nFecha de nacimiento: 10/10/05\nGustos: Perros > Gatos. Melómano, & cosas viejas enjoyer.",
+    "Breve biografia de los autores\n \n \n" "Nombre: Cristian David Pérez Lopera\nFecha de nacimiento: 10/10/05\nGustos: Perros > Gatos. Ninfomano, & cosas viejas enjoyer.",
     "Breve biografia de los autores\n \n \n" "Nombre: Ivan Dario Gomez Cabrera\nFecha de nacimiento: 01/09/04\nGustos: Le gusta los videojuegos y la música"]
 indice_hojas_vida = 0
 indice_lista_de_imagenes = 0
