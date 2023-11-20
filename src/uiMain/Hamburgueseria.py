@@ -185,16 +185,18 @@ def ingreso_al_sistema():
 
         # ------------------GESTIÓN DE INVENTARIO-------------------#
 
+        # COMPRAR INGREDIENTES
+
     def opcionGestionDeInventario():
         limpiarVentana()
         creadorMenu()
         ventana_del_usuario.configure(pady=10)
-            # label de titulo y descripcion de la funcionalidad
+        # label de titulo y descripcion de la funcionalidad
         tituloLabel = Label(ventana_del_usuario, text="GESTIÓN DE INVENTARIO", justify="center", pady=10,
-                        font=("Helvetica", 16, "bold"))
+                            font=("Helvetica", 16, "bold"))
         tituloLabel.pack(side="top")
         explicacionLabel = Label(ventana_del_usuario, pady=10, font=("Helvetica", 12),
-                             text="Verifica la disponibilidad de tus ingredientes y compra los que necesites para hacer hamburguesas")
+                                 text="Verifica la disponibilidad de tus ingredientes y compra los que necesites para hacer hamburguesas")
         explicacionLabel.pack(side="top", fill="x")
         frameInventario = tk.Frame(ventana_del_usuario, padx=10, pady=10)
         frameInventario.config(bd=5, relief="groove")
@@ -252,41 +254,59 @@ def ingreso_al_sistema():
 
         def comprar():
             if comboIngredientes.get() == "Pan":
-                comprar(pan, int(entryComprar.get()))
+                pan.comprar(int(entryComprar.get()))
                 if (pan.precio*int(entryComprar.get())) <= Contabilidad.saldo:
-                    entryComprar.set(f"Se gastaron {pan.precio*int(entryComprar.get())} en Pan")
+                    ComprarIngredientes.set(str(f"Se gastaron {pan.precio * int(entryComprar.get())} en Pan"))
+                    labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
+
             elif comboIngredientes.get() == "Carne de res":
-                comprar(carneDeRes, int(entryComprar.get()))
+                carneDeRes.comprar(int(entryComprar.get()))
                 if (carneDeRes.precio*int(entryComprar.get())) <= Contabilidad.saldo:
-                    entryComprar.set(f"Se gastaron {carneDeRes.precio*int(entryComprar.get())} en Pan")
+                    ComprarIngredientes.set(str(f"Se gastaron {carneDeRes.precio * int(entryComprar.get())} en Pan"))
+                    labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
+
             elif comboIngredientes.get() == "Carne de pollo":
-                comprar(carneDePollo, int(entryComprar.get()))
+                carneDePollo.comprar(int(entryComprar.get()))
                 if (carneDePollo.precio*int(entryComprar.get())) <= Contabilidad.saldo:
-                    entryComprar.set(f"Se gastaron {carneDePollo.precio*int(entryComprar.get())} en Pan")
+                    ComprarIngredientes.set(str(f"Se gastaron {carneDePollo.precio * int(entryComprar.get())} en Pan"))
+                    labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
+
             elif comboIngredientes.get() == "Carne vegana":
-                comprar(carneVegana, int(entryComprar.get()))
+                carneVegana.comprar(int(entryComprar.get()))
                 if (carneVegana.precio*int(entryComprar.get())) <= Contabilidad.saldo:
-                    entryComprar.set(f"Se gastaron {carneVegana.precio*int(entryComprar.get())} en Pan")
+                    ComprarIngredientes.set(str(f"Se gastaron {carneVegana.precio * int(entryComprar.get())} en Pan"))
+                    labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
+
             elif comboIngredientes.get() == "Tomate":
-                comprar(tomate, int(entryComprar.get()))
+                tomate.comprar(int(entryComprar.get()))
                 if (tomate.precio*int(entryComprar.get())) <= Contabilidad.saldo:
-                    entryComprar.set(f"Se gastaron {tomate.precio*int(entryComprar.get())} en Pan")
+                    ComprarIngredientes.set(str(f"Se gastaron {tomate.precio * int(entryComprar.get())} en Pan"))
+                    labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
+
             elif comboIngredientes.get() == "Cebolla":
-                comprar(cebolla, int(entryComprar.get()))
+                cebolla.comprar(int(entryComprar.get()))
                 if (cebolla.precio*int(entryComprar.get())) <= Contabilidad.saldo:
-                    entryComprar.set(f"Se gastaron {cebolla.precio*int(entryComprar.get())} en Pan")
+                    ComprarIngredientes.set(str(f"Se gastaron {cebolla.precio * int(entryComprar.get())} en Pan"))
+                    labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
+
             elif comboIngredientes.get() == "Lechuga":
-                comprar(lechuga, int(entryComprar.get()))
+                lechuga.comprar(int(entryComprar.get()))
                 if (lechuga.precio*int(entryComprar.get())) <= Contabilidad.saldo:
-                    entryComprar.set(f"Se gastaron {lechuga.precio*int(entryComprar.get())} en Pan")
+                    ComprarIngredientes.set(str(f"Se gastaron {lechuga.precio * int(entryComprar.get())} en Pan"))
+                    labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
+
             elif comboIngredientes.get() == "Queso":
-                comprar(queso, int(entryComprar.get()))
+                queso.comprar(int(entryComprar.get()))
                 if (queso.precio*int(entryComprar.get())) <= Contabilidad.saldo:
-                    entryComprar.set(f"Se gastaron {queso.precio*int(entryComprar.get())} en Pan")
+                    ComprarIngredientes.set(str(f"Se gastaron {queso.precio * int(entryComprar.get())} en Pan"))
+                    labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
+
             elif comboIngredientes.get() == "Tocineta":
-                comprar(tocineta, int(entryComprar.get()))
+                tocineta.comprar(int(entryComprar.get()))
                 if (tocineta.precio*int(entryComprar.get())) <= Contabilidad.saldo:
-                    entryComprar.set(f"Se gastaron {tocineta.precio*int(entryComprar.get())} en Pan")
+                    ComprarIngredientes.set(str(f"Se gastaron {tocineta.precio * int(entryComprar.get())} en Pan"))
+                    labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
+
 
         # label de Ingresar numero de Ingredientes
         labelPagos = tk.Label(frameInventario, text="Cantidad de ingredientes", anchor="w", width=20)
@@ -304,7 +324,7 @@ def ingreso_al_sistema():
         # Label que muestra el saldo en la parte inferior derecha
         labelSaldo = Label(frameInventario, text=f"SALDO {Contabilidad.saldo}", width=20, wraplength=150,
                            font=("Helvetica", 12, "bold"), padx=10, pady=15)
-        labelSaldo.grid(row=7, column=2, sticky='e')  # Asegúrate de que el widget se coloque correctamente en la cuadrícula
+        labelSaldo.grid(row=7, column=2, sticky='e')
 
         ventana_del_usuario.update()
 
