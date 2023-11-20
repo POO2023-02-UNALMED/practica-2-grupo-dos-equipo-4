@@ -713,6 +713,31 @@ juanfe2 = tk.PhotoImage(file="../imagenes/juanfe2.png")
 juanfe3 = tk.PhotoImage(file="../imagenes/juanfe3.png")
 juanfe4 = tk.PhotoImage(file="../imagenes/juanfe4.png")
 
+label_david1 = tk.Label(frame4, image=david1)
+label_david2 = tk.Label(frame4, image=david2)
+label_david3 = tk.Label(frame4, image=david3)
+label_david4 = tk.Label(frame4, image=david4)
+
+label_cristian1 = tk.Label(frame4, image=cristian1)
+label_cristian2 = tk.Label(frame4, image=cristian2)
+label_cristian3 = tk.Label(frame4, image=cristian3)
+label_cristian4 = tk.Label(frame4, image=cristian4)
+
+label_ivan1 = tk.Label(frame4, image=ivan1)
+label_ivan2 = tk.Label(frame4, image=ivan2)
+label_ivan3 = tk.Label(frame4, image=ivan3)
+label_ivan4 = tk.Label(frame4, image=ivan4)
+
+label_nico1 = tk.Label(frame4, image=nico1)
+label_nico2 = tk.Label(frame4, image=nico2)
+label_nico3 = tk.Label(frame4, image=nico3)
+label_nico4 = tk.Label(frame4, image=nico4)
+
+label_juanfe1 = tk.Label(frame4, image=juanfe1)
+label_juanfe2 = tk.Label(frame4, image=juanfe2)
+label_juanfe3 = tk.Label(frame4, image=juanfe3)
+label_juanfe4 = tk.Label(frame4, image=juanfe4)
+
 # Listas de las fotos de los desarrolladores
 fotos_nico = [nico1, nico2, nico3, nico4]
 fotos_david = [david1, david2, david3, david4]
