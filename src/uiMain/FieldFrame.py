@@ -4,6 +4,8 @@ from tkinter import messagebox
 
 
 class FieldFrame(Frame):
+
+
     def __init__(self, master, tituloCriterios, criterios, tituloValores, valores, habilitado):
 
         super().__init__(master)
@@ -58,31 +60,42 @@ class FieldFrame(Frame):
                 "value": None
             }
 
+            def getValues(self):
+                values = []
+                for criterio in self.criterios:
+                    value = self.data[criterio]["widget"].get()
+                    values.append(value)
+                return values
+
         # Botón para enviar el formulario
         button = Button(frameForm, text="enviar", height=1, width=7)
-        #button.grid(row=index + 2, column=0, pady=20)
+        # button.grid(row=index + 2, column=0, pady=20)
         frameForm.grid_rowconfigure(index + 2, weight=1)
         frameForm.grid_columnconfigure(0, weight=1)
 
         clear = Button(frameForm, text="clear", bg="white", command=self.clear, height=1, width=6)
-        #clear.grid(row=index + 2, column=1)
+        # clear.grid(row=index + 2, column=1)
         frameForm.grid_rowconfigure(index + 2, weight=1)
         frameForm.grid_columnconfigure(1, weight=1)
         self.radio_var = tk.StringVar()
 
         # Create the radio buttons
-        self.radio_efectuar = tk.Radiobutton(frameForm, text="Efectuar reserva", variable=self.radio_var, value="Efectuar reserva",
+        self.radio_efectuar = tk.Radiobutton(frameForm, text="Efectuar reserva", variable=self.radio_var,
+                                             value="Efectuar reserva",
                                              command=self.create_additional_frame)
-        self.radio_hacer = tk.Radiobutton(frameForm, text="Hacer reserva", variable=self.radio_var, value="Hacer reserva",command=self.create_additional_frame)
+        self.radio_hacer = tk.Radiobutton(frameForm, text="Hacer reserva", variable=self.radio_var,
+                                          value="Hacer reserva", command=self.create_additional_frame)
 
-        self.radio_cancelar = tk.Radiobutton(frameForm, text="Cancelar reserva", variable=self.radio_var, value="Cancelar reserva",
+        self.radio_cancelar = tk.Radiobutton(frameForm, text="Cancelar reserva", variable=self.radio_var,
+                                             value="Cancelar reserva",
                                              command=self.create_additional_frame)
-        self.radio_salir = tk.Radiobutton(frameForm, text="Salir de Gestion de Reservas", variable=self.radio_var, value="Yes",command=self.salir)
+        self.radio_salir = tk.Radiobutton(frameForm, text="Salir de Gestion de Reservas", variable=self.radio_var,
+                                          value="Yes", command=self.salir)
 
         # Pack the radio buttons
         self.radio_efectuar.grid(row=index - 1, column=0, padx=1, pady=10)
-        self.radio_hacer.grid(row=index+0, column=0, padx=1, pady=10)
-        self.radio_cancelar.grid(row=index +1, column=0, padx=1, pady=10)
+        self.radio_hacer.grid(row=index + 0, column=0, padx=1, pady=10)
+        self.radio_cancelar.grid(row=index + 1, column=0, padx=1, pady=10)
         self.radio_salir.grid(row=index + 3, column=0, padx=10, pady=10)
 
     def salir(self):
@@ -102,7 +115,8 @@ class FieldFrame(Frame):
             frame_efectuar_reserva.grid()
 
             # Creo otro fieldFrame para esta opcion
-            frame_adicional_efectuar = FieldFrame(frame_efectuar_reserva, tituloCriterios, criterios, tituloValores, valores,
+            frame_adicional_efectuar = FieldFrame(frame_efectuar_reserva, tituloCriterios, criterios, tituloValores,
+                                                  valores,
                                                   habilitado)
             frame_adicional_efectuar.grid()
         elif self.radio_var.get() == "Hacer reserva":
@@ -134,7 +148,8 @@ class FieldFrame(Frame):
             frame_cancelar_reserva.grid()
 
             # Creo otro fieldFrame para esta opcion
-            frame_adicional_cancelar = FieldFrame(frame_cancelar_reserva, tituloCriterios, criterios, tituloValores, valores,
+            frame_adicional_cancelar = FieldFrame(frame_cancelar_reserva, tituloCriterios, criterios, tituloValores,
+                                                  valores,
                                                   habilitado)
             frame_adicional_cancelar.grid()
 

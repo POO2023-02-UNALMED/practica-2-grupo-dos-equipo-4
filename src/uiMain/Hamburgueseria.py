@@ -6,8 +6,8 @@ from src.gestorAplicacion.administracion.Empleado import Empleado
 from src.gestorAplicacion.administracion.Cocinero import Cocinero
 from src.gestorAplicacion.administracion.Mesero import Mesero
 from src.gestorAplicacion.administracion.Contabilidad import Contabilidad
-from src.gestorAplicacion.restaurante import *
-from src.gestorAplicacion.restaurante import Pedido
+from src.gestorAplicacion.restaurante.Mesas import Mesas
+from src.gestorAplicacion.restaurante.Pedido import Pedido
 
 # __________________________________________________________________________________________
 # Funciones y Eventos
@@ -166,6 +166,8 @@ def ingreso_al_sistema():
     # ------------------TOMA DE PEDIDO-------------------#
 
     def opcionTomaDePedidos():
+        
+        
         limpiarVentana()
         creadorMenu()
         ventana_del_usuario.configure(pady=10)
@@ -196,6 +198,22 @@ def ingreso_al_sistema():
             label_tieneReserva = Label(frameApartadoPedido, text= "¿El cliente tiene reserva?", anchor= "w", width= 20 )
             label_tieneReserva.grid(row = 0, column = 0)
 
+
+
+            def verificacion():
+                titulos_criterios=["Ingresa el Id asociado a la mesa reservada", "Ingrese la fecha", "Ingrese el empleado"]
+                titulos_valores=["Id cliente", "dd/mm/aa hh:mm:ss", "nombre empleado"]
+                habilitados=[True, True, True]
+                frame_verificacion_pedido= Toplevel(frameApartadoPedido)
+                formulario_verificion_pedido =FieldFrame(frame_verificacion_pedido, "Asociados para la verificación", titulos_criterios, "Parámetros", titulos_valores,habilitados, enviar_func=hacerPedidoConVerificacion)
+                formulario_verificion_pedido.grid()
+                FieldFrame.valores.append(formulario_verificion_pedido.getValues())
+
+
+
+
+
+
             def hacerPedidoConVerificacion():
                 frame_hacer_pedido_con_verificacion = tk.Toplevel()
 
@@ -222,23 +240,26 @@ def ingreso_al_sistema():
                     spinbox.grid(row=row, column=column + 1)
                     gaseosa_spinboxes.append(spinbox)
 
-                # Crear un botón para confirmar la orden
+
+                mesaReserva = None
+                fechaReserva = None
+                for mesa in Mesas.mesas:
+                    if  FieldFrame.valores[0] in mesa.reservaPorCliente.keys() and FieldFrame.valores[2] in mesa.reservaPorCliente.values():
+                        mesaReserva = mesa
+                        fechaReserva = mesa.reservaPorCliente.values()
+                pedido = Pedido(mesaReserva, fechaReserva, FieldFrame.valores[2], FieldFrame.valores[1])
+
+
                 def confirmarOrden():
-                    for comida, spinbox in zip(comidas, comida_spinboxes):
-                        print(f"{comida}: {spinbox.get()}")
-                    for gaseosa, spinbox in zip(gaseosas, gaseosa_spinboxes):
-                        print(f"{gaseosa}: {spinbox.get()}")
-                boton_confirmar = tk.Button(frame_hacer_pedido_con_verificacion, text="Confirmar Orden", command=confirmarOrden)
-                boton_confirmar.grid(row=(len(comidas) + len(gaseosas) + num_columns - 1) // num_columns + 1, column=0, columnspan=num_columns*2)
+                    pedido.confirmarOrden()
 
-            def verificacion():
-                titulos_criterios=["Ingresa el Id asociado a la mesa reservada"]
-                titulos_valores=["###"]
-                habilitados=[True]
-                frame_verificacion_pedido= Toplevel(frameApartadoPedido)
-                formulario_verificion_pedido =FieldFrame(frame_verificacion_pedido, "Asociados para la verificación", titulos_criterios, "ID", titulos_valores,habilitados, hacerPedidoConVerificacion)
 
-                formulario_verificion_pedido.grid()
+
+
+                    boton_confirmar = tk.Button(frame_hacer_pedido_con_verificacion, text="Confirmar Orden", command=confirmarOrden)
+                    boton_confirmar.grid(row=(len(comidas) + len(gaseosas) + 2*num_columns - 1) // num_columns, column=0, columnspan=num_columns*2)
+                    boton_agregarAlPedido0 = tk.Button(frame_hacer_pedido_con_verificacion, text="AgregarAlPedido")
+
 
 
 
@@ -797,6 +818,8 @@ def descripcion():  # Descripción del sistema (con esta aparecerá en un messag
 
 # _____________________________Clase FieldFrame_____________________________________________________
 class FieldFrame(Frame):
+    valores = None
+
     def __init__(self, master, tituloCriterios, criterios, tituloValores, valores, habilitado, enviar_func=None):
 
         super().__init__(master)
@@ -868,6 +891,13 @@ class FieldFrame(Frame):
         clear.grid(row=index + 2, column=1)
         frameForm.grid_rowconfigure(index+2, weight=1)
         frameForm.grid_columnconfigure(1, weight=1)
+
+    def getValues1(self):
+            values = {}
+            for criterio in self.criterios:
+                value = self.data[criterio]["widget"].get()
+                values[criterio] = value
+            return values
 
     def getValue(self, criterio):
         return self.data[criterio]["value"]
