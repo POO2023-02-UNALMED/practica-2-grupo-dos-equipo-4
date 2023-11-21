@@ -14,19 +14,19 @@ class Mesas:
         Mesas.mesas.append(self)
 
     def crearReserva(self, idCliente, idMesa, fecha):
-        fecha_str = fecha.strftime("%Y/%m/%d %H:%M:%S")
+
         for mesa in Mesas.mesas:
-            if mesa.getIdMesa() == idMesa and fecha_str not in mesa.reservaPorCliente.values():
-                mesa.reservaPorCliente[idCliente] = fecha_str
-                mesa.ocupadoEnFecha[fecha_str] = False
+            if mesa.getIdMesa() == idMesa and fecha not in mesa.reservaPorCliente.values():
+                mesa.reservaPorCliente[idCliente] = fecha
+                mesa.ocupadoEnFecha[fecha] = False
 
     def efectuarReserva(self, idCliente, fecha):
         try:
-            fecha_str = fecha.strftime("%Y/%m/%d %H:%M:%S")
-            if self.isOcupadoEnFecha(fecha_str):
+
+            if self.isOcupadoEnFecha(fecha):
                 raise ErrorRestaurante("mesa_ocupada")
             self.reservaPorCliente.pop(idCliente, None)
-            self.ocupadoEnFecha[fecha_str] = True
+            self.ocupadoEnFecha[fecha] = True
         except ErrorRestaurante as e:
             e.manejo_error()
 

@@ -1,4 +1,5 @@
 import tkinter as tk
+from random import randint
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
@@ -15,7 +16,7 @@ hojas_de_vidas = [
     "Adicto al gym, las apuestas y a las malas decisiónes\n \n \n" "Nombre: Nicolas Ruiz Blandon\nFecha de nacimiento: 07/02/05\nGustos: Viajes, Música y Gatos\n \n \nClickea aquí para cambiar las biografías ",
     "Sobreviviendo a la nacho para ser un ingeniero\n \n \n" "Nombre: Juan Felipe Moreno Ruiz\nFecha de nacimiento: 23/03/06\nGustos: El valorant ,la comida y los michis\n \n \nClickea aquí para cambiar las biografías",
     "Músico agropecuario y estudiante de la nacho \n \n \n" "Nombre: David Delgado Ortiz\nFecha de nacimiento: 08/05/02\nGustos: la música, los gatos y las mujeres\n \n \nClickea aquí para cambiar las biografías",
-    "Vegetta777 y Messi lover\n \n \n" "Nombre: Cristian David Pérez Lopera\nFecha de nacimiento: 10/10/05\nGustos: Perros > Gatos. Melomano, & cosas viejas enjoyer\n \n \nClickea aquí para cambiar las biografías",
+    "Melomano, & cosas viejas enjoyer.\n Culer <3\n \n" "Nombre: Cristian David Pérez Lopera\nFecha de nacimiento: 10/10/05\nGustos: Leer novelas, jugar Minecraft y disfrutar del absurdo.\n \n \nClickea aquí para cambiar las biografías",
     "Tryhard de la vida, never surrender\n \n \n" "Nombre: Ivan Dario Gomez Cabrera\nFecha de nacimiento: 01/09/04\nGustos: los videojuegos, hamburguesas, la música y Messi\n \n \nClickea aquí para cambiar las biografías"]
 indice_hojas_vida = 0
 indice_lista_de_imagenes = 0
@@ -83,6 +84,7 @@ def ingreso_al_sistema():
 
     # ====================Creador de pestañas de Funcionalidades==========================================#
 
+
     #------------------GESTION DE RESERVAS-------------------#
 
     def opcionGestionReserva():
@@ -95,7 +97,7 @@ def ingreso_al_sistema():
         tituloLabel_Gestion = Label(ventana_del_usuario, text="RESERVAS", justify="center", pady=10, font=("Helvetica", 16, "bold"))
         tituloLabel_Gestion.pack(side="top")
         explicacionLabel_Gestion = Label(ventana_del_usuario, pady=10, font=("Helvetica", 12),
-                                 text="Una forma muy eficiente para llegar un buena gestio de tus reservas.")
+                                         text="Una forma muy eficiente para llegar un buena gestio de tus reservas.")
         explicacionLabel_Gestion.pack(side="top", fill="x")
 
         #creacion del Frame donde va el formulario de interaccion para la funcionalidad
@@ -110,15 +112,29 @@ def ingreso_al_sistema():
         #label descriptivo
         labelDescripcion_efectuar_reserva = Label(frameReserva, text="Aqui puedes efectuar la reserva de algún cliente que llegó al restaurante", width=40, wraplength=200, padx=10)
         labelDescripcion_efectuar_reserva.grid(row = 1, column = 1, padx=10, pady=10)
-        def efectuar_reserva():# Funcion en cargada de mostrar el formulario tipo FieldFrame
-            titulos_criterios=["Ingresa el Id asociado a la reserva", "Ingresar id de la mesa"]
-            titulos_valores=["###", "###"]
-            habilitados=[True, True]
 
-            frame_efectuar_reserva= Toplevel(frameReserva)
-            formulario_efectuar_reserva =FieldFrame(frame_efectuar_reserva, "Asociados con tu reserva", titulos_criterios, "ID", titulos_valores,habilitados  )
-            formulario_efectuar_reserva.grid()
-            pass
+        def efectuar_reserva():# Funcion en cargada de mostrar el formulario tipo FieldFrame
+            def efectuar():
+                hora = formEfectuar.getValue("Fecha de la reserva")
+                id = formEfectuar.getValue("ID asociada a tu reserva")
+                idcliente = formEfectuar.getValue("ID de tu mesa")
+
+                for i in range(len(Mesas.mesas)):
+                    if Mesas.mesas[i].getIdMesa() == id:
+                        Mesas.mesas[i].efectuarReserva(idcliente, hora)
+                        break
+
+                msg = messagebox.showinfo("Tomando Reserva",f"la reserva en la fecha {hora} ha sido tomada")
+                frameEfectuar.destroy()
+
+            criterios=["ID asociada a tu reserva", "ID de tu mesa", "Fecha de la reserva"]
+            valores=["###", "###", "00/00/00 00:00:00"]
+            habilitados=[True, True, True]
+
+            frameEfectuar = Toplevel(frameReserva)
+            formEfectuar = FieldFrame(frameEfectuar, "Asociado a la reserva", criterios, "ID", valores, habilitados, efectuar)
+            formEfectuar.grid()
+
         #boton efectuar reserva
         botonEfectuar = Button(frameReserva, text="Efectuar", padx=10, command= efectuar_reserva)
         botonEfectuar.grid(row = 1, column = 0, padx=10, pady=10)
@@ -130,13 +146,31 @@ def ingreso_al_sistema():
         labelDescripcion_hacer_reserva = Label(frameReserva, text="Aqui puedes crear la reserva para algún cliente", width=40, wraplength=200, padx=10)
         labelDescripcion_hacer_reserva.grid(row = 4, column = 1, padx=10, pady=10)
         def crear_reserva():# Funcion en cargada de mostrar el formulario tipo FieldFrame
-            titulos_criterios=["Selecciona la hora de la reserva", "Selecciona el número de asientos de la mesa"]
-            titulos_valores=["00/00/00", "Numero de sillas"]
+            def creacion():
+                hora = formReserva.getValue("Elige la hora")
+                sillas = int(formReserva.getValue("Elige la cantidad de sillas"))
+                id = 0
+                idcliente = randint(1, 5000)
+
+                for i in range(len(Mesas.mesas)):
+                    if Mesas.mesas[i].getNumeroDeSillas() == sillas:
+                        id = Mesas.mesas[i].getIdMesa()
+                        Mesas.mesas[i].crearReserva(idcliente, id, hora)
+                        #print(Mesas.mesas[i])
+                        break
+
+
+                msg = messagebox.showinfo("Datos Reserva",f"Tu ID es {idcliente}, el ID de tu mesa es {id}.\nLa fecha de la reserva es {hora}")
+                frameCreacion.destroy()
+
+            criterios=["Elige la hora", "Elige la cantidad de sillas"]
+            valores=["00/00/00 00:00:00", "Numero de sillas"]
             habilitados=[True, True]
 
-            frame_crear_reserva= Toplevel(frameReserva)
-            formulario_crear_reserva =FieldFrame(frame_crear_reserva, "Importante", titulos_criterios, "Datos", titulos_valores,habilitados)
-            formulario_crear_reserva.grid()
+            frameCreacion= Toplevel(frameReserva)
+            formReserva =FieldFrame(frameCreacion, "Importante", criterios, "Datos", valores, habilitados, creacion)
+            formReserva.grid()
+
         #boton
         boton_Crear_reserva = Button(frameReserva, text="Crear reserva", padx=10, command= crear_reserva)
         boton_Crear_reserva.grid(row = 4, column = 0, padx=10, pady=10)
@@ -147,20 +181,32 @@ def ingreso_al_sistema():
         #label descriptivo
         labelDescripcion_cancelar_reserva = Label(frameReserva, text="Para deshacer la reserva de algún cliente", width=40, wraplength=200, padx=10)
         labelDescripcion_cancelar_reserva.grid(row = 7, column = 1, padx=10, pady=10)
-        def cancelar_reserva():# Funcion en cargada de mostrar el formulario tipo FieldFrame
-            titulos_criterios=["Ingresa el ID asociada a tu reserva"]
-            titulos_valores=["###"]
-            habilitados=[True, True]
 
-            frame_cancelar_reserva= Toplevel(frameReserva)
-            formulario_cancelar_reserva =FieldFrame(frame_cancelar_reserva, "Asociado a la reserva", titulos_criterios, "ID", titulos_valores,habilitados  )
-            formulario_cancelar_reserva.grid()
-            pass
+        def cancelar_reserva():# Funcion en cargada de mostrar el formulario tipo FieldFrame
+            def cancelar():
+                hora = formCancelar.getValue("Fecha de la reserva")
+                id = formCancelar.getValue("ID asociada a tu reserva")
+                idcliente = formCancelar.getValue("ID de tu mesa")
+
+                for i in range(len(Mesas.mesas)):
+                    if Mesas.mesas[i].getIdMesa() == id:
+                        Mesas.mesas[i].cancelarReserva(idcliente, hora)
+                        break
+
+                msg = messagebox.showinfo("Cancelación de Reserva",f"la reserva en la fecha {hora} ha sido cancelada")
+                frameCancelar.destroy()
+
+            criterios=["ID asociada a tu reserva", "ID de tu mesa", "Fecha de la reserva"]
+            valores=["###", "###", "00/00/00 00:00:00"]
+            habilitados=[True, True, True]
+
+            frameCancelar = Toplevel(frameReserva)
+            formCancelar = FieldFrame(frameCancelar, "Asociado a la reserva", criterios, "ID", valores, habilitados, cancelar)
+            formCancelar.grid()
+
         #boton cancelar reserva
         boton_Cancelar_reserva = Button(frameReserva, text="Cancelar reserva", padx=10, command=cancelar_reserva)
         boton_Cancelar_reserva.grid(row = 7, column = 0, padx=10, pady=10)
-
-
 
 
     # ------------------TOMA DE PEDIDO-------------------#
@@ -799,8 +845,6 @@ def descripcion():  # Descripción del sistema (con esta aparecerá en un messag
 
 # _____________________________Clase FieldFrame_____________________________________________________
 class FieldFrame(Frame):
-    valores = None
-
     def __init__(self, master, tituloCriterios, criterios, tituloValores, valores, habilitado, enviar_func=None):
 
         super().__init__(master)
@@ -851,9 +895,10 @@ class FieldFrame(Frame):
 
             self.data[criterio] = {
                 "widget": input_widget,
-                "value": None
+                "value": tk.StringVar(value=input_widget.get())
             }
-
+            # Agregar un seguimiento a la variable StringVar
+            input_widget.config(textvariable=self.data[criterio]["value"])
 
         # Botón para enviar el formulario, para modificar la acción del botón en cada instnacia creada de FieldFrame
         button = Button(frameForm, text="enviar", height=1, width=7, command=enviar_func if enviar_func else self.submitForm)
@@ -873,15 +918,11 @@ class FieldFrame(Frame):
         frameForm.grid_rowconfigure(index+2, weight=1)
         frameForm.grid_columnconfigure(1, weight=1)
 
-    def getValues1(self):
-            values = {}
-            for criterio in self.criterios:
-                value = self.data[criterio]["widget"].get()
-                values[criterio] = value
-            return values
-
+    def update_value(self, sv, w):
+        # Actualizar el valor de la clave "value" en el diccionario self.data cuando el valor de la variable StringVar cambie
+        self.data[w.cget("text")]["value"].set(sv.get())
     def getValue(self, criterio):
-        return self.data[criterio]["value"]
+        return self.data[criterio]["value"].get()
 
     def getValues(self):
         return self.dataform
