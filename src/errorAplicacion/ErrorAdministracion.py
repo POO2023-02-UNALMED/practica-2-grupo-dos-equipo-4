@@ -1,5 +1,5 @@
 from src.errorAplicacion.ErrorAplicacion import ErrorAplicacion
-
+from tkinter import messagebox
 
 class ErroresAdministracion(ErrorAplicacion):
     def __init__(self, tipo_error):
@@ -14,4 +14,4 @@ class ErroresAdministracion(ErrorAplicacion):
         super().__init__(message)
 
     def manejo_error(self):
-        print(self.message)
+        messagebox.showinfo("Error", self.message)
