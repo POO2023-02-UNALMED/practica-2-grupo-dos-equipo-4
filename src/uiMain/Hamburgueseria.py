@@ -689,13 +689,13 @@ def ingreso_al_sistema():
 
     creadorMenu()
     # Frame Zona1
-    frameUser1 = tk.Frame(ventana_del_usuario, bg="yellow")
+    frameUser1 = tk.Frame(ventana_del_usuario, bg="green")
     frameUser1.config(bd=5, relief="groove")
     frameUser1.pack(side="left", fill="both", expand=True)
     imagen_presentacion = tk.PhotoImage(file='../imagenes/calvas chiko.png')
     frameUser1.imagen_presentacion = imagen_presentacion
     label_presentacion= tk.Label(frameUser1, image=imagen_presentacion, width=300, height=200)
-    label_presentacion.pack()
+    label_presentacion.pack(side="top", fill="both", expand=True)
 
 
 def salir_sistema():  # Salir de la aplicación
