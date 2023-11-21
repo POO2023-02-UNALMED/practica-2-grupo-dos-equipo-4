@@ -195,17 +195,52 @@ def ingreso_al_sistema():
             label_tieneReserva = Label(frameApartadoPedido, text= "¿El cliente tiene reserva?", anchor= "w", width= 20 )
             label_tieneReserva.grid(row = 0, column = 0)
 
+            def hacerPedidoConVerificacion():
+                frame_hacer_pedido_con_verificacion = tk.Toplevel()
+
+                # Crear un Listbox para las comidas y un Spinbox para las cantidades
+                comidas = [comida for comida in Comida.listaComida]
+                comida_spinboxes = []
+                num_columns = 3
+                for idx, comida in enumerate(comidas):
+                    row = idx // num_columns
+                    column = (idx % num_columns) * 2
+                    tk.Label(frame_hacer_pedido_con_verificacion, text=comida).grid(row=row, column=column)
+                    spinbox = tk.Spinbox(frame_hacer_pedido_con_verificacion, from_=0, to=100)
+                    spinbox.grid(row=row, column=column + 1)
+                    comida_spinboxes.append(spinbox)
+
+                # Crear un Listbox para las gaseosas y un Spinbox para las cantidades
+                gaseosas = [gaseosa for gaseosa in Gaseosas.listaGaseosas]
+                gaseosa_spinboxes = []
+                for idx, gaseosa in enumerate(gaseosas):
+                    row = idx // num_columns + len(comidas) + num_columns-1 // num_columns
+                    column = (idx % num_columns) * 2
+                    tk.Label(frame_hacer_pedido_con_verificacion, text=gaseosa).grid(row=row, column=column)
+                    spinbox = tk.Spinbox(frame_hacer_pedido_con_verificacion, from_=0, to=100)
+                    spinbox.grid(row=row, column=column + 1)
+                    gaseosa_spinboxes.append(spinbox)
+
+                # Crear un botón para confirmar la orden
+                def confirmarOrden():
+                    for comida, spinbox in zip(comidas, comida_spinboxes):
+                        print(f"{comida}: {spinbox.get()}")
+                    for gaseosa, spinbox in zip(gaseosas, gaseosa_spinboxes):
+                        print(f"{gaseosa}: {spinbox.get()}")
+
+                boton_confirmar = tk.Button(frame_hacer_pedido_con_verificacion, text="Confirmar Orden", command=confirmarOrden)
+                boton_confirmar.grid(row=(len(comidas) + len(gaseosas) + num_columns - 1) // num_columns + 1, column=0, columnspan=num_columns*2)
+
             def verificacion():
                 titulos_criterios=["Ingresa el Id asociado a la mesa reservada"]
                 titulos_valores=["###"]
                 habilitados=[True]
                 frame_verificacion_pedido= Toplevel(frameApartadoPedido)
-                formulario_verificion_pedido =FieldFrame(frame_verificacion_pedido, "Asociados para la verificación", titulos_criterios, "ID", titulos_valores,habilitados, hacerPedidoConVerificacion )
+                formulario_verificion_pedido =FieldFrame(frame_verificacion_pedido, "Asociados para la verificación", titulos_criterios, "ID", titulos_valores,habilitados, hacerPedidoConVerificacion() )
+
                 formulario_verificion_pedido.grid()
 
-            def hacerPedidoConVerificacion():
-                frame_hacer_pedido_con_verificacion = tk.Frame(framePedidos, padx=20, pady=20)
-                frame_hacer_pedido_con_verificacion.config(bd=5, relief="groove")
+
 
 
 
