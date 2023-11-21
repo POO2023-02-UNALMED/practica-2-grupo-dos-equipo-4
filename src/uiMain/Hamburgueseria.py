@@ -8,6 +8,7 @@ from src.gestorAplicacion.administracion.Mesero import Mesero
 from src.gestorAplicacion.administracion.Contabilidad import Contabilidad
 from src.gestorAplicacion.restaurante import *
 from src.gestorAplicacion.restaurante import Pedido
+from src.baseDatos.Serializador import serializar,deserializar
 
 # __________________________________________________________________________________________
 # Funciones y Eventos
@@ -79,7 +80,7 @@ def ingreso_al_sistema():
             widget.destroy()
 
     # Funcion para deshabilitar el boton de la ventana principal
-    
+
 
     # ====================Creador de pestañas de Funcionalidades==========================================#
 
@@ -1129,6 +1130,8 @@ from src.gestorAplicacion.administracion.Contabilidad import Contabilidad
 from src.gestorAplicacion.administracion.Factura import Factura
 from src.gestorAplicacion.administracion.Calificacion import Calificacion
 from datetime import datetime
+
+object=deserializar()
 
 sprite = Gaseosas("Sprite", 2000, 20)
 coca_cola = Gaseosas("Coca cola", 2100, 20)
