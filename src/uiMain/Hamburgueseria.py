@@ -211,18 +211,10 @@ def ingreso_al_sistema():
                 frame_verificacion_pedido= Toplevel(frameApartadoPedido)
                 formulario_verificion_pedido =FieldFrame(frame_verificacion_pedido, "Asociados para la verificación", titulos_criterios, "Parámetros", titulos_valores,habilitados, enviar_func=hacerPedidoConVerificacion)
                 formulario_verificion_pedido.grid()
-                FieldFrame.valores.append(formulario_verificion_pedido.getValues())
-
-
-
-
-
-
+                FieldFrame.valores.append(formulario_verificion_pedido.getValues()) #######
 
             def hacerPedidoConVerificacion():
                 frame_hacer_pedido_con_verificacion = tk.Toplevel()
-
-
                 # Crear un Listbox para las comidas y un Spinbox para las cantidades
                 comidas = [comida for comida in Comida.listaComida]
                 comida_spinboxes = []
@@ -262,15 +254,9 @@ def ingreso_al_sistema():
 
 
 
-                    boton_confirmar = tk.Button(frame_hacer_pedido_con_verificacion, text="Confirmar Orden", command=confirmarOrden)
-                    boton_confirmar.grid(row=(len(comidas) + len(gaseosas) + 2*num_columns - 1) // num_columns, column=0, columnspan=num_columns*2)
-                    boton_agregarAlPedido0 = tk.Button(frame_hacer_pedido_con_verificacion, text="AgregarAlPedido")
-
-
-
-
-
-
+                boton_confirmar = tk.Button(frame_hacer_pedido_con_verificacion, text="Confirmar Orden", command=confirmarOrden)
+                boton_confirmar.grid(row=(len(comidas) + len(gaseosas) + 2*num_columns - 1) // num_columns, column=0, columnspan=num_columns*2)
+                boton_agregarAlPedido0 = tk.Button(frame_hacer_pedido_con_verificacion, text="AgregarAlPedido")
 
 
             def hacerPedidoSinVerificacion():
