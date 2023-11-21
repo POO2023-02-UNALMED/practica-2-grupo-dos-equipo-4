@@ -238,9 +238,9 @@ def ingreso_al_sistema():
         def eventoCrear():
             def crearEmpleado():
                 if comboOcupacion.get() == "Cocinero":
-                    return Cocinero(entryNombre.get(), entrySalario.get(), "Inexperto")
+                    return Cocinero(entryNombre.get(), int(entrySalario.get()), "Inexperto")
                 elif comboOcupacion.get() == "Mesero":
-                    return Mesero(entryNombre.get(), entrySalario.get())
+                    return Mesero(entryNombre.get(), int(entrySalario.get()))
 
             def limpiar():
                 ventanaCrear.destroy()
@@ -558,6 +558,7 @@ def ingreso_al_sistema():
             elif comboPagos.get()=="Pagar Sueldos":
                 entradaTotalPagos.set(str("PAGO REALIZADO CORRECTAMENTE. Dinero descontado del saldo"))
                 Contabilidad.pagarSueldos()
+                labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
                 print(Contabilidad.getGastos())
 
         #definicion de funcion para el cambio de opcion en Combobox de pagos
@@ -589,11 +590,11 @@ def ingreso_al_sistema():
         #definicion de funcion del boton para calcular estadisticas
         def botonCalcular():
             if comboEstadisticas.get()=="Calcular Gastos":
-                entradaEstadisticas.set(str(Contabilidad.getIngresos()))
+                entradaEstadisticas.set(str(Contabilidad.getGastos()))
             elif comboEstadisticas.get()=="Calcular Ingresos":
-                entradaEstadisticas.set(str(9))
+                entradaEstadisticas.set(str(Contabilidad.getIngresos()))
             elif comboEstadisticas.get()=="Calcular Utilidad":
-                entradaEstadisticas.set(str(15))
+                entradaEstadisticas.set(str(Contabilidad.utilidades))
 
         #definicion de funcion para el cambio de opcion en el combobox de estadisticas
         def descripEstadisticas(event):

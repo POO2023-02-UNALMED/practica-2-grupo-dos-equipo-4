@@ -8,7 +8,7 @@ class Contabilidad:
     saldo = 1000000
     utilidades = 0
     ingresos = 500000
-    sueldos = 1200
+    sueldos = 0
     gastos = 0
     serviciosPublicos = 50000
 
@@ -38,6 +38,7 @@ class Contabilidad:
     @staticmethod
     def calcularUtilidades(ganancia, neto):
         Contabilidad.utilidades = ganancia + neto
+
 
     @staticmethod
     def pagarSueldos():
