@@ -183,19 +183,48 @@ def ingreso_al_sistema():
         #label de Efectuar reserva
         label_efectuar_reserva = tk.Label(framePedidos, text="¿Tienes Reserva?", anchor="w", width= 13)
         label_efectuar_reserva.grid(row = 0, column = 0)
+
         #label descriptivo de boton si
         labelDescripcion_si_reserva = Label(framePedidos, text="Aquí se verifica el pedido con el id asociado a la mesa reservada", width=40, wraplength=200, padx=10)
         labelDescripcion_si_reserva.grid(row = 1, column = 1, padx=10, pady=10)
-        def verificacion():
-            titulos_criterios=["Ingresa el Id asociado a la mesa reservada"]
-            titulos_valores=["###"]
-            habilitados=[True]
-            frame_verificacion_pedido= Toplevel(framePedidos)
-            formulario_verificion_pedido =FieldFrame(frame_verificacion_pedido, "Asociados para la verificación", titulos_criterios, "ID", titulos_valores,habilitados  )
-            formulario_verificion_pedido.grid()
 
-        boton_si= tk.Button(framePedidos, text="Si", padx=50, command= verificacion)
-        boton_si.grid(row = 1, column = 0, padx=10, pady=10)
+        def apartadoPedido():
+            frameApartadoPedido = tk.Frame(framePedidos, padx=20, pady=20)
+            frameApartadoPedido.config(bd=5, relief="groove")
+            frameApartadoPedido = Toplevel(framePedidos)
+            label_tieneReserva = Label(frameApartadoPedido, text= "¿El cliente tiene reserva?", anchor= "w", width= 20 )
+            label_tieneReserva.grid(row = 0, column = 0)
+
+            def verificacion():
+                titulos_criterios=["Ingresa el Id asociado a la mesa reservada"]
+                titulos_valores=["###"]
+                habilitados=[True]
+                frame_verificacion_pedido= Toplevel(frameApartadoPedido)
+                formulario_verificion_pedido =FieldFrame(frame_verificacion_pedido, "Asociados para la verificación", titulos_criterios, "ID", titulos_valores,habilitados, hacerPedidoConVerificacion )
+                formulario_verificion_pedido.grid()
+
+            def hacerPedidoConVerificacion():
+                frame_hacer_pedido_con_verificacion = tk.Frame(framePedidos, padx=20, pady=20)
+                frame_hacer_pedido_con_verificacion.config(bd=5, relief="groove")
+
+
+
+
+
+            def hacerPedidoSinVerificacion():
+                frame_hacer_pedido_sin_verificacion = Toplevel(frameApartadoPedido)
+
+
+
+
+            boton_siTieneReserva = tk.Button(frameApartadoPedido, text = "Si", padx= 50, command= verificacion)
+            boton_siTieneReserva.grid(row = 1, column = 0, padx=10, pady=10)
+            boton_noTieneReserva = tk.Button(frameApartadoPedido, text= "No", padx= 50, command= hacerPedidoSinVerificacion())
+            boton_noTieneReserva.grid(row = 3, column = 0, padx=10, pady=10)
+
+
+        boton_apartadoPedido= tk.Button(framePedidos, text="Apartado Pedidos", padx=50, command= apartadoPedido)
+        boton_apartadoPedido.grid(row = 1, column = 0, padx=10, pady=10)
         #label descriptivo de boton no
         labelDescripcion_no_reserva = labelDescripcion_no_reserva = Label(framePedidos, text="Aquí se asigna una mesa al cliente para luego\nMostrar el menú", width=40, wraplength=200, padx=10)
         labelDescripcion_no_reserva.grid(row = 4, column = 1, padx=10, pady=10)
