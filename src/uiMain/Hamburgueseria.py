@@ -1173,9 +1173,9 @@ ingredientesVegetariana = [pan, carneVegana, queso, tomate, cebolla, lechuga]
 cantidadesVegetariana = [2, 1, 2, 2, 2, 2]
 vegetariana = Comida("Vegetariana", ingredientesVegetariana, cantidadesVegetariana)
 
-ingredientesCarnivora = [pan, carneDeRes, carneDePollo, tocineta, queso]
-cantidadesCarnivora = [2, 1, 1, 4, 2]
-carnivora = Comida("Carnivora", ingredientesCarnivora, cantidadesCarnivora)
+ingredientesCarnibora = [pan, carneDeRes, carneDePollo, tocineta, queso]
+cantidadesCarnibora = [2, 1, 1, 4, 2]
+carnibora = Comida("Carnibora", ingredientesCarnibora, cantidadesCarnibora)
 
 Comida.listaComida.append(clasicaDeCarne)
 Comida.listaComida.append(especialQuesoYTocineta)
@@ -1183,7 +1183,7 @@ Comida.listaComida.append(clasicaDePollo)
 Comida.listaComida.append(polloconQueso)
 Comida.listaComida.append(dobleCarneTocineta)
 Comida.listaComida.append(vegetariana)
-Comida.listaComida.append(carnivora)
+Comida.listaComida.append(carnibora)
 
 mesa1 = Mesas(1, 2)
 mesa2 = Mesas(2, 2)
@@ -1204,11 +1204,9 @@ mesa15 = Mesas(15, 10)
 camilo = Mesero("Camilo", 100)
 linda = Mesero("Linda", 100)
 david = Cocinero("David", 100, "Calvas")
-linguini = Cocinero("Linguini", 200, "Carnivora")
 
 mesa12.crearReserva(890123, 12, datetime(2023, 10, 4, 12, 0, 0))
-mesa3.crearReserva(789234, 3, datetime(2023, 11, 22, 17, 0, 0))
-mesa6.crearReserva(654321, 6, datetime(2023, 11, 22, 17, 0, 0))
+
 
 listaPedido = []
 # pedidos con reservas
