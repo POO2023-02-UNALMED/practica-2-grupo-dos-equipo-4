@@ -223,14 +223,17 @@ def ingreso_al_sistema():
         explicacionLabel_toma_pedidos = Label(ventana_del_usuario, pady=10, font=("Helvetica", 12),
                                           text="Puedes tomar pedidos de los clientes, pagar facturas, y ver nuestro menú.")
         explicacionLabel_toma_pedidos.pack(side="top", fill="x")
+
         #creacion del Frame donde va el formulario de interaccion para la funcionalidad
         framePedidos = tk.Frame(ventana_del_usuario, padx=10, pady=10)
         framePedidos.config(bd=5, relief="groove")
         framePedidos.pack(expand=True)
+
         label_1= tk.Label(framePedidos, text="Descripción")
         label_1.grid(row=0, column=1)
+
         #label de Efectuar reserva
-        label_efectuar_reserva = tk.Label(framePedidos, text="¿A dónde vas a entrar?", anchor="w", width= 13)
+        label_efectuar_reserva = tk.Label(framePedidos, text="¿A dónde vas a entrar?", anchor="w", width= 20)
         label_efectuar_reserva.grid(row = 0, column = 0)
 
         #label descriptivo de boton si
@@ -251,62 +254,67 @@ def ingreso_al_sistema():
 
 
             def verificacion():
-                titulos_criterios=["Ingresa el Id asociado a la mesa reservada", "Ingrese la fecha", "Ingrese el empleado"]
-                titulos_valores=["Id cliente", "dd/mm/aa hh:mm:ss", "nombre empleado"]
+
+                def hacerPedido():
+                    frameComida = tk.Toplevel(ventana_del_usuario)
+                    frameVerificacion.destroy()
+
+                    # Crear un Listbox para las comidas y un Spinbox para las cantidades
+                    comidas = [comida for comida in Comida.listaComida]
+                    comida_spinboxes = []
+                    num_columns = 4
+                    for idx, comida in enumerate(comidas):
+                        row = idx // num_columns
+                        column = (idx % num_columns) * 2
+                        tk.Label(frameComida, text=comida).grid(row=row, column=column)
+                        spinbox = tk.Spinbox(frameComida, from_=0, to=100)
+                        spinbox.grid(row=row, column=column + 1)
+                        comida_spinboxes.append(spinbox)
+
+                    # Crear un Listbox para las gaseosas y un Spinbox para las cantidades
+                    gaseosas = [gaseosa for gaseosa in Gaseosas.listaGaseosas]
+                    gaseosa_spinboxes = []
+                    for idx, gaseosa in enumerate(gaseosas):
+                        row = idx // num_columns + len(comidas) + num_columns-1 // num_columns
+                        column = (idx % num_columns) * 2
+                        tk.Label(frameComida, text=gaseosa).grid(row=row, column=column)
+                        spinbox = tk.Spinbox(frameComida, from_=0, to=100)
+                        spinbox.grid(row=row, column=column + 1)
+                        gaseosa_spinboxes.append(spinbox)
+
+                    def confirmarBoton():
+                        msg =  messagebox.showinfo("Confirmacion", "Pedido Confirmado")
+                        frameComida.destroy()
+
+                    boton_confirmar = Button(frameComida, text="Confirmar Orden", command=confirmarBoton)
+                    boton_confirmar.grid(row=(len(comidas) + len(gaseosas) + 2*num_columns - 1) // num_columns, column=0, columnspan=num_columns*2)
+
+
+
+                def revision():
+                    hora = formVerificacion.getValue("Fecha de la reserva")
+                    idcliente = formVerificacion.getValue("ID asociada a tu reserva")
+                    id = int(formVerificacion.getValue("ID de tu mesa"))
+
+                    for i in range(len(Mesas.mesas)):
+                        if Mesas.mesas[i].getIdMesa() == id:
+                            if Mesas.mesas[i].isOcupadoEnFecha(hora) != True:
+                                Mesas.mesas[i].efectuarReserva(idcliente, hora)
+                                hacerPedido()
+                                break
+                        else:continue
+
+                criterios=["ID asociada a tu reserva", "Fecha de la reserva", "ID de tu mesa"]
+                valores=["###", "dd/mm/aa hh:mm:ss", "###"]
                 habilitados=[True, True, True]
-                frame_verificacion_pedido= Toplevel(frameApartadoPedido)
-                formulario_verificion_pedido =FieldFrame(frame_verificacion_pedido, "Asociados para la verificación", titulos_criterios, "Parámetros", titulos_valores,habilitados, enviar_func=hacerPedidoConVerificacion)
-                formulario_verificion_pedido.grid()
-                FieldFrame.valores.append(formulario_verificion_pedido.getValues()) #######
-
-            def hacerPedidoConVerificacion():
-                frame_hacer_pedido_con_verificacion = tk.Toplevel()
-                # Crear un Listbox para las comidas y un Spinbox para las cantidades
-                comidas = [comida for comida in Comida.listaComida]
-                comida_spinboxes = []
-                num_columns = 3
-                for idx, comida in enumerate(comidas):
-                    row = idx // num_columns
-                    column = (idx % num_columns) * 2
-                    tk.Label(frame_hacer_pedido_con_verificacion, text=comida).grid(row=row, column=column)
-                    spinbox = tk.Spinbox(frame_hacer_pedido_con_verificacion, from_=0, to=100)
-                    spinbox.grid(row=row, column=column + 1)
-                    comida_spinboxes.append(spinbox)
-
-                # Crear un Listbox para las gaseosas y un Spinbox para las cantidades
-                gaseosas = [gaseosa for gaseosa in Gaseosas.listaGaseosas]
-                gaseosa_spinboxes = []
-                for idx, gaseosa in enumerate(gaseosas):
-                    row = idx // num_columns + len(comidas) + num_columns-1 // num_columns
-                    column = (idx % num_columns) * 2
-                    tk.Label(frame_hacer_pedido_con_verificacion, text=gaseosa).grid(row=row, column=column)
-                    spinbox = tk.Spinbox(frame_hacer_pedido_con_verificacion, from_=0, to=100)
-                    spinbox.grid(row=row, column=column + 1)
-                    gaseosa_spinboxes.append(spinbox)
-
-
-                mesaReserva = None
-                fechaReserva = None
-                for mesa in Mesas.mesas:
-                    if  FieldFrame.valores[0] in mesa.reservaPorCliente.keys() and FieldFrame.valores[2] in mesa.reservaPorCliente.values():
-                        mesaReserva = mesa
-                        fechaReserva = mesa.reservaPorCliente.values()
-                pedido = Pedido(mesaReserva, fechaReserva, FieldFrame.valores[2], FieldFrame.valores[1])
-
-
-                def confirmarOrden():
-                    pedido.confirmarOrden()
-
-
-
-
-                boton_confirmar = tk.Button(frame_hacer_pedido_con_verificacion, text="Confirmar Orden", command=confirmarOrden)
-                boton_confirmar.grid(row=(len(comidas) + len(gaseosas) + 2*num_columns - 1) // num_columns, column=0, columnspan=num_columns*2)
-                boton_agregarAlPedido0 = tk.Button(frame_hacer_pedido_con_verificacion, text="AgregarAlPedido")
+                frameVerificacion = Toplevel(ventana_del_usuario)
+                frameApartadoPedido.destroy()
+                formVerificacion =FieldFrame(frameVerificacion, "Asociados para la verificación", criterios, "Parámetros", valores,habilitados, revision)
+                formVerificacion.grid()
 
 
             def hacerPedidoSinVerificacion():
-                frame_hacer_pedido_sin_verificacion = Toplevel(frameApartadoPedido)
+                msg = messagebox.askretrycancel("Atención!","Realiza primero una RESERVA!\nGracias!")
 
 
 
@@ -319,11 +327,7 @@ def ingreso_al_sistema():
 
         boton_apartadoPedido= tk.Button(framePedidos, text="Apartado Pedidos", padx=50, command= apartadoPedido)
         boton_apartadoPedido.grid(row = 1, column = 0, padx=10, pady=10)
-        #label descriptivo de boton no
-        labelDescripcion_no_reserva = labelDescripcion_no_reserva = Label(framePedidos, text="Aquí se pueden ver y pagar las facturas, a la vez que ingresar la calificación del empleado que atendió", width=40, wraplength=200, padx=10)
-        labelDescripcion_no_reserva.grid(row = 4, column = 1, padx=10, pady=10)
-        boton_no= tk.Button(framePedidos, text="Apartado Facturas", padx=50)
-        boton_no.grid(row = 4, column = 0, padx=10, pady=10)
+
 
         # ------------------GESTIÓN DE EMPLEADOS-------------------#
 

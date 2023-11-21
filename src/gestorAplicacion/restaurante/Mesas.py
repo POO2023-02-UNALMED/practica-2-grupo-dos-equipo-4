@@ -84,5 +84,5 @@ class Mesas:
     def getOcupadoEnFecha(self):
         return self.ocupadoEnFecha
 
-    def setOcupadoEnFecha(self, ocupadoEnFecha):
-        self.ocupadoEnFecha = ocupadoEnFecha
+    #def setOcupadoEnFecha(self, ocupadoEnFecha):
+       # self.ocupadoEnFecha = ocupadoEnFecha
