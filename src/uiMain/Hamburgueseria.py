@@ -227,7 +227,6 @@ def ingreso_al_sistema():
                         print(f"{comida}: {spinbox.get()}")
                     for gaseosa, spinbox in zip(gaseosas, gaseosa_spinboxes):
                         print(f"{gaseosa}: {spinbox.get()}")
-
                 boton_confirmar = tk.Button(frame_hacer_pedido_con_verificacion, text="Confirmar Orden", command=confirmarOrden)
                 boton_confirmar.grid(row=(len(comidas) + len(gaseosas) + num_columns - 1) // num_columns + 1, column=0, columnspan=num_columns*2)
 
@@ -236,7 +235,7 @@ def ingreso_al_sistema():
                 titulos_valores=["###"]
                 habilitados=[True]
                 frame_verificacion_pedido= Toplevel(frameApartadoPedido)
-                formulario_verificion_pedido =FieldFrame(frame_verificacion_pedido, "Asociados para la verificación", titulos_criterios, "ID", titulos_valores,habilitados, hacerPedidoConVerificacion() )
+                formulario_verificion_pedido =FieldFrame(frame_verificacion_pedido, "Asociados para la verificación", titulos_criterios, "ID", titulos_valores,habilitados, hacerPedidoConVerificacion)
 
                 formulario_verificion_pedido.grid()
 
@@ -252,9 +251,9 @@ def ingreso_al_sistema():
 
 
 
-            boton_siTieneReserva = tk.Button(frameApartadoPedido, text = "Si", padx= 50, command= verificacion)
+            boton_siTieneReserva = tk.Button(frameApartadoPedido, text = "Si", padx= 50, command=verificacion)
             boton_siTieneReserva.grid(row = 1, column = 0, padx=10, pady=10)
-            boton_noTieneReserva = tk.Button(frameApartadoPedido, text= "No", padx= 50, command= hacerPedidoSinVerificacion())
+            boton_noTieneReserva = tk.Button(frameApartadoPedido, text= "No", padx= 50, command= hacerPedidoSinVerificacion)
             boton_noTieneReserva.grid(row = 3, column = 0, padx=10, pady=10)
 
 
