@@ -79,6 +79,7 @@ def ingreso_al_sistema():
             widget.destroy()
 
     # Funcion para deshabilitar el boton de la ventana principal
+    
 
     # ====================Creador de pestañas de Funcionalidades==========================================#
 
