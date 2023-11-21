@@ -12,11 +12,11 @@ from src.gestorAplicacion.restaurante import Pedido
 # __________________________________________________________________________________________
 # Funciones y Eventos
 hojas_de_vidas = [
-    "Breve biografia de los autores\n \n \n" "Nombre: Nicolas Ruiz Blandon\nFecha de nacimiento: 07/02/05\nGustos: Guzmán. De todo un poquito y Gatos > Perros",
-    "Breve biografia de los autores\n \n \n" "Nombre: Juan Felipe Moreno Ruiz\nFecha de nacimiento: 01/22/07\nGustos: El chimbo negro",
-    "Breve biografia de los autores\n \n \n" "Nombre: David Delgado Ortiz\nFecha de nacimiento: 01/23/02\nGustos: El fercho",
-    "Breve biografia de los autores\n \n \n" "Nombre: Cristian David Pérez Lopera\nFecha de nacimiento: 10/10/05\nGustos: Perros > Gatos. Melomano, & cosas viejas enjoyer.",
-    "Breve biografia de los autores\n \n \n" "Nombre: Ivan Dario Gomez Cabrera\nFecha de nacimiento: 01/09/04\nGustos: Le gusta los videojuegos y la música"]
+    "Adcito al gym y papá luchón de un gato\n \n \n" "Nombre: Nicolas Ruiz Blandon\nFecha de nacimiento: 07/02/05\nGustos: De todo un poquito y Gatos > Perros",
+    "Sobreviviendo a la nacho para ser un ingeniero\n \n \n" "Nombre: Juan Felipe Moreno Ruiz\nFecha de nacimiento: 23/03/06\nGustos: El valorant ,la comida y los michis",
+    "Músico agropecuadro estudiante de la nacho \n \n \n" "Nombre: David Delgado Ortiz\nFecha de nacimiento: 08/05/02\nGustos: la música, los gatos y las mujeres",
+    "Vegetta777 y Messi lover\n \n \n" "Nombre: Cristian David Pérez Lopera\nFecha de nacimiento: 10/10/05\nGustos: Perros > Gatos. Melomano, & cosas viejas enjoyer.",
+    "Tryhard de la vida, never surrender\n \n \n" "Nombre: Ivan Dario Gomez Cabrera\nFecha de nacimiento: 01/09/04\nGustos: Le gusta los videojuegos y la música"]
 indice_hojas_vida = 0
 indice_lista_de_imagenes = 0
 
