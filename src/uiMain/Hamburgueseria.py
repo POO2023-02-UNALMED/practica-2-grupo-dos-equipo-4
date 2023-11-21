@@ -417,12 +417,20 @@ def ingreso_al_sistema():
             elif comboIngredientes.get() == "Tocineta":
                 labelDescripcionI.config(
                     text="Seleccionaste el ingrediente: Tocineta")
-
+            elif comboIngredientes.get() == "Coca cola":
+                labelDescripcionI.config(
+                    text="Seleccionaste el ingrediente: Coca cola")
+            elif comboIngredientes.get() == "Sprite":
+                labelDescripcionI.config(
+                    text="Seleccionaste el ingrediente: Sprite")
+            elif comboIngredientes.get() == "Quatro":
+                labelDescripcionI.config(
+                    text="Seleccionaste el ingrediente: Quatro")
         # combobox
         comboIngredientes = ttk.Combobox(frameInventario, state="readonly",
                                          #Se ponen todas las opciones de Ingredientes en el comboBox
                                          values=["Pan", "Carne de res", "Carne de pollo", "Carne vegana", "Tomate",
-                                                 "Cebolla", "Lechuga", "Queso", "Tocineta"])
+                                                 "Cebolla", "Lechuga", "Queso", "Tocineta", "Coca cola", "Sprite", "Quatro"])
         comboIngredientes.current(0)
         comboIngredientes.bind("<<ComboboxSelected>>", descripIngredientes)
         comboIngredientes.grid(row=1, column=0, padx=10, pady=10)
@@ -500,6 +508,22 @@ def ingreso_al_sistema():
                 if (tocineta.precio*int(entryComprar.get())) <= Contabilidad.saldo:
                     labelComprados.config(text= (f"Se gastaron {tocineta.precio * int(entryComprar.get())} en Tocineta"))
                     labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
+            elif comboIngredientes.get() == "Coca cola":
+                coca_cola.comprar(int(entryComprar.get()))
+                if (coca_cola.precio*int(entryComprar.get())) <= Contabilidad.saldo:
+                    labelComprados.config(text= (f"Se gastaron {coca_cola.precio * int(entryComprar.get())} en Coca colas"))
+                    labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
+            elif comboIngredientes.get() == "Sprite":
+                sprite.comprar(int(entryComprar.get()))
+                if (sprite.precio*int(entryComprar.get())) <= Contabilidad.saldo:
+                    labelComprados.config(text= (f"Se gastaron {sprite.precio * int(entryComprar.get())} en Sprites"))
+                    labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
+            elif comboIngredientes.get() == "Quatro":
+                quatro.comprar(int(entryComprar.get()))
+                if (quatro.precio*int(entryComprar.get())) <= Contabilidad.saldo:
+                    labelComprados.config(text= (f"Se gastaron {quatro.precio * int(entryComprar.get())} en Quatros"))
+                    labelSaldo.config(text=f"SALDO: {Contabilidad.saldo}")
+
 
         # label de ingredientes comprados
         labelComprados = tk.Label(frameInventario, text="", anchor="w", width=20, wraplength=150)
@@ -668,9 +692,10 @@ def ingreso_al_sistema():
     frameUser1 = tk.Frame(ventana_del_usuario, bg="yellow")
     frameUser1.config(bd=5, relief="groove")
     frameUser1.pack(side="left", fill="both", expand=True)
-    labelUser1 = tk.Label(frameUser1, text="Zona 1")
-    labelUser1.pack(side="top", anchor="nw")
-    labelUser1.config(bd=5, relief="groove")
+    imagen_presentacion = tk.PhotoImage(file='../imagenes/calvas chiko.png')
+    frameUser1.imagen_presentacion = imagen_presentacion
+    label_presentacion= tk.Label(frameUser1, image=imagen_presentacion, width=300, height=200)
+    label_presentacion.pack()
 
 
 def salir_sistema():  # Salir de la aplicación
