@@ -1,4 +1,5 @@
 from src.errorAplicacion.ErrorAplicacion import ErrorAplicacion
+from tkinter import messagebox
 
 
 class ErrorRestaurante(ErrorAplicacion):
@@ -16,4 +17,4 @@ class ErrorRestaurante(ErrorAplicacion):
         super().__init__(message)
 
     def manejo_error(self):
-        print(self.message)
+        messagebox.showinfo("Error", self.message)
