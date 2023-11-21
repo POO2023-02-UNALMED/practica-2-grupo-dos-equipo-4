@@ -350,17 +350,42 @@ def ingreso_al_sistema():
 
 
         def eventoBuscar():
+            def busqueda():
+                def regresar():
+                    ventanaBuscar.destroy()
+                    eventoBuscar()
+
+
+                volver = Button(ventanaBuscar, text="Volver", pady=10, padx=10, command=regresar)
+                volver.pack(expand=True)
+
+                indice = int(entryID.get())
+                indice -= 1
+
+                criterios = ["ID", "Nombre", "Salario", "BONO", "Labor"]
+                valores = [str(entryID.get()), Empleado.empleados[indice].getNombre(),
+                           str(Empleado.empleados[indice].getSalario()),
+                           "###", Empleado.empleados[indice].accion()]
+                habilitado = [False, False, False, False, False]
+
+                frameResultado = FieldFrameNB(ventanaBuscar, "Criterios", criterios, "Resultado", valores, habilitado)
+                frameResultado.pack(expand=True)
+                frameBuscar.destroy()
 
             ventanaBuscar = Toplevel(ventana_del_usuario)
             ventanaBuscar.title("Buscar Empleado")
             ventanaBuscar.resizable(width=False, height=False)
 
-            criterios = ["ID", "Nombre", "Salario", "Ocupacion", "Labor"]
-            valores = ["###", "###", "###", "###", "###"]
-            habilitado = [True, False, False, False, False]
+            frameBuscar = tk.Frame(ventanaBuscar, padx=10, pady=10)
+            frameBuscar.config(bd=5, relief="groove")
+            frameBuscar.pack(expand=True, side=tk.BOTTOM)
 
-            frameBuscar = FieldFrame(ventanaBuscar, "Criterios", criterios, "Resultado", valores, habilitado)
-            frameBuscar.grid()
+            labelID = Label(frameBuscar, text="ID", padx= 10, pady=5)
+            labelID.grid(row=0, column=0)
+            entryID = Entry(frameBuscar)
+            entryID.grid(row=0, column=1)
+            botonCargar = Button(frameBuscar, text="Buscar Empleado", padx=10, pady=5, command=busqueda)
+            botonCargar.grid(row=0, column=2)
 
         def eventoGestionar():
 
@@ -869,6 +894,69 @@ class FieldFrame(Frame):
             resultados.append(f"{criterio}: {valor}")
         self.resultado_label.config(text="\n".join(resultados))
 #___________________________________________________________________________________________________________________________________
+
+#FieldFrameNB (NoButtons)
+class FieldFrameNB(Frame):
+    def __init__(self, master, tituloCriterios, criterios, tituloValores, valores, habilitado):
+
+        super().__init__(master)
+
+        self.data = {}
+        self.dataform = {}
+        self.tituloValores = tituloValores
+        self.tituloCriterios = tituloCriterios
+        self.criterios = criterios
+        self.valores = valores
+        self.habilitado = habilitado
+
+        # Contenedor que tiene todo el formulario de la consulta
+        frameForm = Frame(self, bg="white", borderwidth=1, relief="solid")
+        frameForm.grid(padx=5, pady=5)
+        frameForm.grid_rowconfigure(0, weight=1)
+        frameForm.grid_columnconfigure(0, weight=1)
+
+        # Labels de los titulos de los Criterios
+        tituloCriterios = Label(frameForm, text=f"{tituloCriterios}")
+        tituloCriterios.grid(row=0, column=0, padx=5, pady =10)
+        frameForm.grid_rowconfigure(0, weight=1)
+        frameForm.grid_columnconfigure(0, weight=1)
+
+        # Labels de los titulos de los valores
+        tituloValores = Label(frameForm, text=f"{tituloValores}")
+        tituloValores.grid(row=0, column=1, pady =10)
+        frameForm.grid_rowconfigure(0, weight=1)
+        frameForm.grid_columnconfigure(1, weight=1)
+
+        # Etiqueta para mostrar el titulo de la consulta
+        for index, criterio in enumerate(criterios):
+            criterio_label = Label(frameForm, text=f"{criterio}")
+            criterio_label.grid(row=index+1, column=0, padx=5)
+            frameForm.grid_rowconfigure(index+1, weight=1)
+            frameForm.grid_columnconfigure(0, weight=1)
+
+            input_widget = Entry(frameForm, width=50, justify="right")
+            input_widget.grid(row=index+1, column=1, padx=5)
+            frameForm.grid_rowconfigure(index+1, weight=1)
+            frameForm.grid_columnconfigure(0, weight=1)
+
+            if valores and index < len(valores):
+                input_widget.insert(0, valores[index])
+
+            if not habilitado[index]:
+                input_widget.config(state="disabled")
+
+            self.data[criterio] = {
+                "widget": input_widget,
+                "value": None
+            }
+
+    def getValue(self, criterio):
+        return self.data[criterio]["value"]
+
+    def getValues(self):
+        return self.dataform
+
+#-----------------------------------------------------------------------------------------------------------------#
 
 # Ventana Principal
 ventana = tk.Tk()
